@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useAppStore } from "@/store/app-store";
 import { Heart, Trash2, Plus } from "lucide-react";
+import { InnerChildDialog } from "@/components/infographics/inner-child-dialog";
 
 export function InnerChildExercise() {
   const entries = useAppStore((s) => s.innerChild);
@@ -19,18 +20,25 @@ export function InnerChildExercise() {
 
   return (
     <div>
-      <Card className="p-6 md:p-8 mb-6 bg-[var(--muted)]/30">
-        <div className="flex items-center gap-2 mb-2">
-          <Heart className="h-4 w-4 text-[var(--accent)]" strokeWidth={1.75} />
-          <div className="text-[10px] uppercase tracking-widest text-[var(--muted-foreground)] font-medium">
-            How to practice
+      <Card className="p-5 md:p-8 mb-6 bg-[var(--muted)]/30">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 items-center">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <Heart className="h-4 w-4 text-[var(--accent)]" strokeWidth={1.75} />
+              <div className="text-[10px] uppercase tracking-widest text-[var(--muted-foreground)] font-medium">
+                How to practice
+              </div>
+            </div>
+            <p className="text-sm leading-relaxed text-[var(--foreground)]/80 max-w-2xl">
+              Let the adult you speak first. Say what you know from here — calm, steady, in the present.
+              Then let the child speak back, in whatever voice comes (young, frustrated, tender, silly).
+              Some groups use non-dominant handwriting on paper for the child&apos;s voice. Either works.
+            </p>
+          </div>
+          <div className="flex justify-center">
+            <InnerChildDialog className="max-w-full h-auto w-[320px]" />
           </div>
         </div>
-        <p className="text-sm leading-relaxed text-[var(--foreground)]/80 max-w-3xl">
-          Let the adult you speak first. Say what you know from here — calm, steady, in the present.
-          Then let the child speak back, in whatever voice comes (young, frustrated, tender, silly).
-          Some groups use non-dominant handwriting on paper for the child&apos;s voice. Either works.
-        </p>
       </Card>
 
       <Card className="p-6 mb-6">

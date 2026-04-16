@@ -10,6 +10,7 @@ import {
   LineChart,
   ArrowRight,
   Feather,
+  Map,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -21,6 +22,8 @@ import { TRAIT_1_QUESTIONS } from "@/data/questions";
 import { TRAITS } from "@/data/traits";
 import { daysBetween, formatDate } from "@/lib/utils";
 import { AFFIRMATIONS } from "@/data/affirmations";
+import { JourneyTimeline } from "@/components/infographics/journey-timeline";
+import { TraitConstellation } from "@/components/infographics/trait-constellation";
 
 export function DashboardView() {
   const journal = useAppStore((s) => s.journal);
@@ -32,7 +35,6 @@ export function DashboardView() {
   const next = getNextSession(today);
   const daysUntilNext = next ? daysBetween(today, parseISO(next.date)) : null;
 
-  // Trait 1 progress
   const total = TRAIT_1_QUESTIONS.length;
   const answered = useMemo(() => {
     let n = 0;
@@ -45,14 +47,12 @@ export function DashboardView() {
   }, [journal]);
   const pct = total > 0 ? Math.round((answered / total) * 100) : 0;
 
-  // Last edited entry
   const lastEntry = useMemo(() => {
     const entries = Object.values(journal).filter((e) => e.content.trim().length > 0);
     entries.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
     return entries[0];
   }, [journal]);
 
-  // Affirmation for today (stable per day)
   const affirmationIndex =
     (new Date().getFullYear() * 1000 + new Date().getMonth() * 31 + new Date().getDate()) %
     AFFIRMATIONS.length;
@@ -73,7 +73,12 @@ export function DashboardView() {
       </div>
 
       {/* Hero card */}
-      <Card className="p-6 md:p-10 mb-8 relative overflow-hidden bg-gradient-to-br from-[var(--primary)] to-[#1f3a30] text-[var(--primary-foreground)]">
+      <Card className="p-6 md:p-10 mb-6 relative overflow-hidden bg-gradient-to-br from-[var(--primary)] to-[#1f3a30] text-[var(--primary-foreground)]">
+        {/* Decorative constellation in background */}
+        <div className="absolute right-0 top-0 opacity-[0.08] pointer-events-none hidden md:block">
+          <TraitConstellation className="h-[400px] w-[400px]" activeTraitId={currentTrait?.id} />
+        </div>
+
         <div className="relative z-10 grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 items-center">
           <div>
             <div className="flex items-center gap-2 mb-3">
@@ -131,7 +136,7 @@ export function DashboardView() {
             </div>
           </div>
 
-          <div className="hidden md:block">
+          <div className="hidden md:block relative z-10">
             <ProgressRing
               value={pct}
               size={160}
@@ -158,6 +163,26 @@ export function DashboardView() {
             Keep going at your own pace.
           </div>
         </div>
+      </Card>
+
+      {/* Journey timeline */}
+      <Card className="p-5 md:p-6 mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <div>
+            <div className="text-[10px] uppercase tracking-widest text-[var(--muted-foreground)] font-medium mb-0.5 flex items-center gap-1.5">
+              <Map className="h-3 w-3" strokeWidth={2} />
+              The seven-month arc
+            </div>
+            <h2 className="font-serif text-lg font-semibold">Where we are as a group</h2>
+          </div>
+          <Link href="/calendar">
+            <Button variant="ghost" size="sm">
+              Full calendar
+              <ArrowRight className="h-3 w-3" strokeWidth={2} />
+            </Button>
+          </Link>
+        </div>
+        <JourneyTimeline className="w-full h-auto" />
       </Card>
 
       {/* Secondary row */}

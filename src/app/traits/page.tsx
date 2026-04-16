@@ -4,6 +4,8 @@ import { formatDate } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { BookOpen, Lock, ArrowRight, Calendar as CalendarIcon } from "lucide-react";
+import { QuadrantDiagram } from "@/components/infographics/quadrant-diagram";
+import { TraitConstellation } from "@/components/infographics/trait-constellation";
 
 export default function TraitsPage() {
   return (
@@ -21,6 +23,44 @@ export default function TraitsPage() {
         </p>
       </div>
 
+      {/* Orientation infographics */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-6 mb-10">
+        <Card className="p-6">
+          <div className="text-[10px] uppercase tracking-widest text-[var(--muted-foreground)] font-medium mb-1">
+            How each trait is studied
+          </div>
+          <h2 className="font-serif text-xl font-semibold mb-4">The four quadrants</h2>
+          <p className="text-sm text-[var(--muted-foreground)] leading-relaxed mb-4">
+            Every trait has four faces: the original wound, how we act it out, and the recovery
+            side of each. You&apos;ll work through all four as tabs inside each trait page.
+          </p>
+          <div className="flex justify-center">
+            <QuadrantDiagram className="max-w-full h-auto" />
+          </div>
+        </Card>
+
+        <Card className="p-6">
+          <div className="text-[10px] uppercase tracking-widest text-[var(--muted-foreground)] font-medium mb-1">
+            How the traits connect
+          </div>
+          <h2 className="font-serif text-xl font-semibold mb-4">The constellation</h2>
+          <p className="text-sm text-[var(--muted-foreground)] leading-relaxed mb-2">
+            The traits aren&apos;t a checklist — they share roots. Fear weaves through 1, 3, and 12.
+            Identity runs through 2, 5, 6, 7, and 11. Colors mark thematic families.
+          </p>
+          <div className="flex justify-center">
+            <TraitConstellation className="max-w-full h-auto" activeTraitId={1} />
+          </div>
+          <p className="text-xs text-[var(--muted-foreground)] text-center mt-2 italic">
+            Highlighted: Trait 1 and its relatives
+          </p>
+        </Card>
+      </div>
+
+      {/* Traits grid */}
+      <div className="mb-4">
+        <h2 className="font-serif text-2xl font-semibold">All traits</h2>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {TRAITS.map((trait) => {
           const clickable = trait.active;

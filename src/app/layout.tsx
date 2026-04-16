@@ -3,6 +3,7 @@ import { Fraunces, Inter, Lora } from "next/font/google";
 import "./globals.css";
 import { Sidebar, MobileHeader } from "@/components/sidebar";
 import { MobileNav } from "@/components/mobile-nav";
+import { PrivacyBanner } from "@/components/privacy-banner";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -42,6 +43,7 @@ export default function RootLayout({
           <Sidebar />
           <main className="flex-1 overflow-x-hidden pb-20 md:pb-0">
             <MobileHeader />
+            <PrivacyBanner />
             <div className="mx-auto max-w-6xl px-5 py-8 md:px-10 md:py-12">
               {children}
             </div>

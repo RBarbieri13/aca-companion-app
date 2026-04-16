@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getConceptsForTrait } from "@/data/concepts";
+import { GLYPHS } from "@/components/infographics/concept-glyphs";
 
 export function ConceptsAccordion({ traitId }: { traitId: number }) {
   const concepts = getConceptsForTrait(traitId);
@@ -24,13 +25,17 @@ export function ConceptsAccordion({ traitId }: { traitId: number }) {
       <div className="divide-y divide-[var(--border)] rounded-xl border border-[var(--border)] bg-[var(--card)]">
         {concepts.map((c) => {
           const isOpen = open === c.id;
+          const Glyph = GLYPHS[c.id];
           return (
             <div key={c.id}>
               <button
                 onClick={() => setOpen(isOpen ? null : c.id)}
-                className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left hover:bg-[var(--muted)]/40 transition-colors"
+                className="w-full flex items-center gap-4 px-5 py-4 text-left hover:bg-[var(--muted)]/40 transition-colors"
               >
-                <div>
+                {Glyph && (
+                  <Glyph size={44} className="shrink-0" />
+                )}
+                <div className="flex-1">
                   <div className="font-serif text-base font-semibold text-[var(--foreground)]">
                     {c.name}
                   </div>
@@ -47,7 +52,7 @@ export function ConceptsAccordion({ traitId }: { traitId: number }) {
                 />
               </button>
               {isOpen && (
-                <div className="px-5 pb-5 -mt-1">
+                <div className="px-5 pb-5 -mt-1 md:pl-[80px]">
                   <p className="text-sm leading-relaxed text-[var(--foreground)]/80 max-w-prose">
                     {c.longDefinition}
                   </p>

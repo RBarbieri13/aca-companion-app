@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { useAppStore } from "@/store/app-store";
 import { TRAITS } from "@/data/traits";
 import { Zap, CheckCircle2 } from "lucide-react";
+import { TriggerFlow } from "@/components/infographics/trigger-flow";
 
 export function TriggerLogView() {
   const logs = useAppStore((s) => s.triggers);
@@ -23,18 +24,21 @@ export function TriggerLogView() {
 
   return (
     <div>
-      <Card className="p-6 md:p-8 mb-6 bg-[var(--muted)]/30">
+      <Card className="p-5 md:p-6 mb-4 bg-[var(--muted)]/30">
         <div className="flex items-center gap-2 mb-2">
           <Zap className="h-4 w-4 text-[var(--accent)]" strokeWidth={1.75} />
           <div className="text-[10px] uppercase tracking-widest text-[var(--muted-foreground)] font-medium">
             How to practice
           </div>
         </div>
-        <p className="text-sm leading-relaxed text-[var(--foreground)]/80 max-w-3xl">
+        <p className="text-sm leading-relaxed text-[var(--foreground)]/80 max-w-3xl mb-4">
           When you notice a trigger — or after one has passed — capture it quickly here. What
           happened, which trait showed up, how you actually responded, and how you&apos;d
           like to respond next time. Patterns become visible over weeks.
         </p>
+        <div className="overflow-x-auto">
+          <TriggerFlow className="w-full h-auto min-w-[560px]" />
+        </div>
       </Card>
 
       <Card className="p-6 mb-6">
