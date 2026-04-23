@@ -76,6 +76,18 @@ export interface IdentityEntry {
   updatedAt: string;
 }
 
+/**
+ * Trait 2 weekly check-in: when alone this week, was it more sanctuary or prison?
+ * Slider: 0 = fully prison, 100 = fully sanctuary.
+ */
+export interface SanctuaryCheckIn {
+  id: string;
+  weekOf: string; // ISO date (the Sunday of the week)
+  value: number; // 0-100
+  note: string;
+  timestamp: string;
+}
+
 export interface Concept {
   id: string;
   name: string;

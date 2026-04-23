@@ -150,18 +150,29 @@ export function CalendarView() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           {view === "month" ? (
-            <Card className="p-3 md:p-4">
-              <div className="grid grid-cols-7 gap-1 mb-2">
-                {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
+            <Card className="p-3 md:p-5">
+              {/* Bolder weekday headers */}
+              <div className="grid grid-cols-7 gap-1.5 mb-3">
+                {[
+                  { short: "S", full: "Sun" },
+                  { short: "M", full: "Mon" },
+                  { short: "T", full: "Tue" },
+                  { short: "W", full: "Wed" },
+                  { short: "T", full: "Thu" },
+                  { short: "F", full: "Fri" },
+                  { short: "S", full: "Sat" },
+                ].map((d, i) => (
                   <div
-                    key={d}
-                    className="text-[10px] uppercase tracking-wider text-[var(--muted-foreground)] font-medium text-center py-1"
+                    key={i}
+                    className="text-center py-2 font-serif text-sm md:text-base font-semibold text-[var(--muted-foreground)]"
                   >
-                    {d}
+                    <span className="sm:hidden">{d.short}</span>
+                    <span className="hidden sm:inline">{d.full}</span>
                   </div>
                 ))}
               </div>
-              <div className="grid grid-cols-7 gap-1">
+              {/* Larger day cells */}
+              <div className="grid grid-cols-7 gap-1.5">
                 {monthDays.map((day) => {
                   const dateStr = format(day, "yyyy-MM-dd");
                   const session = sessionsByDate.get(dateStr);
@@ -170,59 +181,86 @@ export function CalendarView() {
                   const isSelected = selected && selected.date === dateStr;
                   const hasAttended = attendance[dateStr]?.attended;
                   return (
-                    <button
+                    <div
                       key={dateStr}
-                      onClick={() => session && setSelected(session)}
-                      disabled={!session}
                       className={cn(
-                        "aspect-square rounded-lg p-1.5 text-left transition-all relative",
-                        !inMonth && "opacity-30",
+                        "min-h-[72px] md:min-h-[92px] rounded-lg p-2 text-left transition-all relative border",
+                        !inMonth && "opacity-35",
                         session
-                          ? "hover:ring-2 hover:ring-[var(--primary)]/30 cursor-pointer"
-                          : "cursor-default",
+                          ? "cursor-pointer hover:ring-2 hover:ring-[var(--primary)]/30"
+                          : "border-transparent",
+                        session ? "border-[var(--border)]" : "border-transparent",
                         isSelected && session && "ring-2 ring-[var(--primary)]",
                         session?.type === "session"
-                          ? "bg-[var(--muted)]/70"
+                          ? "bg-[var(--muted)]/60"
                           : session?.type === "break"
                           ? "bg-[var(--accent)]/10"
                           : session?.type === "wrapup"
                           ? "bg-[var(--sage)]/20"
                           : ""
                       )}
+                      onClick={() => session && setSelected(session)}
+                      role={session ? "button" : undefined}
+                      tabIndex={session ? 0 : -1}
+                      onKeyDown={(e) => {
+                        if (session && (e.key === "Enter" || e.key === " ")) {
+                          e.preventDefault();
+                          setSelected(session);
+                        }
+                      }}
                     >
-                      <div
-                        className={cn(
-                          "text-xs font-medium",
-                          isToday && "inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--primary)] text-[var(--primary-foreground)]"
-                        )}
-                      >
-                        {format(day, "d")}
-                      </div>
-                      {session && (
-                        <div className="mt-1 text-[9px] leading-tight">
-                          {session.type === "session" && (
-                            <span className="font-semibold text-[var(--primary)]">
-                              T{session.traitId}
-                              <span className="text-[var(--muted-foreground)] ml-0.5 font-normal">
-                                {session.quadrant === "mainList" ? "·M" : "·F"}
-                              </span>
-                            </span>
+                      {/* Big, bold day number */}
+                      <div className="flex items-start justify-between mb-1">
+                        <div
+                          className={cn(
+                            "font-serif font-semibold leading-none",
+                            "text-lg md:text-xl",
+                            isToday
+                              ? "inline-flex items-center justify-center h-8 w-8 rounded-full bg-[var(--primary)] text-[var(--primary-foreground)]"
+                              : "text-[var(--foreground)]"
                           )}
-                          {session.type === "break" && (
-                            <span className="text-[var(--accent)] font-medium">Break</span>
-                          )}
-                          {session.type === "wrapup" && (
-                            <span className="text-[var(--primary)] font-medium">Wrap</span>
-                          )}
+                        >
+                          {format(day, "d")}
                         </div>
+                        {hasAttended && (
+                          <CheckCircle2
+                            className="h-4 w-4 text-[var(--sage)] shrink-0"
+                            strokeWidth={2.5}
+                          />
+                        )}
+                      </div>
+
+                      {/* Trait link chip - directly clickable */}
+                      {session?.type === "session" && session.traitId && (
+                        <Link
+                          href={
+                            TRAITS.find((t) => t.id === session.traitId)?.active
+                              ? `/traits/${session.traitId}`
+                              : "/traits"
+                          }
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1 rounded-md bg-[var(--primary)]/10 hover:bg-[var(--primary)]/20 px-1.5 py-0.5 transition-colors"
+                          aria-label={`Open Trait ${session.traitId}`}
+                        >
+                          <span className="font-serif text-sm md:text-base font-bold text-[var(--primary)]">
+                            T{session.traitId}
+                          </span>
+                          <span className="text-[9px] md:text-[10px] uppercase tracking-wider font-semibold text-[var(--muted-foreground)]">
+                            {session.quadrant === "mainList" ? "ML" : "FS"}
+                          </span>
+                        </Link>
                       )}
-                      {hasAttended && (
-                        <CheckCircle2
-                          className="absolute bottom-1 right-1 h-3 w-3 text-[var(--sage)]"
-                          strokeWidth={2.5}
-                        />
+                      {session?.type === "break" && (
+                        <span className="inline-block rounded-md bg-[var(--accent)]/20 px-1.5 py-0.5 text-[10px] md:text-xs font-bold uppercase tracking-wider text-[var(--accent)]">
+                          Break
+                        </span>
                       )}
-                    </button>
+                      {session?.type === "wrapup" && (
+                        <span className="inline-block rounded-md bg-[var(--sage)]/30 px-1.5 py-0.5 text-[10px] md:text-xs font-bold uppercase tracking-wider text-[var(--primary)]">
+                          Wrap-up
+                        </span>
+                      )}
+                    </div>
                   );
                 })}
               </div>

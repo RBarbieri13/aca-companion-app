@@ -199,6 +199,57 @@ export const TRAITS: Trait[] = [
   },
 ];
 
+// Thematic family each trait belongs to. Mirrors the trait constellation.
+export type TraitTheme = "fear" | "identity" | "attachment" | "feeling" | "family";
+
+export const TRAIT_THEMES: Record<number, TraitTheme> = {
+  1: "fear",
+  2: "identity",
+  3: "fear",
+  4: "attachment",
+  5: "identity",
+  6: "identity",
+  7: "identity",
+  8: "feeling",
+  9: "attachment",
+  10: "feeling",
+  11: "identity",
+  12: "attachment",
+  13: "family",
+  14: "family",
+};
+
+export const THEME_META: Record<
+  TraitTheme,
+  { name: string; color: string; description: string }
+> = {
+  fear: {
+    name: "Fear",
+    color: "var(--accent)",
+    description: "Fear of people, authority, anger, criticism, abandonment.",
+  },
+  identity: {
+    name: "Identity",
+    color: "var(--primary)",
+    description: "Approval seeking, lost identity, harsh self-judgment, over-responsibility.",
+  },
+  attachment: {
+    name: "Attachment",
+    color: "#8B7BA8",
+    description: "Who we pick, who picks us, fear of abandonment, confusing love and pity.",
+  },
+  feeling: {
+    name: "Feeling",
+    color: "#D4A84B",
+    description: "Stuffing feelings, addiction to excitement — what happens to the inner life.",
+  },
+  family: {
+    name: "Family disease",
+    color: "var(--sage)",
+    description: "Para-alcoholic traits — being a carrier of the disease's shape.",
+  },
+};
+
 export const QUADRANT_LABELS: Record<string, { label: string; subtitle: string; color: string }> = {
   laundry: {
     label: "The Laundry List",

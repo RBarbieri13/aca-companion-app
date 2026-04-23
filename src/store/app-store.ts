@@ -9,6 +9,7 @@ import type {
   InnerChildEntry,
   IdentityEntry,
   IdentityCategory,
+  SanctuaryCheckIn,
   Quadrant,
 } from "@/lib/types";
 
@@ -23,6 +24,7 @@ interface AppState {
   triggers: TriggerLog[];
   innerChild: InnerChildEntry[];
   identity: IdentityEntry[];
+  sanctuaryCheckIns: SanctuaryCheckIn[];
   attendance: Record<string, AttendanceRecord>;
   favoriteAffirmations: string[];
 
@@ -47,6 +49,8 @@ interface AppState {
   addIdentityEntry: (category: IdentityCategory, content: string) => void;
   updateIdentityEntry: (id: string, content: string) => void;
   deleteIdentityEntry: (id: string) => void;
+  logSanctuaryCheckIn: (weekOf: string, value: number, note: string) => void;
+  deleteSanctuaryCheckIn: (id: string) => void;
   setAttendance: (date: string, attended: boolean) => void;
   setAttendanceNotes: (date: string, notes: string) => void;
   toggleFavoriteAffirmation: (text: string) => void;
@@ -68,6 +72,7 @@ export const useAppStore = create<AppState>()(
       triggers: [],
       innerChild: [],
       identity: [],
+      sanctuaryCheckIns: [],
       attendance: {},
       favoriteAffirmations: [],
 
@@ -161,6 +166,24 @@ export const useAppStore = create<AppState>()(
 
       deleteIdentityEntry: (id) => {
         set({ identity: get().identity.filter((e) => e.id !== id) });
+      },
+
+      logSanctuaryCheckIn: (weekOf, value, note) => {
+        // Replace any existing check-in for the same week.
+        const others = get().sanctuaryCheckIns.filter((c) => c.weekOf !== weekOf);
+        const entry: SanctuaryCheckIn = {
+          id: nowId(),
+          weekOf,
+          value: Math.max(0, Math.min(100, value)),
+          note,
+          timestamp: new Date().toISOString(),
+        };
+        const sorted = [entry, ...others].sort((a, b) => b.weekOf.localeCompare(a.weekOf));
+        set({ sanctuaryCheckIns: sorted });
+      },
+
+      deleteSanctuaryCheckIn: (id) => {
+        set({ sanctuaryCheckIns: get().sanctuaryCheckIns.filter((c) => c.id !== id) });
       },
 
       setAttendance: (date, attended) => {

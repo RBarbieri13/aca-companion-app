@@ -62,3 +62,43 @@ export function getNextSession(today: Date = new Date()): Session | null {
   const future = SCHEDULE.filter((s) => s.date > todayStr);
   return future[0] ?? null;
 }
+
+/**
+ * The trait the group is currently on.
+ *
+ * Rule: a trait is "current" through its Flip Side meeting date. The day AFTER
+ * the Flip Side meeting, the next trait becomes current. Breaks and wrapup
+ * carry the previous current trait forward.
+ *
+ * Before the group has started (before Apr 11, 2026), defaults to Trait 1.
+ */
+export function getCurrentTraitId(today: Date = new Date()): number {
+  const todayStr = today.toISOString().slice(0, 10);
+  const sessions = SCHEDULE.filter((s) => s.type === "session" && s.traitId !== null);
+
+  // If we're before the first meeting, start on Trait 1
+  const firstSession = sessions[0];
+  if (firstSession && todayStr < firstSession.date) {
+    return firstSession.traitId as number;
+  }
+
+  // Find each trait's last meeting (its Flip Side)
+  const byTrait = new Map<number, string>(); // traitId -> last meeting date
+  for (const s of sessions) {
+    if (s.traitId !== null) {
+      const existing = byTrait.get(s.traitId);
+      if (!existing || s.date > existing) byTrait.set(s.traitId, s.date);
+    }
+  }
+
+  // The current trait is the earliest trait whose Flip Side meeting is >= today.
+  // (i.e., we haven't finished it yet)
+  const traitIds = Array.from(byTrait.keys()).sort((a, b) => a - b);
+  for (const traitId of traitIds) {
+    const lastMeeting = byTrait.get(traitId)!;
+    if (todayStr <= lastMeeting) return traitId;
+  }
+
+  // After all traits are done, stay on the last trait (Trait 14)
+  return traitIds[traitIds.length - 1] ?? 1;
+}

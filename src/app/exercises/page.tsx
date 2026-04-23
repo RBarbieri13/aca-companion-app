@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { ExercisesView } from "@/components/exercises-view";
 
 export default function ExercisesPage() {
@@ -15,7 +16,9 @@ export default function ExercisesPage() {
           return to them between sessions.
         </p>
       </div>
-      <ExercisesView />
+      <Suspense fallback={<div className="text-sm text-[var(--muted-foreground)]">Loading...</div>}>
+        <ExercisesView />
+      </Suspense>
     </div>
   );
 }

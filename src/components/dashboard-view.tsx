@@ -17,7 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ProgressRing } from "@/components/ui/progress-ring";
 import { useAppStore } from "@/store/app-store";
-import { getCurrentSession, getNextSession } from "@/data/schedule";
+import { getCurrentSession, getCurrentTraitId, getNextSession } from "@/data/schedule";
 import { ALL_QUESTIONS } from "@/data/questions";
 import { TRAITS } from "@/data/traits";
 import { daysBetween, formatDate } from "@/lib/utils";
@@ -30,17 +30,14 @@ export function DashboardView() {
   const feelings = useAppStore((s) => s.feelings);
   const triggers = useAppStore((s) => s.triggers);
 
-  const today = new Date();
-  const current = getCurrentSession(today);
-  const next = getNextSession(today);
+  // `today` is memoized so all date-derived values and useMemo below have a stable reference.
+  const today = useMemo(() => new Date(), []);
+  const current = useMemo(() => getCurrentSession(today), [today]);
+  const next = useMemo(() => getNextSession(today), [today]);
   const daysUntilNext = next ? daysBetween(today, parseISO(next.date)) : null;
 
-  // Pick the trait the group is currently on (falls back to the earliest active trait).
-  const focusTraitId = useMemo(() => {
-    if (current?.traitId) return current.traitId;
-    const firstActive = TRAITS.find((t) => t.active);
-    return firstActive?.id ?? 1;
-  }, [current]);
+  // The trait the group is currently on (rolls forward the day AFTER each Flip Side meeting).
+  const focusTraitId = useMemo(() => getCurrentTraitId(today), [today]);
 
   const focusQuestions = useMemo(
     () => ALL_QUESTIONS.filter((q) => q.traitId === focusTraitId),
@@ -69,7 +66,8 @@ export function DashboardView() {
     AFFIRMATIONS.length;
   const affirmation = AFFIRMATIONS[affirmationIndex];
 
-  const currentTrait = current?.traitId ? TRAITS.find((t) => t.id === current.traitId) : null;
+  // The hero card always reflects the focus trait (survives break weeks).
+  const currentTrait = TRAITS.find((t) => t.id === focusTraitId) ?? null;
   const canOpenCurrent = currentTrait?.active;
 
   return (
@@ -159,6 +157,208 @@ export function DashboardView() {
           </div>
         </div>
       </Card>
+
+      {/* Quick navigation — fast links to the current trait and the rest of the app */}
+      <div className="mb-6">
+        <div className="flex items-baseline justify-between mb-3">
+          <div>
+            <div className="text-[10px] uppercase tracking-widest text-[var(--muted-foreground)] font-medium mb-0.5">
+              Quick nav
+            </div>
+            <h2 className="font-serif text-lg font-semibold">Jump in</h2>
+          </div>
+          {currentTrait && (
+            <div className="text-xs text-[var(--muted-foreground)]">
+              Current focus · Trait {currentTrait.id}
+            </div>
+          )}
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr_1fr] gap-3 mb-3">
+          {/* Current trait - prominent */}
+          {currentTrait && (
+            <Link href={`/traits/${currentTrait.id}`}>
+              <Card className="p-5 h-full hover:border-[var(--primary)]/40 hover:shadow-md transition-all group border-[var(--primary)]/25 bg-[var(--primary)]/[0.03]">
+                <div className="flex items-center justify-between mb-3">
+                  <Badge variant="default" className="text-[10px]">
+                    Current · Trait {currentTrait.id}
+                  </Badge>
+                  <ArrowRight
+                    className="h-4 w-4 text-[var(--primary)] group-hover:translate-x-0.5 transition-all"
+                    strokeWidth={2}
+                  />
+                </div>
+                <h3 className="font-serif text-lg font-semibold mb-1.5 leading-tight">
+                  {currentTrait.shortName}
+                </h3>
+                <p className="text-xs text-[var(--muted-foreground)] italic leading-relaxed mb-3 line-clamp-2">
+                  &ldquo;{currentTrait.statements.laundry}&rdquo;
+                </p>
+                <div className="flex items-center justify-between text-xs">
+                  <div className="text-[var(--muted-foreground)]">
+                    {answered} of {total} answered
+                  </div>
+                  <div className="font-serif font-semibold text-[var(--primary)]">{pct}%</div>
+                </div>
+                <div className="mt-2 h-1.5 rounded-full bg-[var(--muted)] overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-[var(--primary)] transition-all"
+                    style={{ width: `${pct}%` }}
+                  />
+                </div>
+              </Card>
+            </Link>
+          )}
+
+          {/* All open traits - chip list */}
+          <Card className="p-5 h-full">
+            <div className="flex items-center justify-between mb-3">
+              <div className="text-[10px] uppercase tracking-widest text-[var(--muted-foreground)] font-medium">
+                Open traits
+              </div>
+              <BookOpen className="h-4 w-4 text-[var(--muted-foreground)]" strokeWidth={1.75} />
+            </div>
+            <div className="flex flex-wrap gap-2 mb-3">
+              {TRAITS.filter((t) => t.active).map((t) => {
+                const isCurrent = t.id === focusTraitId;
+                return (
+                  <Link
+                    key={t.id}
+                    href={`/traits/${t.id}`}
+                    className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-medium transition-colors ${
+                      isCurrent
+                        ? "border-[var(--primary)] bg-[var(--primary)] text-[var(--primary-foreground)]"
+                        : "border-[var(--border)] text-[var(--foreground)] hover:bg-[var(--muted)]"
+                    }`}
+                  >
+                    <span className="font-serif font-semibold">T{t.id}</span>
+                    <span className="opacity-90">{t.shortName}</span>
+                  </Link>
+                );
+              })}
+            </div>
+            <Link
+              href="/traits"
+              className="text-xs text-[var(--primary)] font-medium hover:underline inline-flex items-center gap-1"
+            >
+              All 14 traits
+              <ArrowRight className="h-3 w-3" strokeWidth={2} />
+            </Link>
+          </Card>
+
+          {/* Next meeting + calendar link */}
+          <Card className="p-5 h-full">
+            <div className="flex items-center justify-between mb-3">
+              <div className="text-[10px] uppercase tracking-widest text-[var(--muted-foreground)] font-medium">
+                Next meeting
+              </div>
+              <CalendarIcon className="h-4 w-4 text-[var(--muted-foreground)]" strokeWidth={1.75} />
+            </div>
+            {next ? (
+              <>
+                <div className="font-serif text-lg font-semibold leading-tight mb-1">
+                  {daysUntilNext !== null
+                    ? daysUntilNext === 0
+                      ? "Today"
+                      : daysUntilNext === 1
+                      ? "Tomorrow"
+                      : `In ${daysUntilNext} days`
+                    : formatDate(next.date, "short")}
+                </div>
+                <div className="text-xs text-[var(--muted-foreground)] mb-3">
+                  {next.type === "break"
+                    ? `Break — ${next.label}`
+                    : next.type === "wrapup"
+                    ? "Final Wrapup"
+                    : `Trait ${next.traitId} · ${
+                        next.quadrant === "mainList" ? "Main List" : "Flip Side"
+                      }`}
+                  {" · "}
+                  {formatDate(next.date, "short")}
+                </div>
+              </>
+            ) : (
+              <div className="text-sm text-[var(--muted-foreground)] mb-3">
+                No upcoming meetings
+              </div>
+            )}
+            <Link
+              href="/calendar"
+              className="text-xs text-[var(--primary)] font-medium hover:underline inline-flex items-center gap-1"
+            >
+              Open calendar
+              <ArrowRight className="h-3 w-3" strokeWidth={2} />
+            </Link>
+          </Card>
+        </div>
+
+        {/* Secondary destinations */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <Link href="/exercises">
+            <Card className="p-4 hover:border-[var(--primary)]/30 hover:shadow-md transition-all group">
+              <div className="flex items-center justify-between mb-2">
+                <Sparkles className="h-4 w-4 text-[var(--accent)]" strokeWidth={1.75} />
+                <ArrowRight
+                  className="h-3.5 w-3.5 text-[var(--muted-foreground)] group-hover:text-[var(--primary)] group-hover:translate-x-0.5 transition-all"
+                  strokeWidth={2}
+                />
+              </div>
+              <div className="text-[10px] uppercase tracking-wider text-[var(--muted-foreground)] font-medium mb-0.5">
+                Exercises
+              </div>
+              <div className="font-serif text-sm font-semibold">Practice tools</div>
+            </Card>
+          </Link>
+
+          <Link href="/insights">
+            <Card className="p-4 hover:border-[var(--primary)]/30 hover:shadow-md transition-all group">
+              <div className="flex items-center justify-between mb-2">
+                <LineChart className="h-4 w-4 text-[var(--primary)]" strokeWidth={1.75} />
+                <ArrowRight
+                  className="h-3.5 w-3.5 text-[var(--muted-foreground)] group-hover:text-[var(--primary)] group-hover:translate-x-0.5 transition-all"
+                  strokeWidth={2}
+                />
+              </div>
+              <div className="text-[10px] uppercase tracking-wider text-[var(--muted-foreground)] font-medium mb-0.5">
+                Insights
+              </div>
+              <div className="font-serif text-sm font-semibold">Your patterns</div>
+            </Card>
+          </Link>
+
+          <Link href={`/exercises#trait-${focusTraitId}`}>
+            <Card className="p-4 hover:border-[var(--primary)]/30 hover:shadow-md transition-all group">
+              <div className="flex items-center justify-between mb-2">
+                <Feather className="h-4 w-4 text-[var(--sage)]" strokeWidth={1.75} />
+                <ArrowRight
+                  className="h-3.5 w-3.5 text-[var(--muted-foreground)] group-hover:text-[var(--primary)] group-hover:translate-x-0.5 transition-all"
+                  strokeWidth={2}
+                />
+              </div>
+              <div className="text-[10px] uppercase tracking-wider text-[var(--muted-foreground)] font-medium mb-0.5">
+                For Trait {focusTraitId}
+              </div>
+              <div className="font-serif text-sm font-semibold">Curated practices</div>
+            </Card>
+          </Link>
+
+          <Link href="/traits">
+            <Card className="p-4 hover:border-[var(--primary)]/30 hover:shadow-md transition-all group">
+              <div className="flex items-center justify-between mb-2">
+                <BookOpen className="h-4 w-4 text-[var(--primary)]" strokeWidth={1.75} />
+                <ArrowRight
+                  className="h-3.5 w-3.5 text-[var(--muted-foreground)] group-hover:text-[var(--primary)] group-hover:translate-x-0.5 transition-all"
+                  strokeWidth={2}
+                />
+              </div>
+              <div className="text-[10px] uppercase tracking-wider text-[var(--muted-foreground)] font-medium mb-0.5">
+                14 Traits
+              </div>
+              <div className="font-serif text-sm font-semibold">Full library</div>
+            </Card>
+          </Link>
+        </div>
+      </div>
 
       {/* Mobile progress */}
       <Card className="p-5 mb-6 md:hidden flex items-center gap-5">
@@ -256,65 +456,42 @@ export function DashboardView() {
         </Card>
       </div>
 
-      {/* Quick tiles */}
+      {/* Activity summary */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <QuickTile
-          href="/traits"
-          icon={BookOpen}
-          label="Traits"
-          value={`Trait ${currentTrait?.id ?? 1} active`}
-        />
-        <QuickTile
-          href="/calendar"
+        <ActivityTile icon={BookOpen} label="Reflections" value={Object.keys(journal).length} />
+        <ActivityTile icon={Sparkles} label="Feelings logged" value={feelings.length} />
+        <ActivityTile icon={LineChart} label="Triggers logged" value={triggers.length} />
+        <ActivityTile
           icon={CalendarIcon}
-          label="Calendar"
-          value={next ? `${daysUntilNext}d to next` : "—"}
-        />
-        <QuickTile
-          href="/exercises"
-          icon={Sparkles}
-          label="Practice"
-          value={`${feelings.length + triggers.length} logs`}
-        />
-        <QuickTile
-          href="/insights"
-          icon={LineChart}
-          label="Insights"
-          value={`${Object.keys(journal).length} entries`}
+          label="Next meeting"
+          value={next && daysUntilNext !== null ? `${daysUntilNext}d` : "—"}
         />
       </div>
     </div>
   );
 }
 
-function QuickTile({
-  href,
+function ActivityTile({
   icon: Icon,
   label,
   value,
 }: {
-  href: string;
   icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
   label: string;
-  value: string;
+  value: string | number;
 }) {
   return (
-    <Link href={href}>
-      <Card className="p-4 hover:border-[var(--primary)]/30 hover:shadow-md transition-all group">
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--muted)]">
-            <Icon className="h-4 w-4 text-[var(--primary)]" strokeWidth={1.75} />
-          </div>
-          <ArrowRight
-            className="h-3.5 w-3.5 text-[var(--muted-foreground)] group-hover:text-[var(--primary)] group-hover:translate-x-0.5 transition-all"
-            strokeWidth={2}
-          />
+    <Card className="p-4">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--muted)]">
+          <Icon className="h-4 w-4 text-[var(--primary)]" strokeWidth={1.75} />
         </div>
-        <div className="text-[10px] uppercase tracking-wider text-[var(--muted-foreground)] font-medium mb-0.5">
-          {label}
-        </div>
-        <div className="font-serif text-sm font-semibold">{value}</div>
-      </Card>
-    </Link>
+      </div>
+      <div className="text-[10px] uppercase tracking-wider text-[var(--muted-foreground)] font-medium mb-0.5">
+        {label}
+      </div>
+      <div className="font-serif text-lg font-semibold">{value}</div>
+    </Card>
   );
 }
+
