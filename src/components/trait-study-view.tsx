@@ -11,13 +11,20 @@ import { DissociationCycle } from "@/components/infographics/dissociation-cycle"
 import { FalseSelfLayers } from "@/components/infographics/false-self-layers";
 import { RecoveryArc } from "@/components/infographics/recovery-arc";
 import { AuthenticConnection } from "@/components/infographics/authentic-connection";
+import { ReversedFlow } from "@/components/infographics/reversed-flow";
+import { IdentityPendulum } from "@/components/infographics/identity-pendulum";
+import { IdentityCompass } from "@/components/infographics/identity-compass";
+import { SanctuaryToBridge } from "@/components/infographics/sanctuary-to-bridge";
 
 const QUADRANT_ORDER: Quadrant[] = ["laundry", "other", "flipSide", "flipSideOther"];
 
-const QUADRANT_GRAPHIC: Record<
-  Quadrant,
-  { Component: React.ComponentType<{ className?: string }>; caption: string }
-> = {
+type GraphicEntry = {
+  Component: React.ComponentType<{ className?: string }>;
+  caption: string;
+};
+
+// Trait-1 graphics serve as the default when a trait doesn't have its own.
+const DEFAULT_QUADRANT_GRAPHIC: Record<Quadrant, GraphicEntry> = {
   laundry: {
     Component: DissociationCycle,
     caption:
@@ -39,6 +46,38 @@ const QUADRANT_GRAPHIC: Record<
       "Engaged, not controlling. We can hold our power and position without shrinking anyone around us.",
   },
 };
+
+// Per-trait overrides. Falls back to the default Trait-1 set if a quadrant isn't overridden.
+const TRAIT_QUADRANT_GRAPHICS: Record<number, Partial<Record<Quadrant, GraphicEntry>>> = {
+  2: {
+    laundry: {
+      Component: ReversedFlow,
+      caption:
+        "When a parent can't give approval, the current reverses. The child learns to earn it — and the Game of Dissociation begins. True identity is hidden, first from others, then from the self.",
+    },
+    other: {
+      Component: IdentityPendulum,
+      caption:
+        "Terrified of being swallowed by enmeshment, we swing the other way — rigid self-sufficiency, disdaining approval. Both poles leave the self behind. The True Self lives at the still center.",
+    },
+    flipSide: {
+      Component: IdentityCompass,
+      caption:
+        "We carry our own compass now. Other people's opinions, labels, and expectations are still heard — but they do not redirect the needle.",
+    },
+    flipSideOther: {
+      Component: SanctuaryToBridge,
+      caption:
+        "The walls that kept us safe became the walls that kept us alone. We build a bridge out — not into enmeshment, but into a fellowship that accepts us as we are.",
+    },
+  },
+};
+
+function getGraphic(traitId: number, quadrant: Quadrant): GraphicEntry {
+  return (
+    TRAIT_QUADRANT_GRAPHICS[traitId]?.[quadrant] ?? DEFAULT_QUADRANT_GRAPHIC[quadrant]
+  );
+}
 
 export function TraitStudyView({
   trait,
@@ -83,8 +122,9 @@ export function TraitStudyView({
           const meta = QUADRANT_LABELS[quadrant];
           const statement = trait.statements[quadrant];
           const qs = questions.filter((q) => q.quadrant === quadrant);
-          const Graphic = QUADRANT_GRAPHIC[quadrant].Component;
-          const caption = QUADRANT_GRAPHIC[quadrant].caption;
+          const graphic = getGraphic(trait.id, quadrant);
+          const Graphic = graphic.Component;
+          const caption = graphic.caption;
 
           return (
             <TabsContent key={quadrant} value={quadrant}>

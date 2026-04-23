@@ -19,15 +19,17 @@ export const TRAITS: Trait[] = [
   },
   {
     id: 2,
-    shortName: "Approval Seeking",
-    active: false,
+    shortName: "Approval Seeking & Lost Identity",
+    active: true,
     mainListDate: "2026-04-25",
     flipSideDate: "2026-05-02",
     statements: {
       laundry: "We became approval seekers and lost our identity in the process.",
-      other: "",
-      flipSide: "",
-      flipSideOther: "",
+      other:
+        "To avoid becoming enmeshed and entangled with other people and losing ourselves in the process, we become rigidly self-sufficient. We disdain the approval of others.",
+      flipSide: "We do not depend on others to tell us who we are.",
+      flipSideOther:
+        "We realize the sanctuary we have built to protect the frightened and injured child within has become a prison and we become willing to risk moving out of isolation.",
     },
   },
   {

@@ -7,6 +7,8 @@ import type {
   FeelingLog,
   TriggerLog,
   InnerChildEntry,
+  IdentityEntry,
+  IdentityCategory,
   Quadrant,
 } from "@/lib/types";
 
@@ -20,6 +22,7 @@ interface AppState {
   feelings: FeelingLog[];
   triggers: TriggerLog[];
   innerChild: InnerChildEntry[];
+  identity: IdentityEntry[];
   attendance: Record<string, AttendanceRecord>;
   favoriteAffirmations: string[];
 
@@ -41,6 +44,9 @@ interface AppState {
   logTrigger: (log: Omit<TriggerLog, "id" | "timestamp">) => void;
   upsertInnerChild: (entry: { id?: string; adultVoice: string; childVoice: string }) => void;
   deleteInnerChild: (id: string) => void;
+  addIdentityEntry: (category: IdentityCategory, content: string) => void;
+  updateIdentityEntry: (id: string, content: string) => void;
+  deleteIdentityEntry: (id: string) => void;
   setAttendance: (date: string, attended: boolean) => void;
   setAttendanceNotes: (date: string, notes: string) => void;
   toggleFavoriteAffirmation: (text: string) => void;
@@ -61,6 +67,7 @@ export const useAppStore = create<AppState>()(
       feelings: [],
       triggers: [],
       innerChild: [],
+      identity: [],
       attendance: {},
       favoriteAffirmations: [],
 
@@ -127,6 +134,33 @@ export const useAppStore = create<AppState>()(
 
       deleteInnerChild: (id) => {
         set({ innerChild: get().innerChild.filter((e) => e.id !== id) });
+      },
+
+      addIdentityEntry: (category, content) => {
+        if (!content.trim()) return;
+        const now = new Date().toISOString();
+        const entry: IdentityEntry = {
+          id: nowId(),
+          category,
+          content,
+          createdAt: now,
+          updatedAt: now,
+        };
+        set({ identity: [entry, ...get().identity] });
+      },
+
+      updateIdentityEntry: (id, content) => {
+        set({
+          identity: get().identity.map((e) =>
+            e.id === id
+              ? { ...e, content, updatedAt: new Date().toISOString() }
+              : e
+          ),
+        });
+      },
+
+      deleteIdentityEntry: (id) => {
+        set({ identity: get().identity.filter((e) => e.id !== id) });
       },
 
       setAttendance: (date, attended) => {

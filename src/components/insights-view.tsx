@@ -17,21 +17,34 @@ import { Badge } from "@/components/ui/badge";
 import { ProgressRing } from "@/components/ui/progress-ring";
 import { useAppStore } from "@/store/app-store";
 import { TRAITS } from "@/data/traits";
-import { TRAIT_1_QUESTIONS } from "@/data/questions";
+import { ALL_QUESTIONS } from "@/data/questions";
 import { FEELING_WHEEL } from "@/data/feelings";
 
 export function InsightsView() {
   const journal = useAppStore((s) => s.journal);
   const feelings = useAppStore((s) => s.feelings);
 
-  const trait1Total = TRAIT_1_QUESTIONS.length;
-  const trait1Answered = useMemo(() => {
-    let n = 0;
-    for (const q of TRAIT_1_QUESTIONS) {
-      const key = `${q.traitId}::${q.quadrant}::${q.index}`;
-      if (journal[key]?.content.trim().length) n++;
+  // Compute per-trait progress from ALL_QUESTIONS so any active trait shows progress.
+  const traitProgress = useMemo(() => {
+    const result: Record<number, { total: number; answered: number; pct: number }> = {};
+    for (const trait of TRAITS) {
+      const qs = ALL_QUESTIONS.filter((q) => q.traitId === trait.id);
+      if (qs.length === 0) {
+        result[trait.id] = { total: 0, answered: 0, pct: 0 };
+        continue;
+      }
+      let answered = 0;
+      for (const q of qs) {
+        const key = `${q.traitId}::${q.quadrant}::${q.index}`;
+        if (journal[key]?.content.trim().length) answered++;
+      }
+      result[trait.id] = {
+        total: qs.length,
+        answered,
+        pct: Math.round((answered / qs.length) * 100),
+      };
     }
-    return n;
+    return result;
   }, [journal]);
 
   // Intensity line data (by day)
@@ -114,8 +127,7 @@ export function InsightsView() {
         </div>
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-4">
           {TRAITS.map((t) => {
-            const pct =
-              t.id === 1 ? Math.round((trait1Answered / trait1Total) * 100) : 0;
+            const pct = traitProgress[t.id]?.pct ?? 0;
             return (
               <div key={t.id} className="flex flex-col items-center">
                 <ProgressRing

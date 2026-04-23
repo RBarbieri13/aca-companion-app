@@ -178,6 +178,62 @@ export function TwelveStepsGlyph({ className, size = 48 }: GlyphProps) {
   );
 }
 
+export function ReversedFlowGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* Adult figure - larger */}
+          <circle cx="20" cy="22" r="6" fill="var(--primary)" fillOpacity="0.85"/>
+          <rect x="14" y="28" width="12" height="18" rx="4" fill="var(--primary)" fillOpacity="0.85"/>
+          {/* Child figure - smaller, reaching up */}
+          <circle cx="44" cy="28" r="4" fill="var(--accent)"/>
+          <rect x="40" y="32" width="8" height="14" rx="3" fill="var(--accent)" fillOpacity="0.9"/>
+          {/* Reversed arrow - from child up to adult */}
+          <path d="M 38 28 L 28 22" stroke="var(--accent)" strokeWidth="1.5" fill="none"/>
+          <path d="M 31 22 L 28 22 L 28 25" stroke="var(--accent)" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function EnmeshmentGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* Two overlapping circles - no boundary */}
+          <circle cx="23" cy="30" r="13" fill="var(--accent)" fillOpacity="0.5" stroke="var(--accent)" strokeWidth="1.5"/>
+          <circle cx="37" cy="30" r="13" fill="var(--primary)" fillOpacity="0.5" stroke="var(--primary)" strokeWidth="1.5"/>
+          {/* Tangle in the middle */}
+          <path d="M 25 26 Q 30 30 35 26 M 25 34 Q 30 30 35 34" stroke="var(--foreground)" strokeWidth="1" fill="none" opacity="0.5"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function RigidSelfSufficiencyGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* Solitary figure inside a box (sanctuary/prison) */}
+          <rect x="12" y="14" width="36" height="34" rx="3" fill="none" stroke="var(--primary)" strokeWidth="1.5"/>
+          {/* Vertical bars suggesting prison */}
+          <line x1="20" y1="16" x2="20" y2="46" stroke="var(--primary)" strokeWidth="1" opacity="0.5"/>
+          <line x1="28" y1="16" x2="28" y2="46" stroke="var(--primary)" strokeWidth="1" opacity="0.5"/>
+          <line x1="36" y1="16" x2="36" y2="46" stroke="var(--primary)" strokeWidth="1" opacity="0.5"/>
+          {/* Figure inside */}
+          <circle cx="30" cy="26" r="4" fill="var(--accent)"/>
+          <rect x="26" y="30" width="8" height="12" rx="3" fill="var(--accent)" fillOpacity="0.85"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
 export const GLYPHS: Record<string, React.ComponentType<GlyphProps>> = {
   dissociation: DissociationGlyph,
   "false-self": FalseSelfGlyph,
@@ -189,4 +245,7 @@ export const GLYPHS: Record<string, React.ComponentType<GlyphProps>> = {
   "para-alcoholic": ParaAlcoholicGlyph,
   hypervigilance: HypervigilanceGlyph,
   "twelve-steps": TwelveStepsGlyph,
+  "reversed-flow": ReversedFlowGlyph,
+  enmeshment: EnmeshmentGlyph,
+  "rigid-self-sufficiency": RigidSelfSufficiencyGlyph,
 };

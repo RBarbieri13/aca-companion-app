@@ -61,6 +61,21 @@ export interface InnerChildEntry {
   updatedAt: string;
 }
 
+export type IdentityCategory =
+  | "values"
+  | "strengths"
+  | "enjoy"
+  | "rolesVsSelf"
+  | "knownInternally";
+
+export interface IdentityEntry {
+  id: string;
+  category: IdentityCategory;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface Concept {
   id: string;
   name: string;

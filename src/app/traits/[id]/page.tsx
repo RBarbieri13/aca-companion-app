@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Calendar as CalendarIcon } from "lucide-react";
 import { TRAITS } from "@/data/traits";
-import { TRAIT_1_QUESTIONS } from "@/data/questions";
+import { getQuestionsForTrait } from "@/data/questions";
 import { TraitStudyView } from "@/components/trait-study-view";
 import { formatDate } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
@@ -17,7 +17,7 @@ export default async function TraitPage({ params }: { params: Promise<{ id: stri
   const trait = TRAITS.find((t) => t.id === traitId);
   if (!trait || !trait.active) notFound();
 
-  const questions = TRAIT_1_QUESTIONS.filter((q) => q.traitId === traitId);
+  const questions = getQuestionsForTrait(traitId);
 
   return (
     <div>
@@ -35,7 +35,7 @@ export default async function TraitPage({ params }: { params: Promise<{ id: stri
             Trait {trait.id}
           </Badge>
           <Badge variant="sage" className="text-[10px]">
-            Currently studying
+            Open for study
           </Badge>
         </div>
         <h1 className="font-serif text-3xl md:text-5xl font-semibold text-[var(--foreground)] leading-tight mb-4">

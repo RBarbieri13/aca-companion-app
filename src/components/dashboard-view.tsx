@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { ProgressRing } from "@/components/ui/progress-ring";
 import { useAppStore } from "@/store/app-store";
 import { getCurrentSession, getNextSession } from "@/data/schedule";
-import { TRAIT_1_QUESTIONS } from "@/data/questions";
+import { ALL_QUESTIONS } from "@/data/questions";
 import { TRAITS } from "@/data/traits";
 import { daysBetween, formatDate } from "@/lib/utils";
 import { AFFIRMATIONS } from "@/data/affirmations";
@@ -35,16 +35,27 @@ export function DashboardView() {
   const next = getNextSession(today);
   const daysUntilNext = next ? daysBetween(today, parseISO(next.date)) : null;
 
-  const total = TRAIT_1_QUESTIONS.length;
+  // Pick the trait the group is currently on (falls back to the earliest active trait).
+  const focusTraitId = useMemo(() => {
+    if (current?.traitId) return current.traitId;
+    const firstActive = TRAITS.find((t) => t.active);
+    return firstActive?.id ?? 1;
+  }, [current]);
+
+  const focusQuestions = useMemo(
+    () => ALL_QUESTIONS.filter((q) => q.traitId === focusTraitId),
+    [focusTraitId]
+  );
+  const total = focusQuestions.length;
   const answered = useMemo(() => {
     let n = 0;
-    for (const q of TRAIT_1_QUESTIONS) {
+    for (const q of focusQuestions) {
       const key = `${q.traitId}::${q.quadrant}::${q.index}`;
       const entry = journal[key];
       if (entry && entry.content.trim().length > 0) n++;
     }
     return n;
-  }, [journal]);
+  }, [journal, focusQuestions]);
   const pct = total > 0 ? Math.round((answered / total) * 100) : 0;
 
   const lastEntry = useMemo(() => {
@@ -143,7 +154,7 @@ export function DashboardView() {
               strokeWidth={12}
               color="#c97b5e"
               label={`${pct}%`}
-              sublabel="Trait 1 complete"
+              sublabel={`Trait ${focusTraitId} complete`}
             />
           </div>
         </div>
@@ -151,7 +162,7 @@ export function DashboardView() {
 
       {/* Mobile progress */}
       <Card className="p-5 mb-6 md:hidden flex items-center gap-5">
-        <ProgressRing value={pct} size={90} strokeWidth={8} label={`${pct}%`} sublabel="Trait 1" />
+        <ProgressRing value={pct} size={90} strokeWidth={8} label={`${pct}%`} sublabel={`Trait ${focusTraitId}`} />
         <div>
           <div className="text-xs uppercase tracking-widest text-[var(--muted-foreground)] font-medium mb-1">
             Your progress
@@ -234,9 +245,9 @@ export function DashboardView() {
               <p className="text-sm text-[var(--muted-foreground)] mb-3">
                 Nothing here yet. Start with the first question when you&apos;re ready.
               </p>
-              <Link href="/traits/1">
+              <Link href={`/traits/${focusTraitId}`}>
                 <Button variant="subtle" size="sm">
-                  Begin Trait 1
+                  Begin Trait {focusTraitId}
                   <ArrowRight className="h-3 w-3" strokeWidth={2} />
                 </Button>
               </Link>
