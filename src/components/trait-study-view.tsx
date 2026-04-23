@@ -15,12 +15,19 @@ import { ReversedFlow } from "@/components/infographics/reversed-flow";
 import { IdentityPendulum } from "@/components/infographics/identity-pendulum";
 import { IdentityCompass } from "@/components/infographics/identity-compass";
 import { SanctuaryToBridge } from "@/components/infographics/sanctuary-to-bridge";
+import { RelationalPatternsTable } from "@/components/infographics/relational-patterns-table";
 
 const QUADRANT_ORDER: Quadrant[] = ["laundry", "other", "flipSide", "flipSideOther"];
 
 type GraphicEntry = {
   Component: React.ComponentType<{ className?: string }>;
   caption: string;
+  /** Optional: a second graphic to include below the primary one. */
+  supplements?: Array<{
+    Component: React.ComponentType<{ className?: string }>;
+    title: string;
+    description: string;
+  }>;
 };
 
 // Trait-1 graphics serve as the default when a trait doesn't have its own.
@@ -47,7 +54,6 @@ const DEFAULT_QUADRANT_GRAPHIC: Record<Quadrant, GraphicEntry> = {
   },
 };
 
-// Per-trait overrides. Falls back to the default Trait-1 set if a quadrant isn't overridden.
 const TRAIT_QUADRANT_GRAPHICS: Record<number, Partial<Record<Quadrant, GraphicEntry>>> = {
   2: {
     laundry: {
@@ -59,6 +65,14 @@ const TRAIT_QUADRANT_GRAPHICS: Record<number, Partial<Record<Quadrant, GraphicEn
       Component: IdentityPendulum,
       caption:
         "Terrified of being swallowed by enmeshment, we swing the other way — rigid self-sufficiency, disdaining approval. Both poles leave the self behind. The True Self lives at the still center.",
+      supplements: [
+        {
+          Component: RelationalPatternsTable,
+          title: "Three patterns that abandon the self",
+          description:
+            "Enmeshment, codependency, and disengagement look different but share a root: our needs don't get named or met. Compare them side by side across boundaries, emotional needs, independence, identity, and what each one looks like in everyday life.",
+        },
+      ],
     },
     flipSide: {
       Component: IdentityCompass,
@@ -88,23 +102,24 @@ export function TraitStudyView({
 }) {
   return (
     <div>
-      {/* Orientation strip - quadrant diagram */}
-      <Card className="p-5 md:p-6 mb-6 bg-[var(--muted)]/30">
-        <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-5 items-center">
-          <div className="flex justify-center">
-            <QuadrantDiagram compact className="max-w-full h-auto" />
-          </div>
+      {/* Orientation strip - quadrant diagram (NOW STACKED ON MOBILE, LARGER ON DESKTOP) */}
+      <Card className="p-5 md:p-8 mb-6 bg-[var(--muted)]/30">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.1fr] gap-6 md:gap-8 items-center">
           <div>
             <div className="text-[10px] uppercase tracking-widest text-[var(--muted-foreground)] font-medium mb-1">
               Orientation
             </div>
-            <h2 className="font-serif text-lg font-semibold mb-2">
+            <h2 className="font-serif text-xl md:text-2xl font-semibold mb-3">
               Four quadrants of this trait
             </h2>
-            <p className="text-sm text-[var(--muted-foreground)] leading-relaxed">
+            <p className="text-sm md:text-base text-[var(--muted-foreground)] leading-relaxed">
               Use the tabs below to move between the original trait, how we act it out, and the
-              two recovery sides. Each tab has its own reflection questions.
+              two recovery sides. Each tab has its own reflection questions, explainer graphic,
+              and related concepts.
             </p>
+          </div>
+          <div className="flex justify-center">
+            <QuadrantDiagram className="w-full max-w-[460px] h-auto" />
           </div>
         </div>
       </Card>
@@ -125,6 +140,7 @@ export function TraitStudyView({
           const graphic = getGraphic(trait.id, quadrant);
           const Graphic = graphic.Component;
           const caption = graphic.caption;
+          const supplements = graphic.supplements ?? [];
 
           return (
             <TabsContent key={quadrant} value={quadrant}>
@@ -145,25 +161,48 @@ export function TraitStudyView({
                 </blockquote>
               </Card>
 
-              {/* Quadrant-specific infographic */}
-              <Card className="p-5 md:p-6 mb-8">
-                <div className="grid grid-cols-1 md:grid-cols-[1.3fr_1fr] gap-6 items-center">
-                  <div className="flex justify-center min-w-0">
-                    <Graphic className="max-w-full h-auto w-full" />
+              {/* Quadrant-specific infographic — LARGER LAYOUT.
+                  Graphic is now full-width with the caption beneath it. */}
+              <Card className="p-5 md:p-8 mb-8">
+                <div className="mb-5">
+                  <div
+                    className="text-[10px] uppercase tracking-widest font-semibold mb-1"
+                    style={{ color: meta.color }}
+                  >
+                    What&apos;s happening here
                   </div>
-                  <div>
-                    <div
-                      className="text-[10px] uppercase tracking-widest font-semibold mb-2"
-                      style={{ color: meta.color }}
-                    >
-                      What&apos;s happening here
-                    </div>
-                    <p className="font-serif text-base leading-relaxed text-[var(--foreground)]/85 italic">
-                      {caption}
-                    </p>
-                  </div>
+                  <p className="font-serif text-base md:text-lg leading-relaxed text-[var(--foreground)]/85 italic max-w-3xl">
+                    {caption}
+                  </p>
+                </div>
+                <div className="flex justify-center">
+                  <Graphic className="w-full max-w-[720px] h-auto" />
                 </div>
               </Card>
+
+              {/* Supplemental graphics (optional, trait/quadrant-specific) */}
+              {supplements.map((supp, i) => {
+                const SuppComponent = supp.Component;
+                return (
+                  <Card key={i} className="p-5 md:p-8 mb-8">
+                    <div className="mb-5">
+                      <div
+                        className="text-[10px] uppercase tracking-widest font-semibold mb-1"
+                        style={{ color: meta.color }}
+                      >
+                        Reference
+                      </div>
+                      <h3 className="font-serif text-xl md:text-2xl font-semibold mb-2">
+                        {supp.title}
+                      </h3>
+                      <p className="text-sm md:text-base text-[var(--foreground)]/80 leading-relaxed max-w-3xl">
+                        {supp.description}
+                      </p>
+                    </div>
+                    <SuppComponent className="w-full" />
+                  </Card>
+                );
+              })}
 
               <div className="mb-6 flex items-baseline justify-between">
                 <h2 className="font-serif text-2xl font-semibold text-[var(--foreground)]">

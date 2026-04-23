@@ -4,15 +4,16 @@
 // where the breaks fall, and how much ground remains.
 
 import { SCHEDULE, getCurrentSession } from "@/data/schedule";
-import { parseISO, format } from "date-fns";
+import { format } from "date-fns";
+import { parseLocalDate } from "@/lib/utils";
 
 interface Props { className?: string; }
 
 export function JourneyTimeline({ className }: Props) {
   const startStr = SCHEDULE[0].date;
   const endStr = SCHEDULE[SCHEDULE.length - 1].date;
-  const start = parseISO(startStr);
-  const end = parseISO(endStr);
+  const start = parseLocalDate(startStr);
+  const end = parseLocalDate(endStr);
   const span = end.getTime() - start.getTime();
   const today = new Date();
   const currentSession = getCurrentSession(today);
@@ -22,7 +23,7 @@ export function JourneyTimeline({ className }: Props) {
   );
 
   const sessionPct = (dateStr: string) => {
-    const d = parseISO(dateStr);
+    const d = parseLocalDate(dateStr);
     return Math.max(0, Math.min(100, ((d.getTime() - start.getTime()) / span) * 100));
   };
 

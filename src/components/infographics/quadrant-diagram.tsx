@@ -13,14 +13,15 @@ interface Props {
 
 export function QuadrantDiagram({ className, activeQuadrant, compact }: Props) {
   const isActive = (q: string) => activeQuadrant === q;
-  const size = compact ? 220 : 320;
+  // Let CSS (className/Tailwind w-*) control the final render size. Fall back
+  // to a reasonable default only when no className is provided.
+  const fallbackSize = compact ? 220 : 320;
 
   return (
     <svg
       viewBox="0 0 360 320"
       className={className}
-      width={size}
-      height={Math.round(size * 320 / 360)}
+      style={className ? undefined : { width: fallbackSize, height: Math.round((fallbackSize * 320) / 360) }}
       role="img"
       aria-label="The four quadrants of each trait"
     >

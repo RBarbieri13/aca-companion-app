@@ -12,7 +12,6 @@ import {
   format,
   isSameMonth,
   isSameDay,
-  parseISO,
 } from "date-fns";
 import { ChevronLeft, ChevronRight, CheckCircle2, Circle, Coffee, Award, BookOpen } from "lucide-react";
 import { SCHEDULE, getNextSession } from "@/data/schedule";
@@ -22,7 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useAppStore } from "@/store/app-store";
-import { formatDate, daysBetween, cn } from "@/lib/utils";
+import { formatDate, daysBetween, cn, parseLocalDate, startOfToday } from "@/lib/utils";
 import type { Session } from "@/lib/types";
 
 function sessionKey(s: Session) {
@@ -30,16 +29,17 @@ function sessionKey(s: Session) {
 }
 
 export function CalendarView() {
-  const START = parseISO("2026-04-01");
+  const START = parseLocalDate("2026-04-01");
   const [cursor, setCursor] = useState<Date>(START);
   const [selected, setSelected] = useState<Session | null>(() => {
-    const next = getNextSession(new Date());
+    const next = getNextSession(startOfToday());
     return next ?? SCHEDULE[0];
   });
   const [view, setView] = useState<"month" | "agenda">("month");
 
-  const next = getNextSession(new Date());
-  const countdownDays = next ? daysBetween(new Date(), parseISO(next.date)) : null;
+  const today = useMemo(() => startOfToday(), []);
+  const next = useMemo(() => getNextSession(today), [today]);
+  const countdownDays = next ? daysBetween(today, parseLocalDate(next.date)) : null;
 
   const attendance = useAppStore((s) => s.attendance);
   const setAttendance = useAppStore((s) => s.setAttendance);
@@ -283,10 +283,10 @@ export function CalendarView() {
                     >
                       <div className="w-24 shrink-0">
                         <div className="text-xs text-[var(--muted-foreground)]">
-                          {format(parseISO(s.date), "EEE")}
+                          {format(parseLocalDate(s.date), "EEE")}
                         </div>
                         <div className="font-serif text-base font-semibold">
-                          {format(parseISO(s.date), "MMM d")}
+                          {format(parseLocalDate(s.date), "MMM d")}
                         </div>
                       </div>
                       <div className="flex-1">
@@ -327,10 +327,10 @@ export function CalendarView() {
             {selected ? (
               <>
                 <div className="text-xs uppercase tracking-widest text-[var(--muted-foreground)] font-medium mb-2">
-                  {format(parseISO(selected.date), "EEEE")}
+                  {format(parseLocalDate(selected.date), "EEEE")}
                 </div>
                 <div className="font-serif text-2xl font-semibold text-[var(--foreground)] mb-3">
-                  {format(parseISO(selected.date), "MMMM d, yyyy")}
+                  {format(parseLocalDate(selected.date), "MMMM d, yyyy")}
                 </div>
 
                 {selected.type === "session" && trait && (

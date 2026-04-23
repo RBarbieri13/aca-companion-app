@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useMemo } from "react";
-import { parseISO } from "date-fns";
 import {
   BookOpen,
   Calendar as CalendarIcon,
@@ -20,7 +19,7 @@ import { useAppStore } from "@/store/app-store";
 import { getCurrentSession, getCurrentTraitId, getNextSession } from "@/data/schedule";
 import { ALL_QUESTIONS } from "@/data/questions";
 import { TRAITS } from "@/data/traits";
-import { daysBetween, formatDate } from "@/lib/utils";
+import { daysBetween, formatDate, parseLocalDate, startOfToday } from "@/lib/utils";
 import { AFFIRMATIONS } from "@/data/affirmations";
 import { JourneyTimeline } from "@/components/infographics/journey-timeline";
 import { TraitConstellation } from "@/components/infographics/trait-constellation";
@@ -31,10 +30,11 @@ export function DashboardView() {
   const triggers = useAppStore((s) => s.triggers);
 
   // `today` is memoized so all date-derived values and useMemo below have a stable reference.
-  const today = useMemo(() => new Date(), []);
+  // Using startOfToday() (local midnight) so day-math with schedule dates is accurate.
+  const today = useMemo(() => startOfToday(), []);
   const current = useMemo(() => getCurrentSession(today), [today]);
   const next = useMemo(() => getNextSession(today), [today]);
-  const daysUntilNext = next ? daysBetween(today, parseISO(next.date)) : null;
+  const daysUntilNext = next ? daysBetween(today, parseLocalDate(next.date)) : null;
 
   // The trait the group is currently on (rolls forward the day AFTER each Flip Side meeting).
   const focusTraitId = useMemo(() => getCurrentTraitId(today), [today]);

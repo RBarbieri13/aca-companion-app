@@ -35,21 +35,31 @@ export const SCHEDULE: Session[] = [
   { date: "2026-11-14", traitId: null, quadrant: null, type: "wrapup", label: "Final Wrapup" },
 ];
 
-export function getCurrentSession(today: Date = new Date()): Session | null {
-  // Find the session happening this week (Sat-Fri) or the next upcoming
-  const sorted = [...SCHEDULE].sort((a, b) => a.date.localeCompare(b.date));
-  const todayStr = today.toISOString().slice(0, 10);
+/**
+ * Format a Date as a local "YYYY-MM-DD" string, matching the schedule's format.
+ * Avoids toISOString() which can shift the day forward in the evening (UTC offset).
+ */
+function localDateString(d: Date): string {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
 
-  // Find the session whose date is <= today but most recent
+export function getCurrentSession(today: Date = new Date()): Session | null {
+  const sorted = [...SCHEDULE].sort((a, b) => a.date.localeCompare(b.date));
+  const todayStr = localDateString(today);
+
   const past = sorted.filter((s) => s.date <= todayStr);
   const future = sorted.filter((s) => s.date > todayStr);
 
-  // If today is within 6 days after a session, it's still "this week"
   if (past.length > 0) {
     const mostRecent = past[past.length - 1];
+    // Parse the schedule date as local midnight so daysSince is a clean day count.
+    const [y, m, d] = mostRecent.date.split("-").map(Number);
+    const mostRecentDate = new Date(y, m - 1, d);
     const daysSince = Math.floor(
-      (today.getTime() - new Date(mostRecent.date).getTime()) /
-        (1000 * 60 * 60 * 24)
+      (today.getTime() - mostRecentDate.getTime()) / (1000 * 60 * 60 * 24)
     );
     if (daysSince <= 6) return mostRecent;
   }
@@ -58,8 +68,10 @@ export function getCurrentSession(today: Date = new Date()): Session | null {
 }
 
 export function getNextSession(today: Date = new Date()): Session | null {
-  const todayStr = today.toISOString().slice(0, 10);
-  const future = SCHEDULE.filter((s) => s.date > todayStr);
+  const todayStr = localDateString(today);
+  // "Next" means strictly after today. Also skip breaks so the countdown reflects
+  // the actual next meeting the group will hold.
+  const future = SCHEDULE.filter((s) => s.date > todayStr && s.type !== "break");
   return future[0] ?? null;
 }
 
@@ -73,17 +85,16 @@ export function getNextSession(today: Date = new Date()): Session | null {
  * Before the group has started (before Apr 11, 2026), defaults to Trait 1.
  */
 export function getCurrentTraitId(today: Date = new Date()): number {
-  const todayStr = today.toISOString().slice(0, 10);
+  const todayStr = localDateString(today);
   const sessions = SCHEDULE.filter((s) => s.type === "session" && s.traitId !== null);
 
-  // If we're before the first meeting, start on Trait 1
   const firstSession = sessions[0];
   if (firstSession && todayStr < firstSession.date) {
     return firstSession.traitId as number;
   }
 
-  // Find each trait's last meeting (its Flip Side)
-  const byTrait = new Map<number, string>(); // traitId -> last meeting date
+  // Last meeting date per trait (the Flip Side).
+  const byTrait = new Map<number, string>();
   for (const s of sessions) {
     if (s.traitId !== null) {
       const existing = byTrait.get(s.traitId);
@@ -91,14 +102,12 @@ export function getCurrentTraitId(today: Date = new Date()): number {
     }
   }
 
-  // The current trait is the earliest trait whose Flip Side meeting is >= today.
-  // (i.e., we haven't finished it yet)
+  // Current = earliest trait whose Flip Side meeting is >= today.
   const traitIds = Array.from(byTrait.keys()).sort((a, b) => a - b);
   for (const traitId of traitIds) {
     const lastMeeting = byTrait.get(traitId)!;
     if (todayStr <= lastMeeting) return traitId;
   }
 
-  // After all traits are done, stay on the last trait (Trait 14)
   return traitIds[traitIds.length - 1] ?? 1;
 }

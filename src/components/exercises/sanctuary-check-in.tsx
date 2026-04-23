@@ -16,7 +16,8 @@ import {
 } from "recharts";
 import { Home, Lock, Trash2 } from "lucide-react";
 import { useAppStore } from "@/store/app-store";
-import { startOfWeek, format, parseISO } from "date-fns";
+import { startOfWeek, format } from "date-fns";
+import { parseLocalDate } from "@/lib/utils";
 
 function weekOfISO(d: Date = new Date()) {
   return format(startOfWeek(d, { weekStartsOn: 0 }), "yyyy-MM-dd");
@@ -37,7 +38,7 @@ export function SanctuaryCheckIn() {
     return [...checkIns]
       .sort((a, b) => a.weekOf.localeCompare(b.weekOf))
       .map((c) => ({
-        week: format(parseISO(c.weekOf), "MMM d"),
+        week: format(parseLocalDate(c.weekOf), "MMM d"),
         value: c.value,
       }));
   }, [checkIns]);
@@ -75,7 +76,7 @@ export function SanctuaryCheckIn() {
 
       <Card className="p-5 md:p-6 mb-6">
         <div className="text-[10px] uppercase tracking-widest text-[var(--muted-foreground)] font-medium mb-1">
-          Check-in · Week of {format(parseISO(thisWeek), "MMM d, yyyy")}
+          Check-in · Week of {format(parseLocalDate(thisWeek), "MMM d, yyyy")}
         </div>
         <h2 className="font-serif text-xl font-semibold mb-5">
           When you were alone this week, how did it feel?
@@ -196,7 +197,7 @@ export function SanctuaryCheckIn() {
             {checkIns.slice(0, 10).map((c) => (
               <Card key={c.id} className="p-4 flex items-start gap-4">
                 <div className="text-xs text-[var(--muted-foreground)] font-medium w-24 shrink-0">
-                  {format(parseISO(c.weekOf), "MMM d, yyyy")}
+                  {format(parseLocalDate(c.weekOf), "MMM d, yyyy")}
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
