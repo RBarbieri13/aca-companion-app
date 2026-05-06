@@ -69,9 +69,47 @@ export const TRAIT_2_QUESTIONS: ReflectionQuestion[] = [
   { traitId: 2, quadrant: "flipSideOther", index: 5, question: "What are some of the benefits of moving out of isolation?" },
 ];
 
+export const TRAIT_3_QUESTIONS: ReflectionQuestion[] = [
+  // The Laundry List
+  { traitId: 3, quadrant: "laundry", index: 0, question: "Describe ways you are frightened by angry people (both in childhood memories as well as in your adult relationships)." },
+  { traitId: 3, quadrant: "laundry", index: 1, question: "Describe ways you are frightened by personal criticism (both in childhood memories as well as in your adult relationships)." },
+  { traitId: 3, quadrant: "laundry", index: 2, question: "Can you see ways you've dissociated — \"dosed\" yourself with inside drugs to numb yourself — to avoid feeling fear?" },
+  { traitId: 3, quadrant: "laundry", index: 3, question: "Make a list of the people who were angry and critical in your childhood." },
+  { traitId: 3, quadrant: "laundry", index: 4, question: "Make a list of the comments that you heard and the physical acts that caused you to fear angry people and any personal criticism." },
+  { traitId: 3, quadrant: "laundry", index: 5, question: "Who in your present life comes to mind as being similar physically, vocally, or in demeanor to the angry and critical people in your childhood?" },
+  { traitId: 3, quadrant: "laundry", index: 6, question: "Who are the types of people and the types of criticism that are the most powerful in causing your fear today as an adult?" },
+
+  // The Other Laundry List
+  { traitId: 3, quadrant: "other", index: 0, question: "Describe ways you frighten people with your anger." },
+  { traitId: 3, quadrant: "other", index: 1, question: "Describe ways you frighten people with belittling criticism, or cutting \"helpful\" criticism." },
+  { traitId: 3, quadrant: "other", index: 2, question: "Who have you frightened with your anger and your threat of belittling criticism?" },
+  { traitId: 3, quadrant: "other", index: 3, question: "What are some examples of actions you have taken to frighten people in this way?" },
+  { traitId: 3, quadrant: "other", index: 4, question: "How have you threatened people physically, verbally, and/or emotionally?" },
+  { traitId: 3, quadrant: "other", index: 5, question: "Can you see ways you \"dose\" yourself with the adrenaline you get from taking charge and controlling others, and how this blocks your painful memories and feelings of the hurt you experienced in childhood? List some examples." },
+
+  // The Flip Side of The Laundry List
+  { traitId: 3, quadrant: "flipSide", index: 0, question: "Describe ways you've grown not to be automatically frightened by angry people." },
+  { traitId: 3, quadrant: "flipSide", index: 1, question: "Describe ways you've grown not to automatically regard personal criticism as a threat." },
+  { traitId: 3, quadrant: "flipSide", index: 2, question: "Can you identify times you are feeling your feelings around this trait rather than \"dosing\" yourself to numb and avoid these fears?" },
+  { traitId: 3, quadrant: "flipSide", index: 3, question: "List the ACA Steps and/or ACA Traditions and/or other program tools you have found that help support a true perspective of personal criticism and angry people." },
+  { traitId: 3, quadrant: "flipSide", index: 4, question: "Describe an example of an improved relationship you've experienced due to not being afraid of that person." },
+  { traitId: 3, quadrant: "flipSide", index: 5, question: "Describe a group or a type of person with whom your comfort level has improved, where in times past you would have been uncomfortable." },
+  { traitId: 3, quadrant: "flipSide", index: 6, question: "Describe an experience when you were personally criticized and you could tell that you had changed due to your ACA recovery." },
+  { traitId: 3, quadrant: "flipSide", index: 7, question: "Which ACA Promise or Promises do you see that are coming true as you see your progress in relation to this?" },
+
+  // The Flip Side of The Other Laundry List
+  { traitId: 3, quadrant: "flipSideOther", index: 0, question: "Describe times when you've realized it is no longer necessary to protect yourself by intimidating others with contempt, ridicule, and anger." },
+  { traitId: 3, quadrant: "flipSideOther", index: 1, question: "Describe times when your renewed True Self esteem and worth have empowered you to admit you are human and make mistakes. How did that feel?" },
+  { traitId: 3, quadrant: "flipSideOther", index: 2, question: "Describe times when you have been able to soberly hear the observations of others, reflect on these observations, and see if there is some truth to what is being shared that could be to your benefit." },
+  { traitId: 3, quadrant: "flipSideOther", index: 3, question: "Describe in detail your self-worth before ACA and your self-worth now." },
+  { traitId: 3, quadrant: "flipSideOther", index: 4, question: "Which ACA tools do you attribute to this growth and progress that you've observed in your life?" },
+  { traitId: 3, quadrant: "flipSideOther", index: 5, question: "When you feel angry today, what do you do?" },
+];
+
 export const ALL_QUESTIONS: ReflectionQuestion[] = [
   ...TRAIT_1_QUESTIONS,
   ...TRAIT_2_QUESTIONS,
+  ...TRAIT_3_QUESTIONS,
 ];
 
 export function getQuestionsForTrait(traitId: number) {

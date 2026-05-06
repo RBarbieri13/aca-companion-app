@@ -234,6 +234,67 @@ export function RigidSelfSufficiencyGlyph({ className, size = 48 }: GlyphProps) 
   );
 }
 
+export function InsideDrugsGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* Three droplets representing cortisol / adrenaline / melatonin */}
+          <path d="M 20 18 Q 16 26 20 30 Q 24 26 20 18 Z" fill="var(--accent)" fillOpacity="0.85"/>
+          <path d="M 30 14 Q 26 22 30 26 Q 34 22 30 14 Z" fill="var(--primary)" fillOpacity="0.85"/>
+          <path d="M 40 18 Q 36 26 40 30 Q 44 26 40 18 Z" fill="var(--muted-foreground)" fillOpacity="0.7"/>
+          {/* numb body silhouette below */}
+          <circle cx="30" cy="40" r="4" fill="var(--foreground)" fillOpacity="0.35"/>
+          <rect x="26" y="44" width="8" height="8" rx="2" fill="var(--foreground)" fillOpacity="0.3"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function SoberListeningGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* Ear */}
+          <path d="M 24 18 Q 18 18 18 28 Q 18 38 24 42 L 26 42 Q 30 42 30 38 Q 30 34 26 32 Q 28 28 28 24 Q 28 18 24 18 Z"
+            fill="var(--primary)" fillOpacity="0.85"/>
+          {/* Sound waves arriving (criticism) */}
+          <path d="M 36 22 Q 40 26 36 32" stroke="var(--accent)" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+          <path d="M 41 20 Q 47 26 41 34" stroke="var(--accent)" strokeWidth="1.5" fill="none" strokeLinecap="round" opacity="0.6"/>
+          {/* Steady ground line (sober stance) */}
+          <line x1="14" y1="48" x2="46" y2="48" stroke="var(--sage)" strokeWidth="1.5" strokeLinecap="round"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function EngageSensesGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* Five small marks around a center — five senses */}
+          <circle cx="30" cy="30" r="6" fill="var(--sage)" fillOpacity="0.6" stroke="var(--primary)" strokeWidth="1.25"/>
+          <circle cx="30" cy="14" r="3" fill="var(--accent)"/>
+          <circle cx="46" cy="22" r="3" fill="var(--accent)"/>
+          <circle cx="44" cy="42" r="3" fill="var(--accent)"/>
+          <circle cx="16" cy="42" r="3" fill="var(--accent)"/>
+          <circle cx="14" cy="22" r="3" fill="var(--accent)"/>
+          {/* Faint connecting lines */}
+          <line x1="30" y1="14" x2="30" y2="24" stroke="var(--primary)" strokeWidth="0.75" opacity="0.5"/>
+          <line x1="46" y1="22" x2="36" y2="28" stroke="var(--primary)" strokeWidth="0.75" opacity="0.5"/>
+          <line x1="44" y1="42" x2="34" y2="34" stroke="var(--primary)" strokeWidth="0.75" opacity="0.5"/>
+          <line x1="16" y1="42" x2="26" y2="34" stroke="var(--primary)" strokeWidth="0.75" opacity="0.5"/>
+          <line x1="14" y1="22" x2="24" y2="28" stroke="var(--primary)" strokeWidth="0.75" opacity="0.5"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
 export const GLYPHS: Record<string, React.ComponentType<GlyphProps>> = {
   dissociation: DissociationGlyph,
   "false-self": FalseSelfGlyph,
@@ -248,4 +309,7 @@ export const GLYPHS: Record<string, React.ComponentType<GlyphProps>> = {
   "reversed-flow": ReversedFlowGlyph,
   enmeshment: EnmeshmentGlyph,
   "rigid-self-sufficiency": RigidSelfSufficiencyGlyph,
+  "inside-drugs": InsideDrugsGlyph,
+  "sober-listening": SoberListeningGlyph,
+  "engage-your-senses": EngageSensesGlyph,
 };
