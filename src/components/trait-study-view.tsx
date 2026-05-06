@@ -20,6 +20,7 @@ import { InsideDrugs } from "@/components/infographics/inside-drugs";
 import { AngerPendulum } from "@/components/infographics/anger-pendulum";
 import { SensesGrounding } from "@/components/infographics/senses-grounding";
 import { SoberListening } from "@/components/infographics/sober-listening";
+import { GameOfDissociation } from "@/components/infographics/game-of-dissociation";
 
 const QUADRANT_ORDER: Quadrant[] = ["laundry", "other", "flipSide", "flipSideOther"];
 
@@ -99,6 +100,14 @@ const TRAIT_QUADRANT_GRAPHICS: Record<number, Partial<Record<Quadrant, GraphicEn
       Component: AngerPendulum,
       caption:
         "Some of us flipped from avoider to aggressor — \"if we can't beat them, we'll join them.\" Cutting \"helpful\" criticism and contempt are loudest when the target reminds us of our own buried vulnerabilities.",
+      supplements: [
+        {
+          Component: GameOfDissociation,
+          title: "Trait 3 in one frame",
+          description:
+            "Both poles, the chemistry that powers each, the wound at the center, and the recovery move out of each — side by side. A useful map when you can't tell which position you're in.",
+        },
+      ],
     },
     flipSide: {
       Component: SensesGrounding,
