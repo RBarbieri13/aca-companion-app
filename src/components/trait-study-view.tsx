@@ -16,6 +16,11 @@ import { IdentityPendulum } from "@/components/infographics/identity-pendulum";
 import { IdentityCompass } from "@/components/infographics/identity-compass";
 import { SanctuaryToBridge } from "@/components/infographics/sanctuary-to-bridge";
 import { RelationalPatternsTable } from "@/components/infographics/relational-patterns-table";
+import { InsideDrugs } from "@/components/infographics/inside-drugs";
+import { AngerPendulum } from "@/components/infographics/anger-pendulum";
+import { SensesGrounding } from "@/components/infographics/senses-grounding";
+import { SoberListening } from "@/components/infographics/sober-listening";
+import { GameOfDissociation } from "@/components/infographics/game-of-dissociation";
 
 const QUADRANT_ORDER: Quadrant[] = ["laundry", "other", "flipSide", "flipSideOther"];
 
@@ -83,6 +88,36 @@ const TRAIT_QUADRANT_GRAPHICS: Record<number, Partial<Record<Quadrant, GraphicEn
       Component: SanctuaryToBridge,
       caption:
         "The walls that kept us safe became the walls that kept us alone. We build a bridge out — not into enmeshment, but into a fellowship that accepts us as we are.",
+    },
+  },
+  3: {
+    laundry: {
+      Component: InsideDrugs,
+      caption:
+        "The trauma was too much for a tiny body, so we dosed ourselves with worry, fear, and pain — cortisol, adrenaline, melatonin. The feelings went numb, and the loop has been running ever since.",
+    },
+    other: {
+      Component: AngerPendulum,
+      caption:
+        "Some of us flipped from avoider to aggressor — \"if we can't beat them, we'll join them.\" Cutting \"helpful\" criticism and contempt are loudest when the target reminds us of our own buried vulnerabilities.",
+      supplements: [
+        {
+          Component: GameOfDissociation,
+          title: "Trait 3 in one frame",
+          description:
+            "Both poles, the chemistry that powers each, the wound at the center, and the recovery move out of each — side by side. A useful map when you can't tell which position you're in.",
+        },
+      ],
+    },
+    flipSide: {
+      Component: SensesGrounding,
+      caption:
+        "When the fear floods, the workbook offers a simple orientation. Look, listen, taste, smell, touch. Each sense tells the body: this is now, I am no longer small. Then the criticism stops being a threat.",
+    },
+    flipSideOther: {
+      Component: SoberListening,
+      caption:
+        "Renewed True Self esteem leaves the false self with nothing to defend. We can hear the anger, sit with the criticism, take responsibility where it applies — and where it doesn't, let it fly.",
     },
   },
 };

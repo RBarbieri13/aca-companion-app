@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { TRAITS } from "@/data/traits";
 import { getCurrentTraitId } from "@/data/schedule";
 import { formatDate, cn } from "@/lib/utils";
-import { Lock, Heart, Zap, Feather, Compass, Scale, Home } from "lucide-react";
+import { Lock, Heart, Zap, Feather, Compass, Scale, Home, Ear } from "lucide-react";
 
 import { InnerChildExercise } from "@/components/exercises/inner-child";
 import { FeelingsWheel } from "@/components/exercises/feelings-wheel";
@@ -17,6 +17,7 @@ import { AffirmationsView } from "@/components/exercises/affirmations";
 import { IdentityInventory } from "@/components/exercises/identity-inventory";
 import { ValuesSort } from "@/components/exercises/values-sort";
 import { SanctuaryCheckIn } from "@/components/exercises/sanctuary-check-in";
+import { SoberListeningLogView } from "@/components/exercises/sober-listening-log";
 
 type ExerciseId =
   | "inner-child"
@@ -25,7 +26,8 @@ type ExerciseId =
   | "affirmations"
   | "identity-inventory"
   | "values-sort"
-  | "sanctuary-check-in";
+  | "sanctuary-check-in"
+  | "sober-listening-log";
 
 interface ExerciseMeta {
   id: ExerciseId;
@@ -85,6 +87,13 @@ const EXERCISES: Record<ExerciseId, ExerciseMeta> = {
     icon: Home,
     Component: SanctuaryCheckIn,
   },
+  "sober-listening-log": {
+    id: "sober-listening-log",
+    label: "Sober Listening Log",
+    short: "Receive criticism without defending the false self",
+    icon: Ear,
+    Component: SoberListeningLogView,
+  },
 };
 
 interface TraitExerciseBundle {
@@ -103,21 +112,30 @@ const TRAIT_EXERCISES: Record<number, TraitExerciseBundle> = {
       "Trait 2 is about approval seeking and lost identity — and the rigid self-sufficiency we swing to in order to protect ourselves. These practices are about reclaiming an identity that is yours, not borrowed, and testing whether aloneness is sanctuary or prison this week.",
     exercises: ["identity-inventory", "values-sort", "sanctuary-check-in", "affirmations"],
   },
+  3: {
+    blurb:
+      "Trait 3 is about being frightened by anger and criticism — and the flip into being the angry critic ourselves. These practices help the body return to the present when fear floods, and rehearse the sober posture from the workbook: hear, sit with it, and either thank or let it fly.",
+    exercises: ["sober-listening-log", "trigger", "feelings", "affirmations"],
+  },
 };
 
 const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string>>>> = {
   "inner-child": {
     1: "When isolation or fear of authority has you activated, the child voice is often the one that's scared. Let the adult you meet them.",
+    3: "The fear of anger you feel as an adult is usually the child remembering. Let the adult voice say what no one said back then: you are safe now, and we are no longer small.",
   },
   feelings: {
     1: "Isolation dampens feelings into a blur. Naming the specific word pulls you out of the loop.",
+    3: "The first move out of dosing is feeling. When fear of anger or criticism floods you, name what's actually here — that's the opposite of numbing.",
   },
   trigger: {
     1: "Every trigger around authority is practice. Capture the moment so the response next time can be yours, not your childhood's.",
+    3: "Anger and cutting criticism are some of the loudest triggers. Capture event → response → desired response so the adrenaline of reaction stops being the steering wheel.",
   },
   affirmations: {
     1: "The younger part of you is still listening. These are sentences they needed, said now.",
     2: "When identity feels borrowed, return to these. They can't replace the work, but they steady the ground.",
+    3: "The renewed True Self esteem the workbook describes is built one sentence at a time. These are some of those sentences.",
   },
   "identity-inventory": {
     2: "A slow, self-authored record of who you are — built over weeks, not minutes. This directly answers Flip Side Q1: 'Describe ways you do not depend on others to define who you are.'",
@@ -127,6 +145,9 @@ const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string
   },
   "sanctuary-check-in": {
     2: "Flip Side of the Other asks: 'When you are alone, do you feel more like it is a prison — or a sanctuary?' Answer once a week. The chart below shows your relationship to aloneness changing over time.",
+  },
+  "sober-listening-log": {
+    3: "Direct rehearsal for the Trait 3 Flip Sides. Capture criticism, sit with the question 'is there truth here that could benefit me?', and either take it in or let it fly. Over time you'll see the false self has less and less to defend.",
   },
 };
 
@@ -138,6 +159,7 @@ const ALL_EXERCISE_IDS: ExerciseId[] = [
   "identity-inventory",
   "values-sort",
   "sanctuary-check-in",
+  "sober-listening-log",
 ];
 
 export function ExercisesView() {

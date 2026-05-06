@@ -10,6 +10,7 @@ import type {
   IdentityEntry,
   IdentityCategory,
   SanctuaryCheckIn,
+  SoberListeningEntry,
   Quadrant,
 } from "@/lib/types";
 
@@ -25,6 +26,7 @@ interface AppState {
   innerChild: InnerChildEntry[];
   identity: IdentityEntry[];
   sanctuaryCheckIns: SanctuaryCheckIn[];
+  soberListening: SoberListeningEntry[];
   attendance: Record<string, AttendanceRecord>;
   favoriteAffirmations: string[];
 
@@ -51,6 +53,8 @@ interface AppState {
   deleteIdentityEntry: (id: string) => void;
   logSanctuaryCheckIn: (weekOf: string, value: number, note: string) => void;
   deleteSanctuaryCheckIn: (id: string) => void;
+  logSoberListening: (entry: Omit<SoberListeningEntry, "id" | "timestamp">) => void;
+  deleteSoberListening: (id: string) => void;
   setAttendance: (date: string, attended: boolean) => void;
   setAttendanceNotes: (date: string, notes: string) => void;
   toggleFavoriteAffirmation: (text: string) => void;
@@ -73,6 +77,7 @@ export const useAppStore = create<AppState>()(
       innerChild: [],
       identity: [],
       sanctuaryCheckIns: [],
+      soberListening: [],
       attendance: {},
       favoriteAffirmations: [],
 
@@ -184,6 +189,19 @@ export const useAppStore = create<AppState>()(
 
       deleteSanctuaryCheckIn: (id) => {
         set({ sanctuaryCheckIns: get().sanctuaryCheckIns.filter((c) => c.id !== id) });
+      },
+
+      logSoberListening: (entry) => {
+        const log: SoberListeningEntry = {
+          ...entry,
+          id: nowId(),
+          timestamp: new Date().toISOString(),
+        };
+        set({ soberListening: [log, ...get().soberListening] });
+      },
+
+      deleteSoberListening: (id) => {
+        set({ soberListening: get().soberListening.filter((e) => e.id !== id) });
       },
 
       setAttendance: (date, attended) => {

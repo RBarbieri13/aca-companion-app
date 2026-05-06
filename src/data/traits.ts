@@ -35,14 +35,16 @@ export const TRAITS: Trait[] = [
   {
     id: 3,
     shortName: "Fear of Anger & Criticism",
-    active: false,
+    active: true,
     mainListDate: "2026-05-09",
     flipSideDate: "2026-05-16",
     statements: {
       laundry: "We are frightened by angry people and any personal criticism.",
-      other: "",
-      flipSide: "",
-      flipSideOther: "",
+      other: "We frighten people with our anger and threat of belittling criticism.",
+      flipSide:
+        "We are not automatically frightened by angry people and no longer regard personal criticism as a threat.",
+      flipSideOther:
+        "With our renewed sense of self-worth and self-esteem we realize it is no longer necessary to protect ourselves by intimidating others with contempt, ridicule and anger.",
     },
   },
   {

@@ -88,6 +88,21 @@ export interface SanctuaryCheckIn {
   timestamp: string;
 }
 
+/**
+ * Trait 3 reflection log: receiving anger or criticism from True Self esteem.
+ * Mirrors the workbook's "Thank you for sharing / If it doesn't apply, let it fly" flow.
+ */
+export interface SoberListeningEntry {
+  id: string;
+  source: string;          // Who said it / context
+  criticism: string;       // What was said
+  hadTruth: boolean | null; // null = haven't decided yet
+  truthFound: string;      // What's true here that could benefit me
+  responseTaken: string;   // What I did or plan to do
+  selfWorth: number;       // 0-100 sober self-worth in the moment after
+  timestamp: string;
+}
+
 export interface Concept {
   id: string;
   name: string;
