@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { TRAITS } from "@/data/traits";
 import { getCurrentTraitId } from "@/data/schedule";
 import { formatDate, cn } from "@/lib/utils";
-import { Lock, Heart, Zap, Feather, Compass, Scale, Home, Ear, Users } from "lucide-react";
+import { Lock, Heart, Zap, Feather, Compass, Scale, Home, Ear, Users, ShieldCheck } from "lucide-react";
 
 import { InnerChildExercise } from "@/components/exercises/inner-child";
 import { FeelingsWheel } from "@/components/exercises/feelings-wheel";
@@ -19,6 +19,7 @@ import { ValuesSort } from "@/components/exercises/values-sort";
 import { SanctuaryCheckIn } from "@/components/exercises/sanctuary-check-in";
 import { SoberListeningLogView } from "@/components/exercises/sober-listening-log";
 import { BondingInventoryView } from "@/components/exercises/bonding-inventory";
+import { SafePersonView } from "@/components/exercises/safe-person";
 
 type ExerciseId =
   | "inner-child"
@@ -29,7 +30,8 @@ type ExerciseId =
   | "values-sort"
   | "sanctuary-check-in"
   | "sober-listening-log"
-  | "bonding-inventory";
+  | "bonding-inventory"
+  | "safe-person";
 
 interface ExerciseMeta {
   id: ExerciseId;
@@ -103,6 +105,13 @@ const EXERCISES: Record<ExerciseId, ExerciseMeta> = {
     icon: Users,
     Component: BondingInventoryView,
   },
+  "safe-person": {
+    id: "safe-person",
+    label: "“Safe Person” Builder",
+    short: "Define what safe looks like — then check someone against it",
+    icon: ShieldCheck,
+    Component: SafePersonView,
+  },
 };
 
 interface TraitExerciseBundle {
@@ -128,8 +137,8 @@ const TRAIT_EXERCISES: Record<number, TraitExerciseBundle> = {
   },
   4: {
     blurb:
-      "Trait 4 is about the compulsive pull to recreate abandonment — choosing the unavailable, leaving before we're left, or avoiding closeness altogether. These practices take an honest inventory of how we bond, and then return us to the Inner Child we abandoned in the process.",
-    exercises: ["bonding-inventory", "inner-child", "trigger", "affirmations"],
+      "Trait 4 is about the compulsive pull to recreate abandonment — choosing the unavailable, leaving before we're left, or avoiding closeness altogether. These practices take an honest inventory of how we bond, build a conscious sense of who is safe, and return us to the Inner Child we abandoned in the process.",
+    exercises: ["bonding-inventory", "safe-person", "inner-child", "affirmations"],
   },
 };
 
@@ -169,6 +178,9 @@ const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string
   "bonding-inventory": {
     4: "This is the emotional inventory the Flip Side of Trait 4 calls for. Log the relationships, jobs, and groups that mattered — the seat you played, whether a compulsion was present, how it ended, and whether it recreated the old wound. The pattern becomes visible, and then it loses its grip.",
   },
+  "safe-person": {
+    4: "Flip Side Q4 asks what makes a person 'safe.' Many of us studied people for danger as kids. Here you make it conscious: write your own green and red flags, then hold a specific person up to your definition — gently, as data, not a verdict.",
+  },
 };
 
 const ALL_EXERCISE_IDS: ExerciseId[] = [
@@ -181,6 +193,7 @@ const ALL_EXERCISE_IDS: ExerciseId[] = [
   "sanctuary-check-in",
   "sober-listening-log",
   "bonding-inventory",
+  "safe-person",
 ];
 
 export function ExercisesView() {

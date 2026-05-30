@@ -121,6 +121,27 @@ export interface BondingInventoryEntry {
   timestamp: string;
 }
 
+/**
+ * Trait 4 "safe person" work: building a personal, conscious definition of what makes a
+ * person safe vs. unsafe (Flip Side Q4), then optionally checking a specific person against it.
+ */
+export type SafeFlagKind = "green" | "red";
+
+export interface SafePersonCriterion {
+  id: string;
+  text: string;
+  kind: SafeFlagKind;
+}
+
+export interface SafePersonCheck {
+  id: string;
+  who: string;
+  greens: string[]; // text snapshots of green flags present
+  reds: string[];   // text snapshots of red flags present
+  note: string;
+  timestamp: string;
+}
+
 export interface Concept {
   id: string;
   name: string;

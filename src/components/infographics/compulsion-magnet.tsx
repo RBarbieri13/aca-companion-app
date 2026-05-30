@@ -38,15 +38,31 @@ export function CompulsionMagnet({ className }: Props) {
 
       {/* Center — the unmet abandonment need */}
       <g>
-        <circle cx="270" cy="190" r="58" fill="url(#cm-core)" stroke="var(--accent)" strokeWidth="1.75"/>
+        <circle cx="270" cy="186" r="56" fill="url(#cm-core)" stroke="var(--accent)" strokeWidth="1.75"/>
         {/* small abandoned-child mark */}
-        <circle cx="270" cy="172" r="7" fill="var(--accent)" fillOpacity="0.9"/>
-        <rect x="263" y="180" width="14" height="18" rx="5" fill="var(--accent)" fillOpacity="0.8"/>
-        <text x="270" y="216" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="8.5" letterSpacing="0.8" fontWeight="700" fill="var(--accent)">
+        <circle cx="270" cy="168" r="7" fill="var(--accent)" fillOpacity="0.9"/>
+        <rect x="263" y="176" width="14" height="18" rx="5" fill="var(--accent)" fillOpacity="0.8"/>
+        <text x="270" y="210" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="8.5" letterSpacing="0.8" fontWeight="700" fill="var(--accent)">
           ABANDONMENT
         </text>
-        <text x="270" y="228" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="8.5" letterSpacing="0.8" fontWeight="700" fill="var(--accent)">
+        <text x="270" y="222" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="8.5" letterSpacing="0.8" fontWeight="700" fill="var(--accent)">
           &ldquo;NEEDS&rdquo;
+        </text>
+      </g>
+
+      {/* "or we become one" badge under the core */}
+      <g>
+        <rect x="186" y="250" width="168" height="22" rx="11" fill="var(--card)" stroke="var(--accent)" strokeWidth="1" strokeOpacity="0.5"/>
+        <text x="270" y="265" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="8.5" fill="var(--foreground)" opacity="0.85">
+          marry them &mdash; <tspan fontWeight="700" fill="var(--accent)">or become one ourselves</tspan>
+        </text>
+      </g>
+
+      {/* Legend for the pull lines */}
+      <g>
+        <line x1="36" y1="60" x2="58" y2="60" stroke="var(--muted-foreground)" strokeWidth="1" strokeDasharray="3 3" opacity="0.55"/>
+        <text x="63" y="63" fontFamily="var(--font-inter)" fontSize="8" fill="var(--muted-foreground)" fontStyle="italic">
+          magnetic pull
         </text>
       </g>
 
@@ -68,7 +84,7 @@ export function CompulsionMagnet({ className }: Props) {
             x1={t.x < 270 ? t.x + 70 : t.x - 70}
             y1={t.y}
             x2={t.x < 270 ? 214 : 326}
-            y2={190}
+            y2={186}
             stroke="var(--muted-foreground)"
             strokeWidth="1"
             strokeDasharray="3 3"

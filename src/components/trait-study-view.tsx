@@ -26,6 +26,7 @@ import { AbandonFirst } from "@/components/infographics/abandon-first";
 import { BrokenCycle } from "@/components/infographics/broken-cycle";
 import { ReclaimingTheChild } from "@/components/infographics/reclaiming-the-child";
 import { AbandonmentGame } from "@/components/infographics/abandonment-game";
+import { AbandonmentStrategiesTable } from "@/components/infographics/abandonment-strategies-table";
 
 const QUADRANT_ORDER: Quadrant[] = ["laundry", "other", "flipSide", "flipSideOther"];
 
@@ -130,6 +131,14 @@ const TRAIT_QUADRANT_GRAPHICS: Record<number, Partial<Record<Quadrant, GraphicEn
       Component: CompulsionMagnet,
       caption:
         "We don't pick the unavailable by accident. The unmet abandonment need works like a magnet for alcoholics, workaholics, rageaholics — anyone whose compulsion keeps them at arm's length, so the old abandonment can feel like home.",
+      supplements: [
+        {
+          Component: AbandonmentStrategiesTable,
+          title: "Four ways the trait gets acted out",
+          description:
+            "Becoming the compulsive one, marrying one, leaving first, or avoiding closeness altogether — they look different but share a root. Compare the move, the fear underneath, what it costs, and the recovery turn for each.",
+        },
+      ],
     },
     other: {
       Component: AbandonFirst,
