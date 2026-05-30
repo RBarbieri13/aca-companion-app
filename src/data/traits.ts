@@ -50,15 +50,17 @@ export const TRAITS: Trait[] = [
   {
     id: 4,
     shortName: "Attraction to Compulsive Personalities",
-    active: false,
+    active: true,
     mainListDate: "2026-05-30",
     flipSideDate: "2026-06-06",
     statements: {
       laundry:
-        "We either become alcoholics, marry them, or both, or find another compulsive personality to fulfill our sick abandonment needs.",
-      other: "",
-      flipSide: "",
-      flipSideOther: "",
+        "We either become alcoholics, marry them, or both, or find another compulsive personality such as a workaholic to fulfill our sick abandonment needs.",
+      other:
+        "We dominate others and abandon them before they can abandon us or we avoid relationships with dependent people altogether. To avoid being hurt, we isolate and dissociate and thereby abandon ourselves.",
+      flipSide: "We do not have a compulsive need to recreate abandonment.",
+      flipSideOther:
+        "We accept and comfort the isolated and hurt Inner Child we have abandoned and disavowed and thereby end the need to act out our fears of enmeshment and abandonment with other people.",
     },
   },
   {

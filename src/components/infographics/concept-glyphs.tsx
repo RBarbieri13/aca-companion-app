@@ -295,6 +295,95 @@ export function EngageSensesGlyph({ className, size = 48 }: GlyphProps) {
   );
 }
 
+export function CompulsivePersonalityGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* A figure caught in a spinning, driven orbit */}
+          <circle cx="30" cy="30" r="16" fill="none" stroke="var(--accent)" strokeWidth="1.25" strokeDasharray="3 2"/>
+          {/* central driven figure */}
+          <circle cx="30" cy="27" r="4.5" fill="var(--accent)"/>
+          <rect x="25.5" y="31" width="9" height="12" rx="3" fill="var(--accent)" fillOpacity="0.85"/>
+          {/* orbiting compulsion dot with motion arc */}
+          <circle cx="46" cy="30" r="3" fill="var(--primary)"/>
+          <path d="M 44 18 A 16 16 0 0 1 46 27" fill="none" stroke="var(--primary)" strokeWidth="1.5" strokeLinecap="round"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function RecreatingAbandonmentGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* A loop arrow returning to the same wound */}
+          <path d="M 18 36 A 12 12 0 1 1 30 42" fill="none" stroke="var(--accent)" strokeWidth="1.75" strokeLinecap="round"/>
+          <path d="M 30 42 L 25 40 M 30 42 L 31 37" stroke="var(--accent)" strokeWidth="1.75" fill="none" strokeLinecap="round"/>
+          {/* the recurring wound at center */}
+          <path d="M 30 22 L 32.5 27 L 27.5 27 Z" fill="var(--primary)" fillOpacity="0.85"/>
+          <circle cx="30" cy="30" r="2" fill="var(--primary)"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function VictimVictimizerGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* Triangle of three rotating roles */}
+          <path d="M 30 16 L 44 40 L 16 40 Z" fill="none" stroke="var(--primary)" strokeWidth="1.25" opacity="0.5"/>
+          {/* three role nodes */}
+          <circle cx="30" cy="16" r="4" fill="var(--sage)"/>
+          <circle cx="44" cy="40" r="4" fill="var(--accent)"/>
+          <circle cx="16" cy="40" r="4" fill="var(--primary)"/>
+          {/* rotation arrows */}
+          <path d="M 36 22 A 12 12 0 0 1 39 32" fill="none" stroke="var(--muted-foreground)" strokeWidth="1" strokeLinecap="round"/>
+          <path d="M 39 32 L 37 30 M 39 32 L 40.5 30" stroke="var(--muted-foreground)" strokeWidth="1" strokeLinecap="round"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function SelfAbandonmentGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* Adult figure turning away from a small child */}
+          <circle cx="22" cy="24" r="6" fill="var(--muted-foreground)" fillOpacity="0.6"/>
+          <rect x="16" y="30" width="12" height="16" rx="4" fill="var(--muted-foreground)" fillOpacity="0.5"/>
+          {/* small child left behind, dashed (abandoned) */}
+          <circle cx="40" cy="30" r="4" fill="none" stroke="var(--accent)" strokeWidth="1.25" strokeDasharray="2 1.5"/>
+          <rect x="36" y="34" width="8" height="11" rx="3" fill="none" stroke="var(--accent)" strokeWidth="1.25" strokeDasharray="2 1.5"/>
+          {/* gap between them */}
+          <line x1="30" y1="20" x2="33" y2="44" stroke="var(--border)" strokeWidth="1" strokeDasharray="2 3" opacity="0.7"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function DoubleWinnerGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* Two overlapping laurel/check marks — two recoveries */}
+          <path d="M 16 30 L 22 37 L 33 22" fill="none" stroke="var(--sage)" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M 27 34 L 33 41 L 44 26" fill="none" stroke="var(--primary)" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
 export const GLYPHS: Record<string, React.ComponentType<GlyphProps>> = {
   dissociation: DissociationGlyph,
   "false-self": FalseSelfGlyph,
@@ -312,4 +401,9 @@ export const GLYPHS: Record<string, React.ComponentType<GlyphProps>> = {
   "inside-drugs": InsideDrugsGlyph,
   "sober-listening": SoberListeningGlyph,
   "engage-your-senses": EngageSensesGlyph,
+  "compulsive-personality": CompulsivePersonalityGlyph,
+  "recreating-abandonment": RecreatingAbandonmentGlyph,
+  "victim-victimizer": VictimVictimizerGlyph,
+  "self-abandonment": SelfAbandonmentGlyph,
+  "double-winner": DoubleWinnerGlyph,
 };

@@ -106,10 +106,42 @@ export const TRAIT_3_QUESTIONS: ReflectionQuestion[] = [
   { traitId: 3, quadrant: "flipSideOther", index: 5, question: "When you feel angry today, what do you do?" },
 ];
 
+export const TRAIT_4_QUESTIONS: ReflectionQuestion[] = [
+  // The Laundry List
+  { traitId: 4, quadrant: "laundry", index: 0, question: "Who in your adult life is the closest personality type to the most significant adult in your childhood who influenced you?" },
+  { traitId: 4, quadrant: "laundry", index: 1, question: "List the various compulsions of significant others from your childhood." },
+  { traitId: 4, quadrant: "laundry", index: 2, question: "List the various compulsions of significant others from your adulthood." },
+  { traitId: 4, quadrant: "laundry", index: 3, question: "List the various compulsions of yourself, both past and present." },
+  { traitId: 4, quadrant: "laundry", index: 4, question: "How does being involved with another compulsive personality fulfill your abandonment “needs”?" },
+  { traitId: 4, quadrant: "laundry", index: 5, question: "Describe an instance when a compulsive personality was no longer in your life and how it affected you." },
+
+  // The Other Laundry List
+  { traitId: 4, quadrant: "other", index: 0, question: "List the people/jobs/events/groups you've abandoned in your life and how you felt each time you made the decision to leave and what contributed to your leaving." },
+  { traitId: 4, quadrant: "other", index: 1, question: "How do you dissociate?" },
+  { traitId: 4, quadrant: "other", index: 2, question: "In what ways do you feel others can hurt you?" },
+  { traitId: 4, quadrant: "other", index: 3, question: "How have you disavowed yourself in your past and in your adulthood?" },
+  { traitId: 4, quadrant: "other", index: 4, question: "Are there any similarities or patterns that you see that have encouraged you to remain alone?" },
+  { traitId: 4, quadrant: "other", index: 5, question: "When someone enters your life and it appears that you are moving into a closer stage of your relationship, how different do you feel now than before you were in ACA?" },
+
+  // The Flip Side of The Laundry List
+  { traitId: 4, quadrant: "flipSide", index: 0, question: "Which ACA Steps or ACA Traditions have helped you lessen your compulsive need to recreate abandonment and/or helped you identify this compulsive need learned in childhood?" },
+  { traitId: 4, quadrant: "flipSide", index: 1, question: "Describe a time in your life when you did recreate abandonment and a time in your present life when you could tell that you weren't recreating abandonment and you were true to yourself." },
+  { traitId: 4, quadrant: "flipSide", index: 2, question: "Using your imagination, describe yourself from an outsider's point of view as to how you may have appeared in the past when you were acting out your compulsion or compulsions." },
+  { traitId: 4, quadrant: "flipSide", index: 3, question: "Do you study people in order to see if they are “safe”? If you do this, list examples of what constitutes a “safe” person." },
+  { traitId: 4, quadrant: "flipSide", index: 4, question: "Who have you dominated in the past, and who dominated you in childhood and adulthood?" },
+  { traitId: 4, quadrant: "flipSide", index: 5, question: "Describe a scenario that would detail the progress you are making in not having a compulsive need to recreate abandonment." },
+
+  // The Flip Side of The Other Laundry List
+  { traitId: 4, quadrant: "flipSideOther", index: 0, question: "Describe as if you were telling a fellow traveler: what you do when you comfort your isolated and hurt Inner Child, and give a recent example of when you've done that." },
+  { traitId: 4, quadrant: "flipSideOther", index: 1, question: "How do you communicate the acceptance you feel for your Inner Child in all of the aspects, moods, needs, and wants that your Inner Child displays?" },
+  { traitId: 4, quadrant: "flipSideOther", index: 2, question: "How have you been disavowed by others in your past and in your adulthood?" },
+];
+
 export const ALL_QUESTIONS: ReflectionQuestion[] = [
   ...TRAIT_1_QUESTIONS,
   ...TRAIT_2_QUESTIONS,
   ...TRAIT_3_QUESTIONS,
+  ...TRAIT_4_QUESTIONS,
 ];
 
 export function getQuestionsForTrait(traitId: number) {

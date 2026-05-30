@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { TRAITS } from "@/data/traits";
 import { getCurrentTraitId } from "@/data/schedule";
 import { formatDate, cn } from "@/lib/utils";
-import { Lock, Heart, Zap, Feather, Compass, Scale, Home, Ear } from "lucide-react";
+import { Lock, Heart, Zap, Feather, Compass, Scale, Home, Ear, Users } from "lucide-react";
 
 import { InnerChildExercise } from "@/components/exercises/inner-child";
 import { FeelingsWheel } from "@/components/exercises/feelings-wheel";
@@ -18,6 +18,7 @@ import { IdentityInventory } from "@/components/exercises/identity-inventory";
 import { ValuesSort } from "@/components/exercises/values-sort";
 import { SanctuaryCheckIn } from "@/components/exercises/sanctuary-check-in";
 import { SoberListeningLogView } from "@/components/exercises/sober-listening-log";
+import { BondingInventoryView } from "@/components/exercises/bonding-inventory";
 
 type ExerciseId =
   | "inner-child"
@@ -27,7 +28,8 @@ type ExerciseId =
   | "identity-inventory"
   | "values-sort"
   | "sanctuary-check-in"
-  | "sober-listening-log";
+  | "sober-listening-log"
+  | "bonding-inventory";
 
 interface ExerciseMeta {
   id: ExerciseId;
@@ -94,6 +96,13 @@ const EXERCISES: Record<ExerciseId, ExerciseMeta> = {
     icon: Ear,
     Component: SoberListeningLogView,
   },
+  "bonding-inventory": {
+    id: "bonding-inventory",
+    label: "Bonding Pattern Inventory",
+    short: "See exactly how you recreate or recycle abandonment",
+    icon: Users,
+    Component: BondingInventoryView,
+  },
 };
 
 interface TraitExerciseBundle {
@@ -117,12 +126,18 @@ const TRAIT_EXERCISES: Record<number, TraitExerciseBundle> = {
       "Trait 3 is about being frightened by anger and criticism — and the flip into being the angry critic ourselves. These practices help the body return to the present when fear floods, and rehearse the sober posture from the workbook: hear, sit with it, and either thank or let it fly.",
     exercises: ["sober-listening-log", "trigger", "feelings", "affirmations"],
   },
+  4: {
+    blurb:
+      "Trait 4 is about the compulsive pull to recreate abandonment — choosing the unavailable, leaving before we're left, or avoiding closeness altogether. These practices take an honest inventory of how we bond, and then return us to the Inner Child we abandoned in the process.",
+    exercises: ["bonding-inventory", "inner-child", "trigger", "affirmations"],
+  },
 };
 
 const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string>>>> = {
   "inner-child": {
     1: "When isolation or fear of authority has you activated, the child voice is often the one that's scared. Let the adult you meet them.",
     3: "The fear of anger you feel as an adult is usually the child remembering. Let the adult voice say what no one said back then: you are safe now, and we are no longer small.",
+    4: "The Flip Side of Trait 4 is comforting the Inner Child we abandoned and disavowed. This is where that conversation happens — the loving parent crossing back to the child it left.",
   },
   feelings: {
     1: "Isolation dampens feelings into a blur. Naming the specific word pulls you out of the loop.",
@@ -131,11 +146,13 @@ const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string
   trigger: {
     1: "Every trigger around authority is practice. Capture the moment so the response next time can be yours, not your childhood's.",
     3: "Anger and cutting criticism are some of the loudest triggers. Capture event → response → desired response so the adrenaline of reaction stops being the steering wheel.",
+    4: "The urge to leave first, dominate, or pull away is the compulsion talking. Catch it in the moment: what happened, how you reacted, and how you'd rather respond next time.",
   },
   affirmations: {
     1: "The younger part of you is still listening. These are sentences they needed, said now.",
     2: "When identity feels borrowed, return to these. They can't replace the work, but they steady the ground.",
     3: "The renewed True Self esteem the workbook describes is built one sentence at a time. These are some of those sentences.",
+    4: "The Inner Child you abandoned needs to hear it will not be left again. These are sentences that rebuild that trust.",
   },
   "identity-inventory": {
     2: "A slow, self-authored record of who you are — built over weeks, not minutes. This directly answers Flip Side Q1: 'Describe ways you do not depend on others to define who you are.'",
@@ -149,6 +166,9 @@ const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string
   "sober-listening-log": {
     3: "Direct rehearsal for the Trait 3 Flip Sides. Capture criticism, sit with the question 'is there truth here that could benefit me?', and either take it in or let it fly. Over time you'll see the false self has less and less to defend.",
   },
+  "bonding-inventory": {
+    4: "This is the emotional inventory the Flip Side of Trait 4 calls for. Log the relationships, jobs, and groups that mattered — the seat you played, whether a compulsion was present, how it ended, and whether it recreated the old wound. The pattern becomes visible, and then it loses its grip.",
+  },
 };
 
 const ALL_EXERCISE_IDS: ExerciseId[] = [
@@ -160,6 +180,7 @@ const ALL_EXERCISE_IDS: ExerciseId[] = [
   "values-sort",
   "sanctuary-check-in",
   "sober-listening-log",
+  "bonding-inventory",
 ];
 
 export function ExercisesView() {

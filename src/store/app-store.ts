@@ -11,6 +11,7 @@ import type {
   IdentityCategory,
   SanctuaryCheckIn,
   SoberListeningEntry,
+  BondingInventoryEntry,
   Quadrant,
 } from "@/lib/types";
 
@@ -27,6 +28,7 @@ interface AppState {
   identity: IdentityEntry[];
   sanctuaryCheckIns: SanctuaryCheckIn[];
   soberListening: SoberListeningEntry[];
+  bondingInventory: BondingInventoryEntry[];
   attendance: Record<string, AttendanceRecord>;
   favoriteAffirmations: string[];
 
@@ -55,6 +57,8 @@ interface AppState {
   deleteSanctuaryCheckIn: (id: string) => void;
   logSoberListening: (entry: Omit<SoberListeningEntry, "id" | "timestamp">) => void;
   deleteSoberListening: (id: string) => void;
+  logBondingEntry: (entry: Omit<BondingInventoryEntry, "id" | "timestamp">) => void;
+  deleteBondingEntry: (id: string) => void;
   setAttendance: (date: string, attended: boolean) => void;
   setAttendanceNotes: (date: string, notes: string) => void;
   toggleFavoriteAffirmation: (text: string) => void;
@@ -78,6 +82,7 @@ export const useAppStore = create<AppState>()(
       identity: [],
       sanctuaryCheckIns: [],
       soberListening: [],
+      bondingInventory: [],
       attendance: {},
       favoriteAffirmations: [],
 
@@ -202,6 +207,19 @@ export const useAppStore = create<AppState>()(
 
       deleteSoberListening: (id) => {
         set({ soberListening: get().soberListening.filter((e) => e.id !== id) });
+      },
+
+      logBondingEntry: (entry) => {
+        const log: BondingInventoryEntry = {
+          ...entry,
+          id: nowId(),
+          timestamp: new Date().toISOString(),
+        };
+        set({ bondingInventory: [log, ...get().bondingInventory] });
+      },
+
+      deleteBondingEntry: (id) => {
+        set({ bondingInventory: get().bondingInventory.filter((e) => e.id !== id) });
       },
 
       setAttendance: (date, attended) => {
