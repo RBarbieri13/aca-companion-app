@@ -11,6 +11,10 @@ import type {
   IdentityCategory,
   SanctuaryCheckIn,
   SoberListeningEntry,
+  BondingInventoryEntry,
+  SafePersonCriterion,
+  SafePersonCheck,
+  SafeFlagKind,
   Quadrant,
 } from "@/lib/types";
 
@@ -27,6 +31,9 @@ interface AppState {
   identity: IdentityEntry[];
   sanctuaryCheckIns: SanctuaryCheckIn[];
   soberListening: SoberListeningEntry[];
+  bondingInventory: BondingInventoryEntry[];
+  safePersonCriteria: SafePersonCriterion[];
+  safePersonChecks: SafePersonCheck[];
   attendance: Record<string, AttendanceRecord>;
   favoriteAffirmations: string[];
 
@@ -55,6 +62,12 @@ interface AppState {
   deleteSanctuaryCheckIn: (id: string) => void;
   logSoberListening: (entry: Omit<SoberListeningEntry, "id" | "timestamp">) => void;
   deleteSoberListening: (id: string) => void;
+  logBondingEntry: (entry: Omit<BondingInventoryEntry, "id" | "timestamp">) => void;
+  deleteBondingEntry: (id: string) => void;
+  addSafeCriterion: (text: string, kind: SafeFlagKind) => void;
+  deleteSafeCriterion: (id: string) => void;
+  logSafeCheck: (entry: Omit<SafePersonCheck, "id" | "timestamp">) => void;
+  deleteSafeCheck: (id: string) => void;
   setAttendance: (date: string, attended: boolean) => void;
   setAttendanceNotes: (date: string, notes: string) => void;
   toggleFavoriteAffirmation: (text: string) => void;
@@ -78,6 +91,9 @@ export const useAppStore = create<AppState>()(
       identity: [],
       sanctuaryCheckIns: [],
       soberListening: [],
+      bondingInventory: [],
+      safePersonCriteria: [],
+      safePersonChecks: [],
       attendance: {},
       favoriteAffirmations: [],
 
@@ -202,6 +218,48 @@ export const useAppStore = create<AppState>()(
 
       deleteSoberListening: (id) => {
         set({ soberListening: get().soberListening.filter((e) => e.id !== id) });
+      },
+
+      logBondingEntry: (entry) => {
+        const log: BondingInventoryEntry = {
+          ...entry,
+          id: nowId(),
+          timestamp: new Date().toISOString(),
+        };
+        set({ bondingInventory: [log, ...get().bondingInventory] });
+      },
+
+      deleteBondingEntry: (id) => {
+        set({ bondingInventory: get().bondingInventory.filter((e) => e.id !== id) });
+      },
+
+      addSafeCriterion: (text, kind) => {
+        const clean = text.trim();
+        if (!clean) return;
+        // Avoid duplicates of the same text+kind.
+        const exists = get().safePersonCriteria.some(
+          (c) => c.kind === kind && c.text.toLowerCase() === clean.toLowerCase()
+        );
+        if (exists) return;
+        const entry: SafePersonCriterion = { id: nowId(), text: clean, kind };
+        set({ safePersonCriteria: [...get().safePersonCriteria, entry] });
+      },
+
+      deleteSafeCriterion: (id) => {
+        set({ safePersonCriteria: get().safePersonCriteria.filter((c) => c.id !== id) });
+      },
+
+      logSafeCheck: (entry) => {
+        const log: SafePersonCheck = {
+          ...entry,
+          id: nowId(),
+          timestamp: new Date().toISOString(),
+        };
+        set({ safePersonChecks: [log, ...get().safePersonChecks] });
+      },
+
+      deleteSafeCheck: (id) => {
+        set({ safePersonChecks: get().safePersonChecks.filter((c) => c.id !== id) });
       },
 
       setAttendance: (date, attended) => {

@@ -21,6 +21,12 @@ import { AngerPendulum } from "@/components/infographics/anger-pendulum";
 import { SensesGrounding } from "@/components/infographics/senses-grounding";
 import { SoberListening } from "@/components/infographics/sober-listening";
 import { GameOfDissociation } from "@/components/infographics/game-of-dissociation";
+import { CompulsionMagnet } from "@/components/infographics/compulsion-magnet";
+import { AbandonFirst } from "@/components/infographics/abandon-first";
+import { BrokenCycle } from "@/components/infographics/broken-cycle";
+import { ReclaimingTheChild } from "@/components/infographics/reclaiming-the-child";
+import { AbandonmentGame } from "@/components/infographics/abandonment-game";
+import { AbandonmentStrategiesTable } from "@/components/infographics/abandonment-strategies-table";
 
 const QUADRANT_ORDER: Quadrant[] = ["laundry", "other", "flipSide", "flipSideOther"];
 
@@ -118,6 +124,44 @@ const TRAIT_QUADRANT_GRAPHICS: Record<number, Partial<Record<Quadrant, GraphicEn
       Component: SoberListening,
       caption:
         "Renewed True Self esteem leaves the false self with nothing to defend. We can hear the anger, sit with the criticism, take responsibility where it applies — and where it doesn't, let it fly.",
+    },
+  },
+  4: {
+    laundry: {
+      Component: CompulsionMagnet,
+      caption:
+        "We don't pick the unavailable by accident. The unmet abandonment need works like a magnet for alcoholics, workaholics, rageaholics — anyone whose compulsion keeps them at arm's length, so the old abandonment can feel like home.",
+      supplements: [
+        {
+          Component: AbandonmentStrategiesTable,
+          title: "Four ways the trait gets acted out",
+          description:
+            "Becoming the compulsive one, marrying one, leaving first, or avoiding closeness altogether — they look different but share a root. Compare the move, the fear underneath, what it costs, and the recovery turn for each.",
+        },
+      ],
+    },
+    other: {
+      Component: AbandonFirst,
+      caption:
+        "Two opposite-looking moves — dominate and leave first, or avoid closeness altogether. Both are ways to not get hurt, and both arrive at the same place: isolating, dissociating, and abandoning ourselves.",
+      supplements: [
+        {
+          Component: AbandonmentGame,
+          title: "Trait 4 in one frame",
+          description:
+            "The Game of Dissociation has three seats — rescuer, victim (the abandoned of The Laundry List), and victimizer (the abandoner of The Other Laundry List). They rotate so we never feel the wound at the center. The exit is to stop playing and comfort the child.",
+        },
+      ],
+    },
+    flipSide: {
+      Component: BrokenCycle,
+      caption:
+        "An emotional inventory of how we bond shows us exactly where we recreate and recycle abandonment. Naming the loop is what cuts it — and a new path opens, where we can be true to ourselves and choose people who are actually available.",
+    },
+    flipSideOther: {
+      Component: ReclaimingTheChild,
+      caption:
+        "The deepest move of Trait 4: the loving parent crosses back to the child it abandoned and stays. As that bond forms, the fears of being engulfed or annihilated shrink, and true intimacy becomes possible — first with our True Self, then with others.",
     },
   },
 };

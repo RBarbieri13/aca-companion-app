@@ -103,6 +103,45 @@ export interface SoberListeningEntry {
   timestamp: string;
 }
 
+/**
+ * Trait 4 bonding-pattern inventory: an emotional inventory of how we bond, to reveal where
+ * we recreate or recycle abandonment. Each entry is one relationship / job / group / event.
+ */
+export type BondingRole = "rescuer" | "victim" | "victimizer" | "avoider";
+export type BondingEnding = "left-first" | "they-left" | "faded" | "ongoing";
+
+export interface BondingInventoryEntry {
+  id: string;
+  who: string;              // who / what (person, job, group, event)
+  role: BondingRole;        // the seat we played in the Game of Dissociation
+  compulsion: string;       // compulsion present (alcoholic, workaholic, none, etc.)
+  ending: BondingEnding;    // how it ended
+  recreatedAbandonment: boolean; // did this recreate the old wound?
+  note: string;
+  timestamp: string;
+}
+
+/**
+ * Trait 4 "safe person" work: building a personal, conscious definition of what makes a
+ * person safe vs. unsafe (Flip Side Q4), then optionally checking a specific person against it.
+ */
+export type SafeFlagKind = "green" | "red";
+
+export interface SafePersonCriterion {
+  id: string;
+  text: string;
+  kind: SafeFlagKind;
+}
+
+export interface SafePersonCheck {
+  id: string;
+  who: string;
+  greens: string[]; // text snapshots of green flags present
+  reds: string[];   // text snapshots of red flags present
+  note: string;
+  timestamp: string;
+}
+
 export interface Concept {
   id: string;
   name: string;
