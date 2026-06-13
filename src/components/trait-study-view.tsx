@@ -34,6 +34,8 @@ import { HumbleParticipation } from "@/components/infographics/humble-participat
 import { FourRoleGame } from "@/components/infographics/four-role-game";
 import { FourRoleTable } from "@/components/infographics/four-role-table";
 import { AloneInQuiet } from "@/components/infographics/alone-in-quiet";
+import { PowerLadder } from "@/components/infographics/power-ladder";
+import { SelfTalkSpectrum } from "@/components/infographics/self-talk-spectrum";
 
 const QUADRANT_ORDER: Quadrant[] = ["laundry", "other", "flipSide", "flipSideOther"];
 
@@ -202,6 +204,20 @@ const TRAIT_QUADRANT_GRAPHICS: Record<number, Partial<Record<Quadrant, GraphicEn
       Component: VeilOfDenial,
       caption:
         "The workbook's most beautiful image: the veil of denial once seemed like a thick, immovable tapestry; now it is a sheer satin sheet, easily moved by us when we are ready. We stop viewing life from the perspective of what is happening to us, and become a participant in our own life.",
+      supplements: [
+        {
+          Component: PowerLadder,
+          title: "The power ladder · incremental but progressive",
+          description:
+            "The workbook promises that ACA meetings, honest sharing, and after-meeting conversations give us opportunities to exercise greater power in incremental but progressive ways. Here is what \"incremental\" actually looks like — ten ordinary rungs, ordered from accessible to advanced. Start anywhere. Climb the way you brush your teeth.",
+        },
+        {
+          Component: SelfTalkSpectrum,
+          title: "The self-talk spectrum",
+          description:
+            "Laundry List Q4 asks for the phrases that swirl around in a victim's head. Flip Side Q3 asks for the self-talk you practice as a daily habit. Same situation, two voices inside. The Self-Talk Rewriter exercise builds your personal column on the right.",
+        },
+      ],
     },
     flipSideOther: {
       Component: HumbleParticipation,

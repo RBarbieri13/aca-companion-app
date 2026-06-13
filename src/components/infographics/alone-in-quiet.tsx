@@ -8,11 +8,16 @@ interface Props { className?: string; }
 
 export function AloneInQuiet({ className }: Props) {
   return (
-    <svg viewBox="0 0 680 320" className={className} role="img" aria-label="Three modes of being alone: many activities, noticing, and alone in quiet — the recovery skill.">
+    <svg viewBox="0 0 680 480" className={className} role="img" aria-label="Three modes of being alone, plus what often happens during a single solo sit.">
       <defs>
         <marker id="aiq-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
           <path d="M0,0 L10,5 L0,10 Z" fill="var(--muted-foreground)"/>
         </marker>
+        <linearGradient id="aiq-arc" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.7"/>
+          <stop offset="50%" stopColor="var(--muted-foreground)" stopOpacity="0.6"/>
+          <stop offset="100%" stopColor="var(--sage)" stopOpacity="0.9"/>
+        </linearGradient>
       </defs>
 
       {/* Title */}
@@ -104,10 +109,46 @@ export function AloneInQuiet({ className }: Props) {
         </text>
       </g>
 
-      {/* bottom caption */}
+      {/* divider caption */}
       <text x="340" y="296" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="9" fill="var(--muted-foreground)" fontStyle="italic">
         Flip Side of Other, Trait 5: “Are you able to be alone, in silence, with nothing happening?”
       </text>
+
+      {/* What tends to happen during a single solo sit */}
+      <g>
+        <text x="340" y="334" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="10" letterSpacing="1.5" fontWeight="700" fill="var(--muted-foreground)">
+          WHAT OFTEN HAPPENS IN A SINGLE SIT
+        </text>
+
+        {/* timeline base */}
+        <line x1="80" y1="392" x2="600" y2="392" stroke="url(#aiq-arc)" strokeWidth="4" strokeLinecap="round"/>
+
+        {/* time markers */}
+        {[
+          { t: "0:00",   label: "begin",         x: 80,  fill: "var(--accent)" },
+          { t: "0:30",   label: "fidget · plan", x: 200, fill: "var(--accent)" },
+          { t: "2:00",   label: "the urge to bolt", x: 320, fill: "var(--muted-foreground)" },
+          { t: "5:00",   label: "soften",        x: 440, fill: "var(--sage)" },
+          { t: "10:00",  label: "quiet shows up", x: 580, fill: "var(--sage)" },
+        ].map((m) => (
+          <g key={m.t}>
+            <circle cx={m.x} cy="392" r="6" fill={m.fill} stroke="var(--card)" strokeWidth="2"/>
+            <text x={m.x} y="372" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="9" fontWeight="700" fill={m.fill}>
+              {m.t}
+            </text>
+            <text x={m.x} y="412" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="9" fill="var(--foreground)" opacity="0.82">
+              {m.label}
+            </text>
+          </g>
+        ))}
+
+        <text x="340" y="438" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="9" fill="var(--muted-foreground)" fontStyle="italic">
+          The urge to bolt around the two-minute mark is the practice — not a sign you&apos;re failing.
+        </text>
+        <text x="340" y="454" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="9" fill="var(--muted-foreground)" fontStyle="italic">
+          Stay one more breath. That breath is the recovery move.
+        </text>
+      </g>
     </svg>
   );
 }

@@ -10,7 +10,7 @@ interface Props { className?: string; }
 
 export function VeilOfDenial({ className }: Props) {
   return (
-    <svg viewBox="0 0 700 360" className={className} role="img" aria-label="The veil of denial moves from heavy tapestry to sheer satin sheet as recovery thins the weave.">
+    <svg viewBox="0 0 700 480" className={className} role="img" aria-label="The veil of denial moves from heavy tapestry to sheer satin sheet as recovery thins the weave, with what we start to see at each stage.">
       <defs>
         <pattern id="vd-tapestry" patternUnits="userSpaceOnUse" width="6" height="6">
           <rect width="6" height="6" fill="var(--muted-foreground)" fillOpacity="0.55"/>
@@ -108,6 +108,53 @@ export function VeilOfDenial({ className }: Props) {
           a participant in our own life
         </text>
       </g>
+
+      {/* What we start to see at each stage */}
+      <g>
+        <text x="350" y="368" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="10" letterSpacing="1.5" fontWeight="700" fill="var(--muted-foreground)">
+          WHAT WE START TO SEE
+        </text>
+
+        {/* panel 1 column */}
+        <g>
+          <text x="125" y="394" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="8.5" fontWeight="700" fill="var(--muted-foreground)" letterSpacing="0.5">
+            BEHIND THE TAPESTRY
+          </text>
+          <g fontFamily="var(--font-inter)" fontSize="8.5" fill="var(--foreground)" opacity="0.78">
+            <text x="125" y="414" textAnchor="middle">· nothing — at first</text>
+            <text x="125" y="428" textAnchor="middle">· “this is just how things are”</text>
+            <text x="125" y="442" textAnchor="middle">· vague unease without a name</text>
+          </g>
+        </g>
+
+        {/* panel 2 column */}
+        <g>
+          <text x="358" y="394" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="8.5" fontWeight="700" fill="var(--muted-foreground)" letterSpacing="0.5">
+            THROUGH THE LOOSENING
+          </text>
+          <g fontFamily="var(--font-inter)" fontSize="8.5" fill="var(--foreground)" opacity="0.78">
+            <text x="358" y="414" textAnchor="middle">· “oh — I&apos;ve done this before”</text>
+            <text x="358" y="428" textAnchor="middle">· patterns repeating</text>
+            <text x="358" y="442" textAnchor="middle">· my part in the story</text>
+          </g>
+        </g>
+
+        {/* panel 3 column */}
+        <g>
+          <text x="600" y="394" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="8.5" fontWeight="700" fill="var(--sage)" letterSpacing="0.5">
+            ONCE THE SATIN MOVES
+          </text>
+          <g fontFamily="var(--font-inter)" fontSize="8.5" fill="var(--foreground)" opacity="0.78">
+            <text x="600" y="414" textAnchor="middle">· choices I can make</text>
+            <text x="600" y="428" textAnchor="middle">· power I already have</text>
+            <text x="600" y="442" textAnchor="middle">· a life I am inside</text>
+          </g>
+        </g>
+      </g>
+
+      <text x="350" y="468" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="9" fill="var(--muted-foreground)" fontStyle="italic">
+        We don&apos;t tear the veil down. We let recovery thin it.
+      </text>
     </svg>
   );
 }

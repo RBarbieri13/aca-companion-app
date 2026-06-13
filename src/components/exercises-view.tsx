@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { TRAITS } from "@/data/traits";
 import { getCurrentTraitId } from "@/data/schedule";
 import { formatDate, cn } from "@/lib/utils";
-import { Lock, Heart, Zap, Feather, Compass, Scale, Home, Ear, Users, ShieldCheck, Crown, Moon } from "lucide-react";
+import { Lock, Heart, Zap, Feather, Compass, Scale, Home, Ear, Users, ShieldCheck, Crown, Moon, Pencil } from "lucide-react";
 
 import { InnerChildExercise } from "@/components/exercises/inner-child";
 import { FeelingsWheel } from "@/components/exercises/feelings-wheel";
@@ -22,6 +22,7 @@ import { BondingInventoryView } from "@/components/exercises/bonding-inventory";
 import { SafePersonView } from "@/components/exercises/safe-person";
 import { SeatCheckView } from "@/components/exercises/seat-check";
 import { SoloSitView } from "@/components/exercises/solo-sit";
+import { SelfTalkRewriterView } from "@/components/exercises/self-talk-rewriter";
 
 type ExerciseId =
   | "inner-child"
@@ -35,7 +36,8 @@ type ExerciseId =
   | "bonding-inventory"
   | "safe-person"
   | "seat-check"
-  | "solo-sit";
+  | "solo-sit"
+  | "self-talk-rewriter";
 
 interface ExerciseMeta {
   id: ExerciseId;
@@ -130,6 +132,13 @@ const EXERCISES: Record<ExerciseId, ExerciseMeta> = {
     icon: Moon,
     Component: SoloSitView,
   },
+  "self-talk-rewriter": {
+    id: "self-talk-rewriter",
+    label: "Self-Talk Rewriter",
+    short: "Turn victim-thoughts into whole-and-complete self-talk",
+    icon: Pencil,
+    Component: SelfTalkRewriterView,
+  },
 };
 
 interface TraitExerciseBundle {
@@ -160,8 +169,8 @@ const TRAIT_EXERCISES: Record<number, TraitExerciseBundle> = {
   },
   5: {
     blurb:
-      "Trait 5 is about power. As children we felt disempowered; as a counter-move, some of us became the controller. These practices help you notice which seat of the Game you took in any given moment, and build the deeper recovery skill named in the Flip Side: being alone, in silence, with nothing happening — and being whole.",
-    exercises: ["seat-check", "solo-sit", "inner-child", "affirmations"],
+      "Trait 5 is about power. As children we felt disempowered; as a counter-move, some of us became the controller. These practices help you notice which seat of the Game you took in any given moment, rewrite the self-talk that keeps the victim viewpoint alive, and build the deeper recovery skill named in the Flip Side: being alone, in silence, with nothing happening — and being whole.",
+    exercises: ["seat-check", "self-talk-rewriter", "solo-sit", "inner-child"],
   },
 };
 
@@ -212,6 +221,9 @@ const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string
   "solo-sit": {
     5: "Flip Side of the Other asks: 'Are you able to be alone, in silence, with nothing happening?' Most of us cannot, at first — being alone meant something painful as children. The capacity is built, not granted. A few minutes at a time. The chart shows your capacity growing.",
   },
+  "self-talk-rewriter": {
+    5: "Laundry List Q4 asks for the phrases that swirl in a victim's head. Flip Side Q3 asks for the self-talk you practice as a daily habit. This is where the two meet — catch one swirling thought and write the whole-and-complete version next to it. Over months, the inside of your head changes.",
+  },
 };
 
 const ALL_EXERCISE_IDS: ExerciseId[] = [
@@ -227,6 +239,7 @@ const ALL_EXERCISE_IDS: ExerciseId[] = [
   "safe-person",
   "seat-check",
   "solo-sit",
+  "self-talk-rewriter",
 ];
 
 export function ExercisesView() {

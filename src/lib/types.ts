@@ -171,6 +171,19 @@ export interface SoloSitEntry {
   timestamp: string;
 }
 
+/**
+ * Trait 5 self-talk library: each entry captures a victim-viewpoint phrase (the kind that
+ * swirls in the head) and an empowered, whole/complete rewrite.
+ */
+export interface SelfTalkRewrite {
+  id: string;
+  victimPhrase: string;
+  empoweredRewrite: string;
+  context: string; // optional — where it shows up
+  isFavorite: boolean;
+  timestamp: string;
+}
+
 export interface Concept {
   id: string;
   name: string;

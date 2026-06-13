@@ -136,6 +136,16 @@ export function PowerPendulum({ className }: Props) {
         <path d="M 244 256 Q 200 256 140 256" fill="none" stroke="var(--accent)" strokeWidth="1" strokeDasharray="3 2" opacity="0.45" markerEnd="url(#pp-arrow)"/>
         <path d="M 316 256 Q 360 256 420 256" fill="none" stroke="var(--primary)" strokeWidth="1" strokeDasharray="3 2" opacity="0.45" markerEnd="url(#pp-arrow)"/>
       </g>
+
+      {/* Inset: the swing narrows over recovery time */}
+      <g>
+        <text x="280" y="98" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="8" letterSpacing="1" fontWeight="700" fill="var(--muted-foreground)">
+          OVER TIME, THE SWING NARROWS
+        </text>
+        <path d="M 174 124 Q 280 92 386 124" fill="none" stroke="var(--accent)" strokeWidth="1" strokeOpacity="0.35"/>
+        <path d="M 204 130 Q 280 110 356 130" fill="none" stroke="var(--muted-foreground)" strokeWidth="1" strokeOpacity="0.45"/>
+        <path d="M 240 134 Q 280 124 320 134" fill="none" stroke="var(--sage)" strokeWidth="1.25" strokeOpacity="0.8"/>
+      </g>
     </svg>
   );
 }

@@ -17,6 +17,7 @@ import type {
   SafeFlagKind,
   SeatCheckEntry,
   SoloSitEntry,
+  SelfTalkRewrite,
   Quadrant,
 } from "@/lib/types";
 
@@ -38,6 +39,7 @@ interface AppState {
   safePersonChecks: SafePersonCheck[];
   seatChecks: SeatCheckEntry[];
   soloSits: SoloSitEntry[];
+  selfTalkRewrites: SelfTalkRewrite[];
   attendance: Record<string, AttendanceRecord>;
   favoriteAffirmations: string[];
 
@@ -76,6 +78,10 @@ interface AppState {
   deleteSeatCheck: (id: string) => void;
   logSoloSit: (entry: Omit<SoloSitEntry, "id" | "timestamp">) => void;
   deleteSoloSit: (id: string) => void;
+  logSelfTalkRewrite: (entry: Omit<SelfTalkRewrite, "id" | "timestamp" | "isFavorite">) => void;
+  updateSelfTalkRewrite: (id: string, patch: Partial<Omit<SelfTalkRewrite, "id" | "timestamp">>) => void;
+  toggleSelfTalkFavorite: (id: string) => void;
+  deleteSelfTalkRewrite: (id: string) => void;
   setAttendance: (date: string, attended: boolean) => void;
   setAttendanceNotes: (date: string, notes: string) => void;
   toggleFavoriteAffirmation: (text: string) => void;
@@ -104,6 +110,7 @@ export const useAppStore = create<AppState>()(
       safePersonChecks: [],
       seatChecks: [],
       soloSits: [],
+      selfTalkRewrites: [],
       attendance: {},
       favoriteAffirmations: [],
 
@@ -296,6 +303,36 @@ export const useAppStore = create<AppState>()(
 
       deleteSoloSit: (id) => {
         set({ soloSits: get().soloSits.filter((c) => c.id !== id) });
+      },
+
+      logSelfTalkRewrite: (entry) => {
+        const log: SelfTalkRewrite = {
+          ...entry,
+          id: nowId(),
+          isFavorite: false,
+          timestamp: new Date().toISOString(),
+        };
+        set({ selfTalkRewrites: [log, ...get().selfTalkRewrites] });
+      },
+
+      updateSelfTalkRewrite: (id, patch) => {
+        set({
+          selfTalkRewrites: get().selfTalkRewrites.map((e) =>
+            e.id === id ? { ...e, ...patch } : e
+          ),
+        });
+      },
+
+      toggleSelfTalkFavorite: (id) => {
+        set({
+          selfTalkRewrites: get().selfTalkRewrites.map((e) =>
+            e.id === id ? { ...e, isFavorite: !e.isFavorite } : e
+          ),
+        });
+      },
+
+      deleteSelfTalkRewrite: (id) => {
+        set({ selfTalkRewrites: get().selfTalkRewrites.filter((c) => c.id !== id) });
       },
 
       setAttendance: (date, attended) => {

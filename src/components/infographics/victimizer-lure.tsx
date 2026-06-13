@@ -19,10 +19,13 @@ export function VictimizerLure({ className }: Props) {
   ];
 
   return (
-    <svg viewBox="0 0 600 440" className={className} role="img" aria-label="What lures the rescuer II / victimizer seat — the disadvantaged — and the feedback loop of helping for the surge.">
+    <svg viewBox="0 0 600 520" className={className} role="img" aria-label="What lures the rescuer II / victimizer seat — the disadvantaged — and the feedback loop of helping for the surge, plus the recovery interruption.">
       <defs>
         <marker id="vl-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
           <path d="M0,0 L10,5 L0,10 Z" fill="var(--muted-foreground)"/>
+        </marker>
+        <marker id="vl-arrow-sage" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0,0 L10,5 L0,10 Z" fill="var(--sage)"/>
         </marker>
         <radialGradient id="vl-surge" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.5"/>
@@ -112,6 +115,22 @@ export function VictimizerLure({ className }: Props) {
         <text x="300" y="412" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="8.5" fill="var(--muted-foreground)" fontStyle="italic">
           The surge is the drug. We choose the disadvantaged because they keep the loop running.
         </text>
+      </g>
+
+      {/* Recovery interruption — where to step out */}
+      <g>
+        <rect x="40" y="436" width="520" height="74" rx="14" fill="var(--sage)" fillOpacity="0.18" stroke="var(--sage)" strokeWidth="1.5"/>
+        <text x="60" y="458" fontFamily="var(--font-inter)" fontSize="9" letterSpacing="1.2" fontWeight="700" fill="var(--sage)">
+          WHERE TO STEP OUT
+        </text>
+        <text x="60" y="480" fontFamily="var(--font-inter)" fontSize="10" fill="var(--foreground)" opacity="0.88">
+          Catch the <tspan fontWeight="700" fill="var(--sage)">surge</tspan> itself — that&apos;s the cue, before you act on it.
+        </text>
+        <text x="60" y="497" fontFamily="var(--font-inter)" fontSize="9" fill="var(--muted-foreground)" fontStyle="italic">
+          Ask: would I want this person if they didn&apos;t need me? Choose equals on purpose.
+        </text>
+        {/* arrow pointing at the surge node */}
+        <path d="M 253 384 L 253 432" fill="none" stroke="var(--sage)" strokeWidth="1.5" strokeDasharray="3 2" markerEnd="url(#vl-arrow-sage)"/>
       </g>
     </svg>
   );
