@@ -384,6 +384,93 @@ export function DoubleWinnerGlyph({ className, size = 48 }: GlyphProps) {
   );
 }
 
+export function CriticalSurvivalParentGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* A watchful eye over a small figure — protective but stern */}
+          <path d="M 12 26 Q 30 14 48 26 Q 30 38 12 26" fill="none" stroke="var(--primary)" strokeWidth="1.5"/>
+          <circle cx="30" cy="26" r="5" fill="var(--primary)"/>
+          <circle cx="30" cy="26" r="2" fill="white"/>
+          {/* small child beneath */}
+          <circle cx="30" cy="44" r="4" fill="var(--accent)"/>
+          <rect x="26" y="48" width="8" height="6" rx="2" fill="var(--accent)" fillOpacity="0.85"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function PowerReclamationGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* A small figure raising a hand — claiming voice/power */}
+          <circle cx="30" cy="22" r="6" fill="var(--primary)" fillOpacity="0.9"/>
+          <rect x="24" y="28" width="12" height="18" rx="4" fill="var(--primary)" fillOpacity="0.85"/>
+          {/* raised arm */}
+          <path d="M 36 30 L 44 18" stroke="var(--primary)" strokeWidth="2.25" strokeLinecap="round"/>
+          {/* spark/star at the hand */}
+          <path d="M 44 16 L 46 12 L 46 16 L 50 17 L 46 18 Z" fill="var(--sage)"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function VeilOfDenialGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* Hanging veil on a rod — left half opaque, right half translucent (recovery) */}
+          <line x1="10" y1="14" x2="50" y2="14" stroke="var(--muted-foreground)" strokeWidth="1.25"/>
+          {/* opaque side */}
+          <path d="M 12 14 L 12 46 Q 22 50 30 46 L 30 14 Z" fill="var(--muted-foreground)" fillOpacity="0.55"/>
+          {/* translucent side */}
+          <path d="M 30 14 L 30 46 Q 40 50 48 46 L 48 14 Z" fill="var(--muted-foreground)" fillOpacity="0.18" stroke="var(--muted-foreground)" strokeWidth="0.75" strokeDasharray="2 2"/>
+          {/* shape seen through the translucent side */}
+          <circle cx="40" cy="32" r="5" fill="var(--sage)" fillOpacity="0.6"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function HumbleParticipationGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* Three figures in a circle — equal participants */}
+          <circle cx="20" cy="34" r="5" fill="var(--primary)" fillOpacity="0.85"/>
+          <circle cx="40" cy="34" r="5" fill="var(--sage)" fillOpacity="0.85"/>
+          <circle cx="30" cy="22" r="5" fill="var(--accent)" fillOpacity="0.85"/>
+          {/* connecting triangle (equal sides) */}
+          <path d="M 30 22 L 20 34 L 40 34 Z" fill="none" stroke="var(--primary)" strokeWidth="1" strokeOpacity="0.45"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function WholenessCompletenessGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* Concentric ring + filled core — complete in self */}
+          <circle cx="30" cy="30" r="16" fill="none" stroke="var(--primary)" strokeWidth="1.25" strokeDasharray="3 3" opacity="0.55"/>
+          <circle cx="30" cy="30" r="11" fill="var(--sage)" fillOpacity="0.25" stroke="var(--sage)" strokeWidth="1.5"/>
+          <circle cx="30" cy="30" r="5" fill="var(--primary)"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
 export const GLYPHS: Record<string, React.ComponentType<GlyphProps>> = {
   dissociation: DissociationGlyph,
   "false-self": FalseSelfGlyph,
@@ -406,4 +493,9 @@ export const GLYPHS: Record<string, React.ComponentType<GlyphProps>> = {
   "victim-victimizer": VictimVictimizerGlyph,
   "self-abandonment": SelfAbandonmentGlyph,
   "double-winner": DoubleWinnerGlyph,
+  "critical-survival-parent": CriticalSurvivalParentGlyph,
+  "power-reclamation": PowerReclamationGlyph,
+  "veil-of-denial": VeilOfDenialGlyph,
+  "humble-participation": HumbleParticipationGlyph,
+  "wholeness-completeness": WholenessCompletenessGlyph,
 };

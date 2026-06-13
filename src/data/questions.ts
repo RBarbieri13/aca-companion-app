@@ -137,11 +137,47 @@ export const TRAIT_4_QUESTIONS: ReflectionQuestion[] = [
   { traitId: 4, quadrant: "flipSideOther", index: 2, question: "How have you been disavowed by others in your past and in your adulthood?" },
 ];
 
+export const TRAIT_5_QUESTIONS: ReflectionQuestion[] = [
+  // The Laundry List
+  { traitId: 5, quadrant: "laundry", index: 0, question: "Describe the characteristics of anyone you've known in the past who lived life from the viewpoint of a victim." },
+  { traitId: 5, quadrant: "laundry", index: 1, question: "Describe the characteristics of anyone you know in the present who lives life from the viewpoint of a victim." },
+  { traitId: 5, quadrant: "laundry", index: 2, question: "Given the opportunity to talk to someone who looks sad and down at a party and is sitting alone, or the chance to talk to a smiling effervescent person in a circle of other happy looking people, where would you feel the most comfortable? Why is this so?" },
+  { traitId: 5, quadrant: "laundry", index: 3, question: "List some phrases that might come out of a person's mouth who is living life from the viewpoint of a victim. What are some of the thoughts that might swirl around in their head?" },
+  { traitId: 5, quadrant: "laundry", index: 4, question: "Describe a relationship that you were involved in as a child where you were a victim." },
+  { traitId: 5, quadrant: "laundry", index: 5, question: "Describe a relationship from your adulthood where you were the victim." },
+
+  // The Other Laundry List
+  { traitId: 5, quadrant: "other", index: 0, question: "If you had to describe your idea of the “textbook” victimizer, what attributes would that person have?" },
+  { traitId: 5, quadrant: "other", index: 1, question: "Have you had the ability to see victimizing traits in others easily while it is more difficult to attribute victimizing traits to yourself?" },
+  { traitId: 5, quadrant: "other", index: 2, question: "Do you “keep your thoughts to yourself” because these thoughts are often extreme in nature; such as belittling, judging, ridiculing, and/or “rolling your eyes” at others?" },
+  { traitId: 5, quadrant: "other", index: 3, question: "Have others said to you that they don't feel that you are a safe person, or that they limit the time they spend with you, or they wish you could be a little “nicer”? What behaviors could you be exhibiting to precipitate these comments?" },
+  { traitId: 5, quadrant: "other", index: 4, question: "Who have you manipulated in your past? Do you find yourself intrigued by people who are under-educated, physically impaired, mentally struggling, or not able to speak fluently? Are you drawn to someone who is lost and in need of directions? Do you rush to help someone who is walking to a door with their hands full? Do you have a strong urge to guide, lead, and watch out for the comfort of ACA newcomers to “make sure” they come back and feel a part of the group?" },
+  { traitId: 5, quadrant: "other", index: 5, question: "Do you get a powerful surge or reaction inside when you are recognized for “helping” someone more disadvantaged than yourself? Is this surge so powerful that you look for more opportunities to “help” others?" },
+
+  // The Flip Side of The Laundry List
+  { traitId: 5, quadrant: "flipSide", index: 0, question: "Describe what a relationship would look like where two people are equals. Who do you relate to in this way?" },
+  { traitId: 5, quadrant: "flipSide", index: 1, question: "When things “go wrong” in everyday life now, how are your thoughts and your responses different than before you found ACA?" },
+  { traitId: 5, quadrant: "flipSide", index: 2, question: "What “self-talk” do you practice as a daily habit, or in times of stress? What ACA affirmations have helped you?" },
+  { traitId: 5, quadrant: "flipSide", index: 3, question: "Before you were in ACA, when you were with a fairly confident and healthy person who could pause and speak out, sharing a different viewpoint from your own, how did it feel? How does it feel now?" },
+  { traitId: 5, quadrant: "flipSide", index: 4, question: "Would you describe yourself as a fairly confident and healthy person who can pause and speak your mind, and share a different viewpoint from the person with whom you're conversing? If this is true, to what do you attribute these changes in you?" },
+
+  // The Flip Side of The Other Laundry List
+  { traitId: 5, quadrant: "flipSideOther", index: 0, question: "Which ACA tools do you attribute to the growth and progress that you've observed in your life in relation to the Flip Side of The Other Laundry List of Trait 5?" },
+  { traitId: 5, quadrant: "flipSideOther", index: 1, question: "Describe what felt empty and incomplete in you before you found ACA and started progressing in your ACA process of recovery. Describe what feels whole and complete in you now." },
+  { traitId: 5, quadrant: "flipSideOther", index: 2, question: "Which ACA Promise or Promises do you see that are coming true as you view your progress in relation to becoming whole and complete?" },
+  { traitId: 5, quadrant: "flipSideOther", index: 3, question: "When you were alone in your childhood, how did that feel?" },
+  { traitId: 5, quadrant: "flipSideOther", index: 4, question: "When you were alone in your adulthood (before ACA), how did that feel?" },
+  { traitId: 5, quadrant: "flipSideOther", index: 5, question: "How does it feel now when you are alone?" },
+  { traitId: 5, quadrant: "flipSideOther", index: 6, question: "When you are alone, are you in the quiet or do you have many activities happening?" },
+  { traitId: 5, quadrant: "flipSideOther", index: 7, question: "Are you able to be alone, in silence, with nothing happening?" },
+];
+
 export const ALL_QUESTIONS: ReflectionQuestion[] = [
   ...TRAIT_1_QUESTIONS,
   ...TRAIT_2_QUESTIONS,
   ...TRAIT_3_QUESTIONS,
   ...TRAIT_4_QUESTIONS,
+  ...TRAIT_5_QUESTIONS,
 ];
 
 export function getQuestionsForTrait(traitId: number) {

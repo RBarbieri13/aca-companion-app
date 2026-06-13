@@ -142,6 +142,48 @@ export interface SafePersonCheck {
   timestamp: string;
 }
 
+/**
+ * Trait 5 power-seat check: in a given situation, which seat of the Game did I take?
+ * Mirrors the four roles named in the workbook + the recovery seat (humble participant).
+ */
+export type GameSeat = "victim" | "victimizer" | "rescuer-1" | "rescuer-2" | "humble";
+
+export interface SeatCheckEntry {
+  id: string;
+  situation: string;
+  seat: GameSeat;
+  fearUnderneath: string;
+  desiredResponse: string;
+  timestamp: string;
+}
+
+/**
+ * Trait 5 solo-sit tracker: a session of intentional quiet, to build the capacity to be
+ * alone in silence with nothing happening. Slider values: 0 = restless, 100 = settled.
+ */
+export interface SoloSitEntry {
+  id: string;
+  durationMinutes: number;
+  beforeState: number; // 0-100
+  afterState: number;  // 0-100
+  hadActivity: boolean; // false = pure quiet; true = activity (music, walk, etc.)
+  note: string;
+  timestamp: string;
+}
+
+/**
+ * Trait 5 self-talk library: each entry captures a victim-viewpoint phrase (the kind that
+ * swirls in the head) and an empowered, whole/complete rewrite.
+ */
+export interface SelfTalkRewrite {
+  id: string;
+  victimPhrase: string;
+  empoweredRewrite: string;
+  context: string; // optional — where it shows up
+  isFavorite: boolean;
+  timestamp: string;
+}
+
 export interface Concept {
   id: string;
   name: string;
