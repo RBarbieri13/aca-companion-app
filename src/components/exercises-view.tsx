@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { TRAITS } from "@/data/traits";
 import { getCurrentTraitId } from "@/data/schedule";
 import { formatDate, cn } from "@/lib/utils";
-import { Lock, Heart, Zap, Feather, Compass, Scale, Home, Ear, Users, ShieldCheck } from "lucide-react";
+import { Lock, Heart, Zap, Feather, Compass, Scale, Home, Ear, Users, ShieldCheck, Crown, Moon } from "lucide-react";
 
 import { InnerChildExercise } from "@/components/exercises/inner-child";
 import { FeelingsWheel } from "@/components/exercises/feelings-wheel";
@@ -20,6 +20,8 @@ import { SanctuaryCheckIn } from "@/components/exercises/sanctuary-check-in";
 import { SoberListeningLogView } from "@/components/exercises/sober-listening-log";
 import { BondingInventoryView } from "@/components/exercises/bonding-inventory";
 import { SafePersonView } from "@/components/exercises/safe-person";
+import { SeatCheckView } from "@/components/exercises/seat-check";
+import { SoloSitView } from "@/components/exercises/solo-sit";
 
 type ExerciseId =
   | "inner-child"
@@ -31,7 +33,9 @@ type ExerciseId =
   | "sanctuary-check-in"
   | "sober-listening-log"
   | "bonding-inventory"
-  | "safe-person";
+  | "safe-person"
+  | "seat-check"
+  | "solo-sit";
 
 interface ExerciseMeta {
   id: ExerciseId;
@@ -112,6 +116,20 @@ const EXERCISES: Record<ExerciseId, ExerciseMeta> = {
     icon: ShieldCheck,
     Component: SafePersonView,
   },
+  "seat-check": {
+    id: "seat-check",
+    label: "Power Seat Check",
+    short: "Which seat of the Game did you just take?",
+    icon: Crown,
+    Component: SeatCheckView,
+  },
+  "solo-sit": {
+    id: "solo-sit",
+    label: "Solo Sit Tracker",
+    short: "Build the capacity to be alone in quiet",
+    icon: Moon,
+    Component: SoloSitView,
+  },
 };
 
 interface TraitExerciseBundle {
@@ -140,6 +158,11 @@ const TRAIT_EXERCISES: Record<number, TraitExerciseBundle> = {
       "Trait 4 is about the compulsive pull to recreate abandonment — choosing the unavailable, leaving before we're left, or avoiding closeness altogether. These practices take an honest inventory of how we bond, build a conscious sense of who is safe, and return us to the Inner Child we abandoned in the process.",
     exercises: ["bonding-inventory", "safe-person", "inner-child", "affirmations"],
   },
+  5: {
+    blurb:
+      "Trait 5 is about power. As children we felt disempowered; as a counter-move, some of us became the controller. These practices help you notice which seat of the Game you took in any given moment, and build the deeper recovery skill named in the Flip Side: being alone, in silence, with nothing happening — and being whole.",
+    exercises: ["seat-check", "solo-sit", "inner-child", "affirmations"],
+  },
 };
 
 const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string>>>> = {
@@ -147,6 +170,7 @@ const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string
     1: "When isolation or fear of authority has you activated, the child voice is often the one that's scared. Let the adult you meet them.",
     3: "The fear of anger you feel as an adult is usually the child remembering. Let the adult voice say what no one said back then: you are safe now, and we are no longer small.",
     4: "The Flip Side of Trait 4 is comforting the Inner Child we abandoned and disavowed. This is where that conversation happens — the loving parent crossing back to the child it left.",
+    5: "Trait 5 names a partnership of inner figures: loving parent, critical survival parent, Inner Child, Higher Power. This is the conversation with the child at the center of that circle — the one who learned that someone walking away meant catastrophe.",
   },
   feelings: {
     1: "Isolation dampens feelings into a blur. Naming the specific word pulls you out of the loop.",
@@ -162,6 +186,7 @@ const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string
     2: "When identity feels borrowed, return to these. They can't replace the work, but they steady the ground.",
     3: "The renewed True Self esteem the workbook describes is built one sentence at a time. These are some of those sentences.",
     4: "The Inner Child you abandoned needs to hear it will not be left again. These are sentences that rebuild that trust.",
+    5: "The Flip Side of Trait 5 reflection asks: what self-talk do you practice as a daily habit? Pick a few of these and return to them — especially when the urge to dominate or collapse arrives.",
   },
   "identity-inventory": {
     2: "A slow, self-authored record of who you are — built over weeks, not minutes. This directly answers Flip Side Q1: 'Describe ways you do not depend on others to define who you are.'",
@@ -181,6 +206,12 @@ const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string
   "safe-person": {
     4: "Flip Side Q4 asks what makes a person 'safe.' Many of us studied people for danger as kids. Here you make it conscious: write your own green and red flags, then hold a specific person up to your definition — gently, as data, not a verdict.",
   },
+  "seat-check": {
+    5: "Trait 5 names the four roles plainly: victim, victimizer, rescuer I, rescuer II — plus the exit, humble participation. After a moment that mattered, pause and notice which seat you took. You're not grading yourself; you're building the noticing muscle. Over time, the humble-participant bar grows.",
+  },
+  "solo-sit": {
+    5: "Flip Side of the Other asks: 'Are you able to be alone, in silence, with nothing happening?' Most of us cannot, at first — being alone meant something painful as children. The capacity is built, not granted. A few minutes at a time. The chart shows your capacity growing.",
+  },
 };
 
 const ALL_EXERCISE_IDS: ExerciseId[] = [
@@ -194,6 +225,8 @@ const ALL_EXERCISE_IDS: ExerciseId[] = [
   "sober-listening-log",
   "bonding-inventory",
   "safe-person",
+  "seat-check",
+  "solo-sit",
 ];
 
 export function ExercisesView() {

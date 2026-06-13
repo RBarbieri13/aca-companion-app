@@ -15,6 +15,8 @@ import type {
   SafePersonCriterion,
   SafePersonCheck,
   SafeFlagKind,
+  SeatCheckEntry,
+  SoloSitEntry,
   Quadrant,
 } from "@/lib/types";
 
@@ -34,6 +36,8 @@ interface AppState {
   bondingInventory: BondingInventoryEntry[];
   safePersonCriteria: SafePersonCriterion[];
   safePersonChecks: SafePersonCheck[];
+  seatChecks: SeatCheckEntry[];
+  soloSits: SoloSitEntry[];
   attendance: Record<string, AttendanceRecord>;
   favoriteAffirmations: string[];
 
@@ -68,6 +72,10 @@ interface AppState {
   deleteSafeCriterion: (id: string) => void;
   logSafeCheck: (entry: Omit<SafePersonCheck, "id" | "timestamp">) => void;
   deleteSafeCheck: (id: string) => void;
+  logSeatCheck: (entry: Omit<SeatCheckEntry, "id" | "timestamp">) => void;
+  deleteSeatCheck: (id: string) => void;
+  logSoloSit: (entry: Omit<SoloSitEntry, "id" | "timestamp">) => void;
+  deleteSoloSit: (id: string) => void;
   setAttendance: (date: string, attended: boolean) => void;
   setAttendanceNotes: (date: string, notes: string) => void;
   toggleFavoriteAffirmation: (text: string) => void;
@@ -94,6 +102,8 @@ export const useAppStore = create<AppState>()(
       bondingInventory: [],
       safePersonCriteria: [],
       safePersonChecks: [],
+      seatChecks: [],
+      soloSits: [],
       attendance: {},
       favoriteAffirmations: [],
 
@@ -260,6 +270,32 @@ export const useAppStore = create<AppState>()(
 
       deleteSafeCheck: (id) => {
         set({ safePersonChecks: get().safePersonChecks.filter((c) => c.id !== id) });
+      },
+
+      logSeatCheck: (entry) => {
+        const log: SeatCheckEntry = {
+          ...entry,
+          id: nowId(),
+          timestamp: new Date().toISOString(),
+        };
+        set({ seatChecks: [log, ...get().seatChecks] });
+      },
+
+      deleteSeatCheck: (id) => {
+        set({ seatChecks: get().seatChecks.filter((c) => c.id !== id) });
+      },
+
+      logSoloSit: (entry) => {
+        const log: SoloSitEntry = {
+          ...entry,
+          id: nowId(),
+          timestamp: new Date().toISOString(),
+        };
+        set({ soloSits: [log, ...get().soloSits] });
+      },
+
+      deleteSoloSit: (id) => {
+        set({ soloSits: get().soloSits.filter((c) => c.id !== id) });
       },
 
       setAttendance: (date, attended) => {

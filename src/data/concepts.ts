@@ -33,15 +33,15 @@ export const CONCEPTS: Concept[] = [
     id: "inner-child",
     name: "Inner Child",
     shortDefinition: "The younger part of us that still carries the original wounds and the original aliveness.",
-    longDefinition: "In ACA the Inner Child is not metaphor — it's the part of our psyche that got frozen in the moments we couldn't process. She/he still holds the fear, the grief, the creativity, and the joy. We learn to listen and respond rather than silencing or overriding. In Trait 2 the workbook speaks of the 'frightened and injured child within' — the one we built our sanctuary of isolation to protect. In Trait 4 the Flip Side names the recovery directly: we accept and comfort the isolated and hurt Inner Child we have abandoned and disavowed, and thereby end the need to act out our fears of enmeshment and abandonment with other people.",
-    relatedTraits: [1, 2, 4, 10, 11, 12],
+    longDefinition: "In ACA the Inner Child is not metaphor — it's the part of our psyche that got frozen in the moments we couldn't process. She/he still holds the fear, the grief, the creativity, and the joy. We learn to listen and respond rather than silencing or overriding. In Trait 2 the workbook speaks of the 'frightened and injured child within' — the one we built our sanctuary of isolation to protect. In Trait 4 the Flip Side names the recovery directly: we accept and comfort the isolated and hurt Inner Child we have abandoned and disavowed. In Trait 5, when someone starts to walk away from us, we no longer resist their leaving — instead we use the Steps and reparenting to comfort the Inner Child who fears being alone.",
+    relatedTraits: [1, 2, 4, 5, 10, 11, 12],
   },
   {
     id: "loving-parent",
     name: "Loving Parent",
     shortDefinition: "The grown-up inside us who can hold the Inner Child with steadiness.",
-    longDefinition: "The Loving Parent is the adult self we cultivate through recovery — the one who can say 'I've got you' and mean it. In many meetings it's also called the Higher Self. Reparenting is the Loving Parent doing the work with the Inner Child. In Trait 4 it is the inner loving parent that finally stops abandoning the child within: the more we connect the Inner Child with the loving parent, the more the fears of being engulfed or annihilated are reduced and eventually eliminated.",
-    relatedTraits: [1, 2, 4, 6, 11, 12],
+    longDefinition: "The Loving Parent is the adult self we cultivate through recovery — the one who can say 'I've got you' and mean it. In many meetings it's also called the Higher Self. Reparenting is the Loving Parent doing the work with the Inner Child. In Trait 4 it is the inner loving parent that finally stops abandoning the child within. In Trait 5 the Flip Side names a partnership of inner figures: the inner loving parent, the critical survival inner parent, the Inner Child, and our Higher Power — and that partnership is where wholeness and completeness come from.",
+    relatedTraits: [1, 2, 4, 5, 6, 11, 12],
   },
   {
     id: "acting-out",
@@ -130,8 +130,8 @@ export const CONCEPTS: Concept[] = [
   {
     id: "victim-victimizer",
     name: "Victim · Victimizer · Rescuer",
-    shortDefinition: "The three rotating roles of the Game of Dissociation.",
-    longDefinition: "In the Game of Dissociation we first assumed the role of rescuer, and in time became either a victim or a victimizer. Trait 4 maps these onto the lists: we can be the abandoned (victim) of The Laundry List or the abandoner (victimizer) of The Other Laundry List — dominating others and leaving them before they can leave us. The roles rotate endlessly so we never have to feel the original hurt. Seeing which seat we're in is the first move out of the Game.",
+    shortDefinition: "The four rotating roles of the Game of Dissociation.",
+    longDefinition: "Trait 5 says it plainly: there is no admission fee to the Game of Dissociation. Every member of a dysfunctional family is, unfortunately, given one of four roles — victim, victimizer, rescuer I, or rescuer II. We first assumed rescuer, and in time became victim or victimizer. Trait 4 maps these onto the lists (abandoned vs. abandoner). Trait 5 makes the dynamic about power: the victim lives life from the viewpoint of being acted upon; the victimizer (and rescuer II) exercises power beyond the requirements of the situation. The roles rotate endlessly so we never feel the original hurt. Seeing which seat we're in — gently, without shame — is the first move out of the Game.",
     relatedTraits: [4, 5],
   },
   {
@@ -147,6 +147,41 @@ export const CONCEPTS: Concept[] = [
     shortDefinition: "Someone in recovery from both addiction and the family disease of ACA.",
     longDefinition: "Those of us fortunate to have recovery from alcohol or other substances (so-called 'dry goods') refer to ourselves as 'double winners' — having been an addict or alcoholic, and having begun recovery from addiction by the time we reached ACA, we found we still had more work to do. For some of us the idea of becoming an alcoholic was turned upside down: instead of becoming dependent on an outside substance, we chose to dose ourselves with an internal concoction of pain, fear and excitement, becoming the dominant player who controls the ebb and flow of relationships.",
     relatedTraits: [4, 13, 14],
+  },
+  {
+    id: "critical-survival-parent",
+    name: "Critical Survival Inner Parent",
+    shortDefinition: "The internalized voice that scolds and steers — the one that kept us alive as kids.",
+    longDefinition: "The critical survival inner parent is the inner voice that took over for caregivers who couldn't reliably guide us. It is sharp, watchful, often punishing — and as children, it kept us alive. In recovery we don't banish it. We pair it with the inner loving parent, the Inner Child, and our Higher Power. The Flip Side of Trait 5 names this directly: we have been learning and applying the concepts of critical survival inner parent, inner loving parent, Inner Child, and Higher Power — and from that partnership comes a sense of wholeness and completeness.",
+    relatedTraits: [5, 11],
+  },
+  {
+    id: "power-reclamation",
+    name: "Power Reclamation",
+    shortDefinition: "Stepping out of the victim and victimizer seats into honest, right-sized power.",
+    longDefinition: "Trait 5 is, at its core, about power. As children we felt disempowered and blown about by the winds of the times. Some of us became determined to be 'among the winners' and exercised power beyond the requirements of the situation — that is the victimizer / rescuer II seat. Power reclamation is the move out of both. ACA meetings, honest sharing, and the Steps give us incremental, progressive opportunities to exercise true power — neither helpless nor dominant — until we can see ourselves as a participant in our own life rather than someone life is happening to.",
+    relatedTraits: [5, 7, 11],
+  },
+  {
+    id: "veil-of-denial",
+    name: "Veil of Denial",
+    shortDefinition: "The cloth that hid the truth from us — and that recovery slowly makes translucent.",
+    longDefinition: "Trait 5 gives us a beautiful image: the veil of denial once seemed like a thick, immovable tapestry, and now seems like a sheer satin sheet, easily moved by us when we are ready. The denial isn't a moral failure; it was a survival membrane. We don't tear it down — we let recovery thin it. As the weave loosens we begin to see the opportunities to stop viewing life from the perspective of what is happening to us, and become able to see ourselves as a participant in those instances.",
+    relatedTraits: [5, 10, 11],
+  },
+  {
+    id: "humble-participation",
+    name: "Humble Participation",
+    shortDefinition: "Changing the question from “how can I dominate?” to “how can I humbly participate?”",
+    longDefinition: "The Flip Side of the Other Laundry List of Trait 5 names a small move with enormous reach: when tempted or lured into a situation where control and manipulation seem to be the answer, we change the question. Instead of 'How can I dominate?' we ask, 'How can I humbly participate?' The shift refuses both seats of the Game — neither helpless victim nor over-functioning victimizer — and re-enters the moment as a fellow traveler.",
+    relatedTraits: [5, 6, 7],
+  },
+  {
+    id: "wholeness-completeness",
+    name: "Wholeness & Completeness",
+    shortDefinition: "The Trait 5 Flip Side gift: needing no one outside us to feel complete inside us.",
+    longDefinition: "Trait 5's recovery promise is that we become whole and complete. Because of that wholeness, we no longer try to control others through manipulation and force or bind them to us with fear in order to avoid feeling isolated and alone. Wholeness here is not perfection — it is the felt sense, built over time through Step work and the inner partnership (loving parent · critical survival parent · Inner Child · Higher Power), that we are not missing a piece that another person must supply.",
+    relatedTraits: [2, 5, 11, 12],
   },
 ];
 

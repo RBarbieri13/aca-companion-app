@@ -27,6 +27,13 @@ import { BrokenCycle } from "@/components/infographics/broken-cycle";
 import { ReclaimingTheChild } from "@/components/infographics/reclaiming-the-child";
 import { AbandonmentGame } from "@/components/infographics/abandonment-game";
 import { AbandonmentStrategiesTable } from "@/components/infographics/abandonment-strategies-table";
+import { PowerPendulum } from "@/components/infographics/power-pendulum";
+import { VictimizerLure } from "@/components/infographics/victimizer-lure";
+import { VeilOfDenial } from "@/components/infographics/veil-of-denial";
+import { HumbleParticipation } from "@/components/infographics/humble-participation";
+import { FourRoleGame } from "@/components/infographics/four-role-game";
+import { FourRoleTable } from "@/components/infographics/four-role-table";
+import { AloneInQuiet } from "@/components/infographics/alone-in-quiet";
 
 const QUADRANT_ORDER: Quadrant[] = ["laundry", "other", "flipSide", "flipSideOther"];
 
@@ -162,6 +169,52 @@ const TRAIT_QUADRANT_GRAPHICS: Record<number, Partial<Record<Quadrant, GraphicEn
       Component: ReclaimingTheChild,
       caption:
         "The deepest move of Trait 4: the loving parent crosses back to the child it abandoned and stays. As that bond forms, the fears of being engulfed or annihilated shrink, and true intimacy becomes possible — first with our True Self, then with others.",
+    },
+  },
+  5: {
+    laundry: {
+      Component: PowerPendulum,
+      caption:
+        "Trait 5 is, at its core, about power. As children we grew up feeling disempowered — \"blown about by the winds of the times.\" The Other Laundry List is the over-correction: \"determined to be among the winners,\" we exercise power beyond the requirements of the situation. Humble participation is the still center.",
+      supplements: [
+        {
+          Component: FourRoleTable,
+          title: "The four roles in one frame",
+          description:
+            "The workbook names them precisely — victim, victimizer, rescuer I, rescuer II — and reminds us there is no admission fee. Compare the move, what feels true, what it costs, and the recovery turn for each.",
+        },
+      ],
+    },
+    other: {
+      Component: VictimizerLure,
+      caption:
+        "The Other Laundry List is unusually specific in Trait 5: we are intrigued by the under-educated, the impaired, the lost, the newcomer — anyone whose disadvantage produces a powerful surge of recognition when we help. That surge is the drug. We keep choosing people who will keep the loop running.",
+      supplements: [
+        {
+          Component: FourRoleGame,
+          title: "Trait 5 in one frame",
+          description:
+            "All four seats around the avoided wound, plus the exit into humble participation and the inner partnership — loving parent, critical survival parent, Inner Child, and Higher Power — that makes the new question possible.",
+        },
+      ],
+    },
+    flipSide: {
+      Component: VeilOfDenial,
+      caption:
+        "The workbook's most beautiful image: the veil of denial once seemed like a thick, immovable tapestry; now it is a sheer satin sheet, easily moved by us when we are ready. We stop viewing life from the perspective of what is happening to us, and become a participant in our own life.",
+    },
+    flipSideOther: {
+      Component: HumbleParticipation,
+      caption:
+        "A small move with enormous reach: instead of \"How can I dominate?\" we ask \"How can I humbly participate?\" Backed by the inner partnership of loving parent, critical survival parent, Inner Child, and Higher Power — so that when someone walks away, we no longer resist, and we comfort the Inner Child instead.",
+      supplements: [
+        {
+          Component: AloneInQuiet,
+          title: "Being alone, in silence, with nothing happening",
+          description:
+            "The Flip Side of Other asks: how does alone feel — in childhood, before ACA, now? Are you in quiet, or surrounded by activities? Three modes show the skill being built: many activities → noticing → alone in quiet.",
+        },
+      ],
     },
   },
 };

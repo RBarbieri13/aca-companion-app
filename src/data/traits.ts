@@ -66,15 +66,18 @@ export const TRAITS: Trait[] = [
   {
     id: 5,
     shortName: "Victim Viewpoint",
-    active: false,
+    active: true,
     mainListDate: "2026-06-13",
     flipSideDate: "2026-06-20",
     statements: {
       laundry:
-        "We live life from the viewpoint of victims and are attracted by that weakness in our love and friendship relationships.",
-      other: "",
-      flipSide: "",
-      flipSideOther: "",
+        "We live life from the viewpoint of victims and we are attracted by that weakness in our love and friendship relationships.",
+      other:
+        "We live life from the standpoint of a victimizer, and are attracted to people we can manipulate and control in our important relationships.",
+      flipSide:
+        "We stop living life from the standpoint of victims and are not attracted by this trait in our important relationships.",
+      flipSideOther:
+        "Because we are whole and complete we no longer try to control others through manipulation and force and bind them to us with fear in order to avoid feeling isolated and alone.",
     },
   },
   {
