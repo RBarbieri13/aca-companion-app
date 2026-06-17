@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Shield, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const DISMISS_KEY = "aca-privacy-banner-dismissed-v1";
+const DISMISS_KEY = "twelve-steps-privacy-banner-dismissed-v1";
 
 export function PrivacyBanner() {
   const [mounted, setMounted] = useState(false);
@@ -12,13 +12,15 @@ export function PrivacyBanner() {
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
+    // Standard mount/hydration guard — localStorage is only available client-side.
+    /* eslint-disable react-hooks/set-state-in-effect */
     setMounted(true);
     try {
-      const stored = localStorage.getItem(DISMISS_KEY);
-      setDismissed(stored === "1");
+      setDismissed(localStorage.getItem(DISMISS_KEY) === "1");
     } catch {
       setDismissed(false);
     }
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   if (!mounted || dismissed) return null;
@@ -40,7 +42,7 @@ export function PrivacyBanner() {
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-sm font-medium text-[var(--foreground)]">
-                Your reflections stay on <em className="not-italic font-semibold">this</em> browser.
+                Your Step work stays on <em className="not-italic font-semibold">this</em> device.
               </span>
               <button
                 onClick={() => setExpanded((e) => !e)}
@@ -48,10 +50,7 @@ export function PrivacyBanner() {
               >
                 How it works
                 <ChevronDown
-                  className={cn(
-                    "h-3 w-3 transition-transform",
-                    expanded && "rotate-180"
-                  )}
+                  className={cn("h-3 w-3 transition-transform", expanded && "rotate-180")}
                   strokeWidth={2}
                 />
               </button>
@@ -60,24 +59,25 @@ export function PrivacyBanner() {
             {expanded && (
               <div className="mt-3 text-xs text-[var(--foreground)]/80 leading-relaxed space-y-3">
                 <p>
-                  All your answers — reflections, feelings logs, triggers, Inner Child dialogues,
-                  favorites, attendance — live in this browser&apos;s local storage. Nothing is sent to a
-                  server. Nobody else can see them (not us, not your group).
+                  Everything you write — reflections, inventories, amends lists, daily check-ins,
+                  meeting-share drafts, your sobriety date — lives only in this browser&apos;s local
+                  storage. Nothing is sent to a server. There is no account, no analytics, no
+                  network call. Anonymity is built in.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <div className="rounded-lg bg-[var(--card)]/70 border border-[var(--border)] p-3">
                     <div className="text-[10px] uppercase tracking-wider text-[var(--sage)] font-semibold mb-1.5">
-                      ✓ Your answers will be here
+                      ✓ Your work will be here
                     </div>
                     <ul className="space-y-1 text-xs text-[var(--foreground)]/80">
-                      <li>• Tomorrow in the same browser</li>
+                      <li>• Tomorrow, in the same browser</li>
                       <li>• Next week, next month</li>
                       <li>• After closing the tab or restarting</li>
                     </ul>
                   </div>
                   <div className="rounded-lg bg-[var(--card)]/70 border border-[var(--border)] p-3">
                     <div className="text-[10px] uppercase tracking-wider text-[var(--accent)] font-semibold mb-1.5">
-                      ✗ They won&apos;t follow you to
+                      ✗ It won&apos;t follow you to
                     </div>
                     <ul className="space-y-1 text-xs text-[var(--foreground)]/80">
                       <li>• A different browser or device</li>
@@ -88,7 +88,7 @@ export function PrivacyBanner() {
                 </div>
                 <p className="text-[11px] text-[var(--muted-foreground)]">
                   <strong className="text-[var(--foreground)]">Tip:</strong> pick one browser on one
-                  device and always return to it. Account-based sync is coming later.
+                  device and return to it. This is your private workbook.
                 </p>
               </div>
             )}

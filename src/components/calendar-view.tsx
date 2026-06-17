@@ -1,428 +1,222 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import {
-  startOfMonth,
-  endOfMonth,
-  eachDayOfInterval,
-  startOfWeek,
-  endOfWeek,
-  addMonths,
-  format,
-  isSameMonth,
-  isSameDay,
-} from "date-fns";
-import { ChevronLeft, ChevronRight, CheckCircle2, Circle, Coffee, Award, BookOpen } from "lucide-react";
-import { SCHEDULE, getNextSession } from "@/data/schedule";
-import { TRAITS } from "@/data/traits";
+import { useAppStore } from "@/store/app-store";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { useAppStore } from "@/store/app-store";
-import { formatDate, daysBetween, cn, parseLocalDate, startOfToday } from "@/lib/utils";
-import type { Session } from "@/lib/types";
+import { Field } from "@/components/exercises/_shell";
+import { Trash2, CalendarCheck, Mic } from "lucide-react";
+import { STEPS } from "@/data/steps";
+import { daysBetween, parseLocalDate, formatDate } from "@/lib/utils";
 
-function sessionKey(s: Session) {
-  return s.date;
+const MILESTONES: { days: number; label: string }[] = [
+  { days: 1, label: "24 hours" },
+  { days: 30, label: "30 days" },
+  { days: 60, label: "60 days" },
+  { days: 90, label: "90 days" },
+  { days: 180, label: "6 months" },
+  { days: 270, label: "9 months" },
+  { days: 365, label: "1 year" },
+  { days: 730, label: "2 years" },
+];
+
+function todayIso() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
 export function CalendarView() {
-  const START = parseLocalDate("2026-04-01");
-  const [cursor, setCursor] = useState<Date>(START);
-  const [selected, setSelected] = useState<Session | null>(() => {
-    const next = getNextSession(startOfToday());
-    return next ?? SCHEDULE[0];
-  });
-  const [view, setView] = useState<"month" | "agenda">("month");
+  const s = useAppStore();
+  const [dateInput, setDateInput] = useState(s.sobrietyDate ?? "");
+  const [mName, setMName] = useState("");
+  const [mFormat, setMFormat] = useState<"in-person" | "online" | "phone">("in-person");
+  const [mNote, setMNote] = useState("");
 
-  const today = useMemo(() => startOfToday(), []);
-  const next = useMemo(() => getNextSession(today), [today]);
-  const countdownDays = next ? daysBetween(today, parseLocalDate(next.date)) : null;
+  const days = s.sobrietyDate != null ? daysBetween(parseLocalDate(s.sobrietyDate), new Date()) : null;
+  const nextMilestone = days != null ? MILESTONES.find((m) => m.days > days) : null;
 
-  const attendance = useAppStore((s) => s.attendance);
-  const setAttendance = useAppStore((s) => s.setAttendance);
-  const setAttendanceNotes = useAppStore((s) => s.setAttendanceNotes);
-
-  const monthDays = useMemo(() => {
-    const monthStart = startOfMonth(cursor);
-    const monthEnd = endOfMonth(cursor);
-    const gridStart = startOfWeek(monthStart, { weekStartsOn: 0 });
-    const gridEnd = endOfWeek(monthEnd, { weekStartsOn: 0 });
-    return eachDayOfInterval({ start: gridStart, end: gridEnd });
-  }, [cursor]);
-
-  const sessionsByDate = useMemo(() => {
-    const map = new Map<string, Session>();
-    for (const s of SCHEDULE) map.set(s.date, s);
-    return map;
-  }, []);
-
-  const trait = selected?.traitId ? TRAITS.find((t) => t.id === selected.traitId) : null;
-  const att = selected ? attendance[selected.date] : undefined;
+  const drafts = STEPS.map((step) => ({ step, draft: s.shareDrafts[step.id] })).filter(
+    (x) => x.draft && x.draft.content.trim().length > 0
+  );
 
   return (
     <div>
-      {next && (
-        <Card className="p-5 mb-6 bg-[var(--primary)] border-[var(--primary)] text-[var(--primary-foreground)]">
-          <div className="flex items-center justify-between flex-wrap gap-3">
-            <div>
-              <div className="text-[10px] uppercase tracking-widest opacity-80 mb-1">
-                Next meeting
-              </div>
-              <div className="font-serif text-xl md:text-2xl font-semibold">
-                {countdownDays !== null && countdownDays >= 0 ? (
-                  <>
-                    {countdownDays === 0
-                      ? "Today"
-                      : countdownDays === 1
-                      ? "Tomorrow"
-                      : `In ${countdownDays} days`}{" "}
-                    · {formatDate(next.date, "weekday")}
-                  </>
-                ) : (
-                  formatDate(next.date, "weekday")
-                )}
-              </div>
-              <div className="text-sm opacity-90 mt-1">
-                {next.type === "break"
-                  ? `Break — ${next.label}`
-                  : next.type === "wrapup"
-                  ? "Final Wrapup"
-                  : `Trait ${next.traitId} · ${next.quadrant === "mainList" ? "Main List" : "Flip Side"}`}
-              </div>
-            </div>
-            {next.traitId && TRAITS.find((t) => t.id === next.traitId)?.active && (
-              <Link href={`/traits/${next.traitId}`}>
-                <Button variant="accent">
-                  <BookOpen className="h-4 w-4" strokeWidth={1.75} />
-                  Open trait
-                </Button>
-              </Link>
-            )}
-          </div>
-        </Card>
-      )}
-
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => setCursor(addMonths(cursor, -1))}
-          >
-            <ChevronLeft className="h-4 w-4" strokeWidth={2} />
-          </Button>
-          <h2 className="font-serif text-xl font-semibold w-44 text-center">
-            {format(cursor, "MMMM yyyy")}
-          </h2>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => setCursor(addMonths(cursor, 1))}
-          >
-            <ChevronRight className="h-4 w-4" strokeWidth={2} />
-          </Button>
-        </div>
-        <div className="flex items-center gap-1 rounded-lg border border-[var(--border)] bg-[var(--muted)]/50 p-1">
-          <button
-            onClick={() => setView("month")}
-            className={cn(
-              "px-3 py-1 text-xs font-medium rounded-md transition-colors",
-              view === "month" ? "bg-[var(--card)] shadow-sm" : "text-[var(--muted-foreground)]"
-            )}
-          >
-            Month
-          </button>
-          <button
-            onClick={() => setView("agenda")}
-            className={cn(
-              "px-3 py-1 text-xs font-medium rounded-md transition-colors",
-              view === "agenda" ? "bg-[var(--card)] shadow-sm" : "text-[var(--muted-foreground)]"
-            )}
-          >
-            Agenda
-          </button>
-        </div>
+      <div className="mb-8">
+        <h1 className="font-serif text-3xl md:text-4xl font-semibold mb-2">Calendar</h1>
+        <p className="text-[var(--muted-foreground)] max-w-2xl">
+          A flexible tracker — no fixed schedule. Set a sobriety date, log meetings and sponsor
+          check-ins, and gather the shares you&apos;ve drafted.
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
-          {view === "month" ? (
-            <Card className="p-3 md:p-5">
-              {/* Bolder weekday headers */}
-              <div className="grid grid-cols-7 gap-1.5 mb-3">
-                {[
-                  { short: "S", full: "Sun" },
-                  { short: "M", full: "Mon" },
-                  { short: "T", full: "Tue" },
-                  { short: "W", full: "Wed" },
-                  { short: "T", full: "Thu" },
-                  { short: "F", full: "Fri" },
-                  { short: "S", full: "Sat" },
-                ].map((d, i) => (
-                  <div
-                    key={i}
-                    className="text-center py-2 font-serif text-sm md:text-base font-semibold text-[var(--muted-foreground)]"
-                  >
-                    <span className="sm:hidden">{d.short}</span>
-                    <span className="hidden sm:inline">{d.full}</span>
-                  </div>
-                ))}
-              </div>
-              {/* Larger day cells */}
-              <div className="grid grid-cols-7 gap-1.5">
-                {monthDays.map((day) => {
-                  const dateStr = format(day, "yyyy-MM-dd");
-                  const session = sessionsByDate.get(dateStr);
-                  const inMonth = isSameMonth(day, cursor);
-                  const isToday = isSameDay(day, new Date());
-                  const isSelected = selected && selected.date === dateStr;
-                  const hasAttended = attendance[dateStr]?.attended;
-                  return (
-                    <div
-                      key={dateStr}
-                      className={cn(
-                        "min-h-[72px] md:min-h-[92px] rounded-lg p-2 text-left transition-all relative border",
-                        !inMonth && "opacity-35",
-                        session
-                          ? "cursor-pointer hover:ring-2 hover:ring-[var(--primary)]/30"
-                          : "border-transparent",
-                        session ? "border-[var(--border)]" : "border-transparent",
-                        isSelected && session && "ring-2 ring-[var(--primary)]",
-                        session?.type === "session"
-                          ? "bg-[var(--muted)]/60"
-                          : session?.type === "break"
-                          ? "bg-[var(--accent)]/10"
-                          : session?.type === "wrapup"
-                          ? "bg-[var(--sage)]/20"
-                          : ""
-                      )}
-                      onClick={() => session && setSelected(session)}
-                      role={session ? "button" : undefined}
-                      tabIndex={session ? 0 : -1}
-                      onKeyDown={(e) => {
-                        if (session && (e.key === "Enter" || e.key === " ")) {
-                          e.preventDefault();
-                          setSelected(session);
-                        }
-                      }}
-                    >
-                      {/* Big, bold day number */}
-                      <div className="flex items-start justify-between mb-1">
-                        <div
-                          className={cn(
-                            "font-serif font-semibold leading-none",
-                            "text-lg md:text-xl",
-                            isToday
-                              ? "inline-flex items-center justify-center h-8 w-8 rounded-full bg-[var(--primary)] text-[var(--primary-foreground)]"
-                              : "text-[var(--foreground)]"
-                          )}
-                        >
-                          {format(day, "d")}
-                        </div>
-                        {hasAttended && (
-                          <CheckCircle2
-                            className="h-4 w-4 text-[var(--sage)] shrink-0"
-                            strokeWidth={2.5}
-                          />
-                        )}
-                      </div>
-
-                      {/* Trait link chip - directly clickable */}
-                      {session?.type === "session" && session.traitId && (
-                        <Link
-                          href={
-                            TRAITS.find((t) => t.id === session.traitId)?.active
-                              ? `/traits/${session.traitId}`
-                              : "/traits"
-                          }
-                          onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-1 rounded-md bg-[var(--primary)]/10 hover:bg-[var(--primary)]/20 px-1.5 py-0.5 transition-colors"
-                          aria-label={`Open Trait ${session.traitId}`}
-                        >
-                          <span className="font-serif text-sm md:text-base font-bold text-[var(--primary)]">
-                            T{session.traitId}
-                          </span>
-                          <span className="text-[9px] md:text-[10px] uppercase tracking-wider font-semibold text-[var(--muted-foreground)]">
-                            {session.quadrant === "mainList" ? "ML" : "FS"}
-                          </span>
-                        </Link>
-                      )}
-                      {session?.type === "break" && (
-                        <span className="inline-block rounded-md bg-[var(--accent)]/20 px-1.5 py-0.5 text-[10px] md:text-xs font-bold uppercase tracking-wider text-[var(--accent)]">
-                          Break
-                        </span>
-                      )}
-                      {session?.type === "wrapup" && (
-                        <span className="inline-block rounded-md bg-[var(--sage)]/30 px-1.5 py-0.5 text-[10px] md:text-xs font-bold uppercase tracking-wider text-[var(--primary)]">
-                          Wrap-up
-                        </span>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </Card>
-          ) : (
-            <Card>
-              <div className="divide-y divide-[var(--border)]">
-                {SCHEDULE.map((s) => {
-                  const isSelected = selected?.date === s.date;
-                  const hasAttended = attendance[s.date]?.attended;
-                  const t = s.traitId ? TRAITS.find((x) => x.id === s.traitId) : null;
-                  return (
-                    <button
-                      key={sessionKey(s)}
-                      onClick={() => setSelected(s)}
-                      className={cn(
-                        "w-full text-left flex items-center gap-4 px-5 py-3 hover:bg-[var(--muted)]/40 transition-colors",
-                        isSelected && "bg-[var(--muted)]/70"
-                      )}
-                    >
-                      <div className="w-24 shrink-0">
-                        <div className="text-xs text-[var(--muted-foreground)]">
-                          {format(parseLocalDate(s.date), "EEE")}
-                        </div>
-                        <div className="font-serif text-base font-semibold">
-                          {format(parseLocalDate(s.date), "MMM d")}
-                        </div>
-                      </div>
-                      <div className="flex-1">
-                        {s.type === "session" ? (
-                          <>
-                            <div className="text-sm font-medium text-[var(--foreground)]">
-                              Trait {s.traitId} · {t?.shortName}
-                            </div>
-                            <div className="text-xs text-[var(--muted-foreground)]">
-                              {s.quadrant === "mainList" ? "Main List" : "Flip Side"}
-                            </div>
-                          </>
-                        ) : s.type === "break" ? (
-                          <div className="text-sm font-medium text-[var(--accent)]">
-                            Break · {s.label}
-                          </div>
-                        ) : (
-                          <div className="text-sm font-medium text-[var(--primary)]">
-                            {s.label}
-                          </div>
-                        )}
-                      </div>
-                      {hasAttended ? (
-                        <CheckCircle2 className="h-4 w-4 text-[var(--sage)]" strokeWidth={2} />
-                      ) : s.type === "session" ? (
-                        <Circle className="h-4 w-4 text-[var(--muted-foreground)]/30" strokeWidth={2} />
-                      ) : null}
-                    </button>
-                  );
-                })}
-              </div>
-            </Card>
+      {/* Sobriety tracker */}
+      <Card className="p-6 mb-6">
+        <h2 className="font-serif text-xl font-semibold mb-3">Sobriety date</h2>
+        <div className="flex flex-wrap items-end gap-3 mb-5">
+          <div>
+            <label className="text-xs text-[var(--muted-foreground)] block mb-1">Your date</label>
+            <Field
+              type="date"
+              value={dateInput}
+              max={todayIso()}
+              onChange={(e) => setDateInput(e.target.value)}
+              className="w-44"
+            />
+          </div>
+          <Button size="sm" onClick={() => s.setSobrietyDate(dateInput || null)}>
+            Save
+          </Button>
+          {s.sobrietyDate && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                s.setSobrietyDate(null);
+                setDateInput("");
+              }}
+            >
+              Clear
+            </Button>
           )}
         </div>
 
-        <div className="lg:col-span-1">
-          <Card className="p-5 sticky top-6">
-            {selected ? (
-              <>
-                <div className="text-xs uppercase tracking-widest text-[var(--muted-foreground)] font-medium mb-2">
-                  {format(parseLocalDate(selected.date), "EEEE")}
-                </div>
-                <div className="font-serif text-2xl font-semibold text-[var(--foreground)] mb-3">
-                  {format(parseLocalDate(selected.date), "MMMM d, yyyy")}
-                </div>
+        {days != null ? (
+          <div>
+            <div className="flex items-baseline gap-2 mb-4">
+              <span className="font-serif text-5xl font-semibold text-[var(--primary)]">{days}</span>
+              <span className="text-[var(--muted-foreground)]">
+                day{days === 1 ? "" : "s"}, one at a time
+                {nextMilestone && ` · ${nextMilestone.days - days} to ${nextMilestone.label}`}
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {MILESTONES.map((m) => {
+                const reached = days >= m.days;
+                return (
+                  <span
+                    key={m.days}
+                    className={
+                      "rounded-full px-3 py-1 text-xs font-medium border " +
+                      (reached
+                        ? "bg-[var(--sage)]/20 border-[var(--sage)] text-[var(--primary)]"
+                        : "border-[var(--border)] text-[var(--muted-foreground)]")
+                    }
+                  >
+                    {reached ? "✓ " : ""}
+                    {m.label}
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          <p className="text-sm text-[var(--muted-foreground)]">
+            No date set yet. Whatever your number, today counts — and detoxing from alcohol can be
+            medically risky for some, so please reach out to a doctor if your body has come to depend
+            on it.
+          </p>
+        )}
+      </Card>
 
-                {selected.type === "session" && trait && (
-                  <>
-                    <div className="flex items-center gap-2 mb-4">
-                      <Badge variant={selected.quadrant === "mainList" ? "default" : "sage"}>
-                        {selected.quadrant === "mainList" ? "Main List" : "Flip Side"}
-                      </Badge>
-                      <Badge variant="outline">Trait {trait.id}</Badge>
-                    </div>
-                    <h3 className="font-serif text-lg font-semibold mb-1">{trait.shortName}</h3>
-                    <p className="text-sm text-[var(--muted-foreground)] italic leading-relaxed mb-5">
-                      &ldquo;{trait.statements.laundry}&rdquo;
-                    </p>
-
-                    {trait.active && (
-                      <Link href={`/traits/${trait.id}`} className="block mb-5">
-                        <Button variant="default" className="w-full">
-                          <BookOpen className="h-4 w-4" strokeWidth={1.75} />
-                          Open trait study
-                        </Button>
-                      </Link>
-                    )}
-
-                    <div className="border-t border-[var(--border)] pt-4">
-                      <button
-                        onClick={() => setAttendance(selected.date, !att?.attended)}
-                        className={cn(
-                          "w-full flex items-center gap-3 rounded-lg border px-4 py-3 transition-colors",
-                          att?.attended
-                            ? "border-[var(--sage)] bg-[var(--sage)]/10"
-                            : "border-[var(--border)] hover:bg-[var(--muted)]"
-                        )}
-                      >
-                        {att?.attended ? (
-                          <CheckCircle2 className="h-5 w-5 text-[var(--sage)]" strokeWidth={2} />
-                        ) : (
-                          <Circle className="h-5 w-5 text-[var(--muted-foreground)]" strokeWidth={2} />
-                        )}
-                        <span className="text-sm font-medium">
-                          {att?.attended ? "Attended" : "Mark as attended"}
-                        </span>
-                      </button>
-
-                      <label className="block mt-4">
-                        <div className="text-xs uppercase tracking-wider text-[var(--muted-foreground)] font-medium mb-2">
-                          Meeting notes
-                        </div>
-                        <Textarea
-                          value={att?.notes ?? ""}
-                          onChange={(e) => setAttendanceNotes(selected.date, e.target.value)}
-                          rows={4}
-                          placeholder="What came up in the discussion..."
-                          className="text-sm"
-                        />
-                      </label>
-                    </div>
-                  </>
-                )}
-
-                {selected.type === "break" && (
-                  <div className="flex items-start gap-3 rounded-lg border border-[var(--accent)]/30 bg-[var(--accent)]/5 p-4">
-                    <Coffee className="h-5 w-5 text-[var(--accent)] shrink-0 mt-0.5" strokeWidth={1.75} />
-                    <div>
-                      <div className="font-medium text-sm">No meeting</div>
-                      <div className="text-sm text-[var(--muted-foreground)] mt-0.5">
-                        {selected.label}
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {selected.type === "wrapup" && (
-                  <div className="flex items-start gap-3 rounded-lg border border-[var(--primary)]/30 bg-[var(--primary)]/5 p-4">
-                    <Award className="h-5 w-5 text-[var(--primary)] shrink-0 mt-0.5" strokeWidth={1.75} />
-                    <div>
-                      <div className="font-medium text-sm">{selected.label}</div>
-                      <div className="text-sm text-[var(--muted-foreground)] mt-0.5">
-                        The final gathering. Reflection and celebration.
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="text-sm text-[var(--muted-foreground)]">
-                Select a session from the calendar to see details.
-              </div>
-            )}
-          </Card>
+      {/* Meeting log */}
+      <Card className="p-6 mb-6">
+        <h2 className="font-serif text-xl font-semibold mb-3 flex items-center gap-2">
+          <CalendarCheck className="h-5 w-5 text-[var(--primary)]" strokeWidth={1.75} />
+          Meetings & check-ins
+        </h2>
+        <div className="grid gap-2 sm:grid-cols-[1fr_auto] mb-2">
+          <Field value={mName} onChange={(e) => setMName(e.target.value)} placeholder="Meeting or sponsor check-in name" />
+          <div className="flex gap-1.5">
+            {(["in-person", "online", "phone"] as const).map((f) => (
+              <button
+                key={f}
+                onClick={() => setMFormat(f)}
+                className={
+                  "rounded-lg border px-3 text-xs font-medium " +
+                  (mFormat === f
+                    ? "border-[var(--primary)] bg-[var(--primary)] text-[var(--primary-foreground)]"
+                    : "border-[var(--border)] text-[var(--muted-foreground)]")
+                }
+              >
+                {f}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+        <Field value={mNote} onChange={(e) => setMNote(e.target.value)} placeholder="Notes (optional)" className="mb-2" />
+        <Button
+          variant="subtle"
+          size="sm"
+          disabled={!mName.trim()}
+          onClick={() => {
+            if (!mName.trim()) return;
+            s.logMeeting({ date: todayIso(), name: mName, format: mFormat, shared: false, note: mNote });
+            setMName("");
+            setMNote("");
+          }}
+        >
+          Log meeting
+        </Button>
+
+        <div className="mt-4 space-y-2">
+          {s.meetings.length === 0 && (
+            <p className="text-sm text-[var(--muted-foreground)] italic">No meetings logged yet.</p>
+          )}
+          {s.meetings.map((m) => (
+            <div
+              key={m.id}
+              className="flex items-center gap-3 rounded-lg border border-[var(--border)] p-3"
+            >
+              <div className="flex-1 min-w-0">
+                <div className="font-medium text-sm">{m.name}</div>
+                <div className="text-xs text-[var(--muted-foreground)]">
+                  {formatDate(m.date, "short")} · {m.format}
+                  {m.note ? ` · ${m.note}` : ""}
+                </div>
+              </div>
+              <button
+                onClick={() => s.deleteMeeting(m.id)}
+                className="text-[var(--muted-foreground)] hover:text-[var(--accent)] p-1"
+                aria-label="Delete meeting"
+              >
+                <Trash2 className="h-3.5 w-3.5" strokeWidth={1.75} />
+              </button>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      {/* Meeting prep */}
+      <Card className="p-6">
+        <h2 className="font-serif text-xl font-semibold mb-3 flex items-center gap-2">
+          <Mic className="h-5 w-5 text-[var(--accent)]" strokeWidth={1.75} />
+          Meeting prep — your drafted shares
+        </h2>
+        {drafts.length === 0 ? (
+          <p className="text-sm text-[var(--muted-foreground)]">
+            Drafts you write in each Step&apos;s &ldquo;Bring it to a meeting&rdquo; box will gather here, ready to
+            bring along. <Link href="/steps" className="text-[var(--primary)] underline">Start with a Step</Link>.
+          </p>
+        ) : (
+          <div className="space-y-3">
+            {drafts.map(({ step, draft }) => (
+              <Link key={step.id} href={`/steps/${step.id}`}>
+                <Card className="p-4 hover:bg-[var(--muted)]/30 transition-colors">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Badge variant="default">Step {step.id}</Badge>
+                    <span className="font-serif text-sm font-semibold">{step.shortName}</span>
+                  </div>
+                  <p className="text-sm text-[var(--foreground)]/80 line-clamp-2 font-journal">
+                    {draft!.content}
+                  </p>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        )}
+      </Card>
     </div>
   );
 }
