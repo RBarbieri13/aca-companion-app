@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 import path from "path";
 
-const repoName = "aca-companion-app";
+const repoName = "twelve-steps-companion-app";
 const basePath = process.env.GH_PAGES === "1" ? `/${repoName}` : "";
 
 const nextConfig: NextConfig = {
