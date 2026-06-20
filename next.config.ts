@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const repoName = "aca-companion-app";
+const isProd = process.env.NODE_ENV === "production";
 const basePath = process.env.GH_PAGES === "1" ? `/${repoName}` : "";
 
 const nextConfig: NextConfig = {

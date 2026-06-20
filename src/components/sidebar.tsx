@@ -4,23 +4,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
-  Footprints,
-  Map,
-  Sparkles,
+  BookOpen,
   Calendar,
+  Sparkles,
   LineChart,
-  BookMarked,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const nav = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/steps", label: "The Steps", icon: Footprints },
-  { href: "/map", label: "Step Map", icon: Map },
-  { href: "/exercises", label: "Exercises", icon: Sparkles },
+  { href: "/traits", label: "Traits", icon: BookOpen },
   { href: "/calendar", label: "Calendar", icon: Calendar },
+  { href: "/exercises", label: "Exercises", icon: Sparkles },
   { href: "/insights", label: "Insights", icon: LineChart },
-  { href: "/concepts", label: "Concepts", icon: BookMarked },
 ];
 
 export function Sidebar() {
@@ -31,13 +27,15 @@ export function Sidebar() {
       <div className="px-6 py-8">
         <Link href="/" className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--primary)] text-[var(--primary-foreground)] font-serif text-lg font-semibold">
-            12
+            A
           </div>
           <div>
             <div className="font-serif text-base font-semibold leading-tight text-[var(--foreground)]">
-              Twelve Steps
+              ACA Companion
             </div>
-            <div className="text-xs text-[var(--muted-foreground)]">Companion</div>
+            <div className="text-xs text-[var(--muted-foreground)]">
+              Laundry List Workbook
+            </div>
           </div>
         </Link>
       </div>
@@ -45,7 +43,9 @@ export function Sidebar() {
       <nav className="flex-1 px-3">
         {nav.map((item) => {
           const active =
-            item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+            item.href === "/"
+              ? pathname === "/"
+              : pathname.startsWith(item.href);
           const Icon = item.icon;
           return (
             <Link
@@ -76,9 +76,9 @@ export function Sidebar() {
       <div className="px-6 py-6 text-xs text-[var(--muted-foreground)]">
         <div className="rounded-lg border border-[var(--border)] bg-[var(--muted)]/40 p-3">
           <div className="font-medium text-[var(--foreground)] mb-1">
-            All twelve, unlocked
+            2026 Study Group
           </div>
-          <div>Read, journal, and work every Step at your own pace.</div>
+          <div>Saturdays · 2 sessions / trait</div>
         </div>
       </div>
     </aside>
@@ -89,9 +89,9 @@ export function MobileHeader() {
   return (
     <header className="md:hidden sticky top-0 z-30 flex items-center gap-3 border-b border-[var(--border)] bg-[var(--card)] px-4 py-3">
       <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--primary)] text-[var(--primary-foreground)] font-serif text-sm font-semibold">
-        12
+        A
       </div>
-      <div className="font-serif text-sm font-semibold">Twelve Steps Companion</div>
+      <div className="font-serif text-sm font-semibold">ACA Companion</div>
     </header>
   );
 }

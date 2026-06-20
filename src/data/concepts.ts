@@ -1,282 +1,194 @@
 import type { Concept } from "@/lib/types";
 
-// Original glossary definitions in the app's warm, inclusive voice.
-// Big Book ideas are summarized, never quoted.
 export const CONCEPTS: Concept[] = [
   {
-    id: "powerlessness",
-    name: "Powerlessness",
-    shortDefinition: "Once drinking starts, the wanting takes over — it's no longer a choice you can reliably make.",
-    longDefinition:
-      "Powerlessness is the honest heart of Step One. It doesn't mean you're weak or that you've never said no; it means that over alcohol specifically, your reliable control is gone. The intention to stop at one keeps getting overruled — sometimes by a craving in the body, sometimes by a thought that makes the next drink seem reasonable right up until it isn't. Naming powerlessness is not surrender to despair; it's accuracy. You stop pouring yourself into a fight you keep losing, and that freed-up energy becomes available for a different kind of help.",
-    relatedSteps: [1],
+    id: "dissociation",
+    name: "Dissociation",
+    shortDefinition: "A mechanism that allows the mind to separate or compartmentalize memories or thoughts from normal consciousness.",
+    longDefinition: "Dissociation is a survival mechanism learned in childhood to cope with chaos or trauma. The split-off mental contents are not erased — they resurface spontaneously or get triggered by objects or events. In ACA we see dissociation as the engine behind many Laundry List traits: we master the moves of isolating, fearing, and then acting out — running a loop we can't see from inside it. In Trait 3 the workbook names the 'Game of Dissociation' directly: the avoider position numbs us with worry, fear and pain, while the aggressor position numbs us with the adrenaline of controlling others — both keep the original hurt out of view. In Trait 4 the Game lets us play either the abandoned (victim) of The Laundry List or the abandoner (victimizer) of The Other Laundry List — an endlessly repetitive cycle that keeps us from remembering our traumatic childhood.",
+    relatedTraits: [1, 2, 3, 4, 10, 14],
   },
   {
-    id: "unmanageability",
-    name: "Unmanageability",
-    shortDefinition: "The wreckage that has spread past the glass into the rest of your life.",
-    longDefinition:
-      "If powerlessness is about the drink, unmanageability is about everything around it: the money, the missed mornings, the friendships gone quiet, the health you don't ask about, the inner weather you can't predict. You don't have to have lost everything to qualify — unmanageability shows up in ordinary places long before it shows up in dramatic ones. Mapping it honestly, area by area, turns a vague sense of 'my life is a mess' into something specific and therefore workable.",
-    relatedSteps: [1],
+    id: "false-self",
+    name: "False Self",
+    shortDefinition: "The performed version of ourselves we developed to stay safe in an unsafe family.",
+    longDefinition: "We buried, hid, denied, abandoned, and betrayed our True Self to present something more acceptable to the adults around us. The false self is the armor — people pleaser, problem solver, quick thinker, decision maker, hero, martyr. Outwardly it can look like success. Inwardly it requires constant adrenaline to maintain. In Trait 2 the workbook names this directly as the 'people-pleasing false self' that feels like a solution but is dishonest, and leads to despair, anger, and trying to control the uncontrollable. In Trait 3, the false self is what we wield anger to defend — 'tough love,' cutting 'helpful' criticism, contempt and ridicule — until our renewed True Self esteem makes that defense unnecessary.",
+    relatedTraits: [1, 2, 3, 11],
   },
   {
-    id: "allergy-obsession",
-    name: "The Allergy & the Obsession",
-    shortDefinition: "A bodily reaction to alcohol paired with a mind that keeps inviting it back.",
-    longDefinition:
-      "An old and useful framing of the problem as two-part: something physical, where alcohol sets off a reaction most people don't have, and something mental, where the mind returns to the idea of drinking even after long stretches dry. It's not literally an allergy in the medical sense, but the metaphor lands: you can't safely have a little. Understanding both halves explains why willpower alone keeps failing — the obsession argues you back, and the body finishes the argument.",
-    relatedSteps: [1, 2],
+    id: "true-self",
+    name: "True Self",
+    shortDefinition: "Who we actually are underneath the survival performance.",
+    longDefinition: "The True Self is what got buried to survive. Recovery work — especially reparenting and the ACA Twelve Steps — is the process of meeting it again, often for the first time since childhood. It tends to show up quiet at first: in the pause before a reactive 'yes,' in a real preference, in a feeling we'd normally override. In Trait 2 we begin to free our True Self from the 'intricate web of denial' and become part of a fellowship that celebrates our individuality. In Trait 3 the renewed True Self esteem and worth allow us to admit we are human and likely to make mistakes — so criticism is no longer a threat to who we are.",
+    relatedTraits: [1, 2, 3, 10, 11],
   },
   {
-    id: "hitting-bottom",
-    name: "Hitting Bottom",
-    shortDefinition: "The point where the pain of continuing outweighs the fear of stopping.",
-    longDefinition:
-      "A 'bottom' is less a place than a moment of willingness — when staying the same finally costs more than changing. Bottoms come at wildly different elevations; some people arrive after losing nearly everything, others after one quiet, terrifying ordinary morning. You don't have to wait for catastrophe, and you don't get extra credit for a worse story. The only thing a bottom is good for is the door it opens. The floor you hit is also the floor you finally get to stand on.",
-    relatedSteps: [1],
+    id: "reparenting",
+    name: "Reparenting",
+    shortDefinition: "Becoming the loving parent we needed — to ourselves, now.",
+    longDefinition: "Reparenting is the daily practice of giving ourselves what our caregivers couldn't: safety, consistency, gentleness, accurate reflection, protection, and permission. It's how we interrupt the childhood reactions that still run us and choose an adult response instead. Non-dominant handwriting and Inner Child dialogue are classic reparenting tools. Trait 4 reminds us that reparenting is more than getting in touch with feelings and buried memories — it is a steady, ongoing commitment that, over time, lets us create true and lasting intimacy first with our True Self and then with others who are equally available to bond.",
+    relatedTraits: [1, 2, 3, 4, 6, 7, 11, 12],
   },
   {
-    id: "higher-power",
-    name: "Higher Power / God of Your Understanding",
-    shortDefinition: "Whatever is real to you and bigger than your own willpower.",
-    longDefinition:
-      "The program is deliberately wide here: a Higher Power can be God in a traditional sense, or the fellowship of the group, the order of nature, love, honesty, or simply the accumulated wisdom of people further down the road. The only requirements are that it's real to you and that it's greater than your own stubborn self-will. For people burned by religion, this is the relief at the center of the whole thing — you are invited to build an understanding that actually helps, and to leave behind any image that only ever harmed.",
-    relatedSteps: [2, 3, 11],
+    id: "inner-child",
+    name: "Inner Child",
+    shortDefinition: "The younger part of us that still carries the original wounds and the original aliveness.",
+    longDefinition: "In ACA the Inner Child is not metaphor — it's the part of our psyche that got frozen in the moments we couldn't process. She/he still holds the fear, the grief, the creativity, and the joy. We learn to listen and respond rather than silencing or overriding. In Trait 2 the workbook speaks of the 'frightened and injured child within' — the one we built our sanctuary of isolation to protect. In Trait 4 the Flip Side names the recovery directly: we accept and comfort the isolated and hurt Inner Child we have abandoned and disavowed. In Trait 5, when someone starts to walk away from us, we no longer resist their leaving — instead we use the Steps and reparenting to comfort the Inner Child who fears being alone.",
+    relatedTraits: [1, 2, 4, 5, 10, 11, 12],
   },
   {
-    id: "restoration",
-    name: "Restoration to Sanity",
-    shortDefinition: "Being brought back to a right mind that stops repeating what keeps hurting you.",
-    longDefinition:
-      "Sanity in Step Two is plain, not lofty: it's the state of no longer doing the same painful thing while expecting a different result. Restoration suggests something being given back — a clarity you had before, or maybe never had. It rarely arrives all at once. More often you notice, in some ordinary moment, that you reached for a healthier response without the old struggle, and you realize a little sanity has quietly been restored.",
-    relatedSteps: [2],
+    id: "loving-parent",
+    name: "Loving Parent",
+    shortDefinition: "The grown-up inside us who can hold the Inner Child with steadiness.",
+    longDefinition: "The Loving Parent is the adult self we cultivate through recovery — the one who can say 'I've got you' and mean it. In many meetings it's also called the Higher Self. Reparenting is the Loving Parent doing the work with the Inner Child. In Trait 4 it is the inner loving parent that finally stops abandoning the child within. In Trait 5 the Flip Side names a partnership of inner figures: the inner loving parent, the critical survival inner parent, the Inner Child, and our Higher Power — and that partnership is where wholeness and completeness come from.",
+    relatedTraits: [1, 2, 4, 5, 6, 11, 12],
   },
   {
-    id: "surrender-self-will",
-    name: "Surrender vs. Self-Will",
-    shortDefinition: "Setting down the project of running everything, so something else can help.",
-    longDefinition:
-      "Self-will run riot — the constant managing, forcing, and arranging of life and people — is named in the program as the root of much of our trouble. Surrender is its opposite, and it's easily misunderstood as defeat. It isn't. Surrender is the strategic decision to stop fighting reality and to let a Higher Power, the group, or simple honesty carry what you were never strong enough to carry alone. Paradoxically, real power tends to enter right where the self-will lets go.",
-    relatedSteps: [1, 3, 11],
+    id: "acting-out",
+    name: "Acting Out",
+    shortDefinition: "Behaving out a subconscious conflict instead of feeling it.",
+    longDefinition: "Mental health professionals use 'acting out' to describe behavior driven by a conflict we can't yet see or name. In ACA, The Other Laundry List captures the acting-out half of each trait: fearing authority and then becoming the intimidating authority, fearing abandonment and then abandoning first, and so on. In Trait 2 it shows up as the swing from enmeshment to rigid self-sufficiency — both of which abandon the self. In Trait 3 it is the flip from anger and criticism avoider to angry critic — 'if we can't beat them, we'll join them' — usually triggered when someone reminds us of our own buried vulnerabilities.",
+    relatedTraits: [1, 2, 3, 4, 6, 9, 12, 14],
   },
   {
-    id: "acting-as-if",
-    name: "Acting As If",
-    shortDefinition: "Taking the action before you feel the belief, and letting feeling follow.",
-    longDefinition:
-      "Much of recovery asks you to move before you're convinced — to go to the meeting, make the call, say the prayer, behave as if help is real — and to watch what happens. This isn't faking; it's a recognition that feelings often follow actions rather than preceding them. 'Acting as if' is how belief gets built from evidence instead of waited for like weather. You act your way into a new way of thinking more reliably than you think your way into a new way of acting.",
-    relatedSteps: [2, 3, 7],
+    id: "para-alcoholic",
+    name: "Para-Alcoholic",
+    shortDefinition: "Someone who picked up the characteristics of alcoholism without picking up the drink.",
+    longDefinition: "Alcoholism is a family disease. Adult children often inherit the patterns — reactivity, control, denial, rigidity, extremes — even if we never drink. Traits 13 and 14 address the para-alcoholic directly: we became carriers of the disease's shape, not its substance.",
+    relatedTraits: [13, 14],
   },
   {
-    id: "moral-inventory",
-    name: "The Moral Inventory",
-    shortDefinition: "An honest stock-taking of resentments, fears, and conduct — assets and liabilities both.",
-    longDefinition:
-      "An inventory is what a shop does to find out what's actually on its shelves. The moral inventory of Step Four is the same: a thorough, honest accounting, not a prosecution. The classic method works in columns — who or what you resent, the cause, what it threatens, and your part — followed by a fear inventory and a gentle look at conduct. 'Moral' here means honest, not shaming, and a fearless inventory includes your assets too: the ways you've survived, shown up, and loved.",
-    relatedSteps: [4, 10],
+    id: "hypervigilance",
+    name: "Hypervigilance",
+    shortDefinition: "A nervous system stuck scanning for threat.",
+    longDefinition: "Hypervigilance is the adaptation that let us survive unpredictable caregivers — always reading the room, always ready to brace. In adulthood it fuels isolation, over-responsibility, and exhaustion. Somatic practices and consistent ACA work help the system learn new information: it's not that time anymore, and we are no longer small.",
+    relatedTraits: [1, 3, 6, 8],
   },
   {
-    id: "resentment",
-    name: "Resentment",
-    shortDefinition: "The re-felt grievance that quietly poisons the person carrying it.",
-    longDefinition:
-      "Resentment — literally 're-feeling' — is anger you keep alive by rehearsing it. The program treats it as a kind of slow poison, and as the number-one offender for people prone to drinking, because a nursed grievance is a reliable excuse to escape. The inventory's move is not to deny the resentment but to add a column for your part. That single shift — from 'what they did' to 'where I'm involved' — is what lets a resentment you've carried for years finally start to lose its grip.",
-    relatedSteps: [4, 10],
+    id: "twelve-steps",
+    name: "The ACA Twelve Steps",
+    shortDefinition: "The program of action that moves us from survival into recovery.",
+    longDefinition: "ACA adapts the original Twelve Steps to the adult-child experience. They are the tool the Flip Side of every trait points to — admitting powerlessness over the effects, coming to believe, deciding, taking inventory, making amends, and carrying the message. In this workbook, the Flip Sides explicitly ask which Steps helped with which trait.",
+    relatedTraits: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
   },
   {
-    id: "fear",
-    name: "Fear (the corrosive thread)",
-    shortDefinition: "The quiet driver running underneath most resentments and defects.",
-    longDefinition:
-      "Fear is the thread that runs through almost everything else in the inventory: under the resentment is often a fear of losing something; under the defect is often a fear it was built to protect. Naming fears directly — what they are, why they're there, what they cost — drains some of their power and points toward an antidote: a faith that you'll be cared for, and an action you can take anyway. You can be afraid and still move; in fact, that's most of courage.",
-    relatedSteps: [4, 6, 11],
+    id: "reversed-flow",
+    name: "Reversed Flow (Game of Dissociation)",
+    shortDefinition: "When the child works to earn the parent's approval instead of receiving it.",
+    longDefinition: "Children need, seek, and expect that parents will approve of them. When a parent is emotionally, physically, or spiritually absent, the relationship's current flow reverses: the child becomes the one working to gain approval by acting however seems to get attention and love. This is the initiation of the 'Game of Dissociation.' Our true identities are hidden from our caregivers and, more importantly, from ourselves. We lose an essential ingredient to healthy development — to be valued for who we are versus who our caregivers wanted us to be. We placate, and we become an unwilling victim in the Game.",
+    relatedTraits: [2, 11],
   },
   {
-    id: "defects-assets",
-    name: "Character Defects vs. Assets",
-    shortDefinition: "Survival habits that curdled — and the strengths that survived alongside them.",
-    longDefinition:
-      "'Defects of character' is old-fashioned language for survival strategies that once protected a frightened person and now mostly cause harm: control, people-pleasing, rage, dishonesty. Naming them isn't self-hatred; most defects are a virtue overgrown or a wound's old armor. And a balanced inventory names assets too — the courage, loyalty, humor, and care that came through it all. Step Six is about becoming willing to let the defects go; you can't do that honestly while pretending you have none.",
-    relatedSteps: [4, 6, 7],
+    id: "enmeshment",
+    name: "Enmeshment",
+    shortDefinition: "Losing yourself inside a relationship; boundaries treated as betrayal.",
+    longDefinition: "Enmeshment is the merging of selves that happens when boundaries were unsafe or unknown in childhood. We don't care about boundaries — we are focused on holding others hostage. We become tangled up in others and lose our identities. The fear of enmeshment is what Trait 2's Other Laundry List names as the fuel for the opposite extreme: rigid self-sufficiency. Both poles leave the self behind.",
+    relatedTraits: [2, 4, 9, 12],
   },
   {
-    id: "self-will-run-riot",
-    name: "Self-Will Run Riot",
-    shortDefinition: "The constant forcing of life and people to match your plan.",
-    longDefinition:
-      "A vivid program phrase for the engine under much of the wreckage: the relentless drive to arrange the world — and everyone in it — around your own wants, comfort, and fear. It isn't always loud; sometimes self-will looks like over-helping or over-controlling 'for their own good.' The trouble is that reality and other people rarely cooperate, and the gap between the plan and the world becomes a steady source of resentment. Steps Three and Eleven are the ongoing antidote: turning the will over, daily.",
-    relatedSteps: [3, 10, 11],
+    id: "rigid-self-sufficiency",
+    name: "Rigid Self-Sufficiency",
+    shortDefinition: "The sanctuary we built to avoid needing anyone — which quietly becomes a prison.",
+    longDefinition: "To avoid enmeshment and the risk of losing ourselves, we swing to the opposite pole. We are the lonely 'self starters' who are a 'pleasure to work with' because we require little or no supervision; the quiet neighbor who rarely talks to anyone; the compliant partner in relationships. The payoff is warding off disappointment by not allowing ourselves to express any needs or to admit that we need anything. The denial of our needs feels like a small price to pay — until the sanctuary becomes a prison, and we are willing to risk moving out of isolation.",
+    relatedTraits: [2, 6],
   },
   {
-    id: "fifth-step",
-    name: "The Fifth Step (confession & relief)",
-    shortDefinition: "Saying the inventory aloud to another human being — and the weight lifting.",
-    longDefinition:
-      "The medicine of Step Five is the third party. You admit the exact nature of your wrongs to your Higher Power and to yourself, but the part that heals is telling another human being — because secrets keep their power only while they stay secret. Said aloud to someone safe, the worst of it shrinks to human size, and you discover you can be fully known and still belong. People describe a physical exhale: something they were sure would end them is simply received.",
-    relatedSteps: [5],
+    id: "inside-drugs",
+    name: "Inside Drugs (Self-Dosing)",
+    shortDefinition: "Worry, fear, and pain used as the body's own numbing chemicals.",
+    longDefinition: "When the trauma and loss we experienced as children were too great for our tiny bodies to withstand, we 'dosed' ourselves with the inside drugs of worry (cortisol), fear (adrenaline), and pain (melatonin) to numb our feelings. As adults we keep the prescription running — sometimes by avoiding anger and criticism (the victim position), sometimes by becoming angry and critical ourselves and 'dosing' on the adrenaline of taking charge and controlling others. Either way, the chemistry blocks our painful memories and the original hurt. Recovery means feeling the feelings instead of dosing them away.",
+    relatedTraits: [3, 8, 10],
   },
   {
-    id: "entire-readiness",
-    name: "Entire Readiness",
-    shortDefinition: "Becoming fully willing to be free of the defects — even the ones that feel like safety.",
-    longDefinition:
-      "Step Six asks whether you're entirely ready to have the defects removed, and it's honest that 'entirely' is a tall order. Some habits you'll gladly drop; others you're still a little in love with, because they've felt like protection for a long time. Readiness isn't the same as ability — you're not removing anything by force, only becoming willing to have it removed. The work is to notice the grip, find the fear underneath, and let willingness ripen rather than forcing it.",
-    relatedSteps: [6],
+    id: "sober-listening",
+    name: "Sober Listening",
+    shortDefinition: "Hearing criticism from True Self esteem instead of childhood fear.",
+    longDefinition: "On the Flip Side of Trait 3 we learn to hear anger and criticism without being petrified by it. We can stand in the present, ask ourselves what — if anything — we did to harm the person, and take responsibility when we are in the wrong. If nothing is of our doing we simply say, 'Thank you for sharing. I am sorry you feel that way.' We sit with the observation, look for any truth that could benefit us, and if it doesn't resonate we set it aside: 'If it doesn't apply, let it fly.' The renewed True Self esteem makes this possible — we no longer need to defend the false self with anger.",
+    relatedTraits: [3, 11],
   },
   {
-    id: "humility",
-    name: "Humility (right-sizing)",
-    shortDefinition: "Being true to your actual size — neither the worst nor the center.",
-    longDefinition:
-      "Humility is one of the most misunderstood words in recovery. It is not self-loathing, which is just grandiosity inside-out — still all about you. Humility is right-sizing: you are a human being among human beings, no more and no less. From that true size, asking for help stops being humiliating and becomes simply sane. Step Seven runs entirely on this: you can have shortcomings and still be worthy, and you can need help and still be whole.",
-    relatedSteps: [7],
+    id: "engage-your-senses",
+    name: "Engage Your Senses",
+    shortDefinition: "A grounding practice that brings the body back to the present.",
+    longDefinition: "When the fear of anger or criticism floods the system, the workbook offers a simple orientation: look at some things (actual), make a noise, eat a peach, smell some cinnamon, pat your face. Each one tells the nervous system 'I am here, now, in an adult body.' It interrupts the dissociative pull and the urge to dose ourselves with worry, fear, or pain. It is a small, repeatable reparenting move — the Loving Parent helping the Inner Child come back into the room.",
+    relatedTraits: [1, 3, 4, 10],
   },
   {
-    id: "shortcomings",
-    name: "Shortcomings",
-    shortDefinition: "The defects, named again in Step Seven as the things we humbly ask to have removed.",
-    longDefinition:
-      "Step Seven uses 'shortcomings' for what Step Six called defects — the survival habits gone wrong. The shift in language matches the shift in posture: from becoming willing (Six) to actually, humbly asking (Seven). Removal is rarely instant; more often a shortcoming loses its grip gradually, and one day you notice you reached for honesty before the old reflex kicked in. The asking can be plain and brief, and many people write it in their own honest words rather than reciting a set prayer.",
-    relatedSteps: [7],
+    id: "compulsive-personality",
+    name: "Compulsive Personality",
+    shortDefinition: "The driven, unavailable kind of person we are unconsciously drawn to — or become.",
+    longDefinition: "Trait 4 says we either become alcoholics, marry them, or both, or find another compulsive personality — a workaholic, a rageaholic, a substance abuser — to fulfill our 'sick abandonment needs.' The compulsion is the point: a partner whose drive keeps them emotionally unavailable lets us replay the abandonment we knew as children. In a real sense we 'chose to be with partners who would help us play out the abandonment we experienced.' Naming the compulsions in our family of origin — and in ourselves — is how we stop the casting call.",
+    relatedTraits: [4, 8],
   },
   {
-    id: "amends-list",
-    name: "The Amends List",
-    shortDefinition: "The Step Eight list of everyone harmed — plus the willingness to make it right.",
-    longDefinition:
-      "Step Eight has two halves worth keeping separate: making the list of all persons harmed (often including yourself), and becoming willing to make amends to them all. It's preparation, not yet action — which is merciful, because willingness can grow where the how isn't clear yet. The list usually starts in your Step Four inventory. The work is to keep the hard names on it and to let a fog of free-floating guilt become a clear, finite, workable list.",
-    relatedSteps: [8],
+    id: "recreating-abandonment",
+    name: "Recreating Abandonment",
+    shortDefinition: "The compulsive pull to rebuild the original wound so it feels familiar.",
+    longDefinition: "Children who were abandoned learn that abandonment is what love feels like. As adults we recreate it — choosing unavailable people, provoking the leaving, or leaving first. The Flip Side of Trait 4 is stated plainly: 'We do not have a compulsive need to recreate abandonment.' Recovery is taking an emotional inventory of our patterns of bonding to see exactly how we recreate or recycle abandonment, then choosing differently — being true to ourselves instead of true to the old script.",
+    relatedTraits: [4, 12],
   },
   {
-    id: "kinds-of-amends",
-    name: "Direct vs. Living vs. Indirect Amends",
-    shortDefinition: "The different forms repair can take when a face-to-face amend isn't possible or safe.",
-    longDefinition:
-      "A direct amend is the face-to-face repair: the returned money, the spoken truth, the changed commitment. A living amend is sustained changed behavior over time — being reliably different where you were once harmful. An indirect amend repairs where the person is unreachable or where contact would harm, often by giving the good forward to someone else. Choosing the right kind is the judgment of Step Nine, and it's where the 'would it injure?' clause does its careful work.",
-    relatedSteps: [9],
+    id: "victim-victimizer",
+    name: "Victim · Victimizer · Rescuer",
+    shortDefinition: "The four rotating roles of the Game of Dissociation.",
+    longDefinition: "Trait 5 says it plainly: there is no admission fee to the Game of Dissociation. Every member of a dysfunctional family is, unfortunately, given one of four roles — victim, victimizer, rescuer I, or rescuer II. We first assumed rescuer, and in time became victim or victimizer. Trait 4 maps these onto the lists (abandoned vs. abandoner). Trait 5 makes the dynamic about power: the victim lives life from the viewpoint of being acted upon; the victimizer (and rescuer II) exercises power beyond the requirements of the situation. The roles rotate endlessly so we never feel the original hurt. Seeing which seat we're in — gently, without shame — is the first move out of the Game.",
+    relatedTraits: [4, 5],
   },
   {
-    id: "except-when-injure",
-    name: "\"Except When to Do So Would Injure\"",
-    shortDefinition: "The guardrail that keeps amends from creating new harm.",
-    longDefinition:
-      "Step Nine's most important clause is not a loophole for ducking hard conversations — it's a guardrail. Some direct amends would reopen a wound, expose a third party, or relieve your guilt at someone else's expense. The clause forbids that: you clean your side of the street without dragging someone back through their pain to do it. Distinguishing genuine protection of others from convenient avoidance is exactly the work a sponsor's perspective helps with.",
-    relatedSteps: [9],
+    id: "self-abandonment",
+    name: "Self-Abandonment",
+    shortDefinition: "Abandoning ourselves to avoid being abandoned by anyone else.",
+    longDefinition: "The Other Laundry List of Trait 4 ends with the deepest cut: 'To avoid being hurt, we isolate and dissociate and thereby abandon ourselves.' When we dominate, avoid dependent people, or keep everyone at arm's length, we protect the True Self by building a false self to hide our authentic needs and wants — and in doing so we disavow the very child within. The Flip Side is to stop abandoning that child: to accept and comfort the isolated, hurt Inner Child we had abandoned and disavowed.",
+    relatedTraits: [2, 4],
   },
   {
-    id: "spot-check",
-    name: "The Spot-Check Inventory",
-    shortDefinition: "A quick, in-the-moment honesty check during the day.",
-    longDefinition:
-      "Part of Step Ten is the on-the-spot inventory: pausing in the middle of a charged moment to ask whether you're being resentful, selfish, dishonest, or afraid, and setting it right before it hardens. The spot-check keeps small things small. It's not obsessive self-monitoring; it's a light, repeatable habit that catches a resentment or a wrong while it's still a ten-second fix rather than a four-month wall.",
-    relatedSteps: [10],
+    id: "double-winner",
+    name: "Double Winner",
+    shortDefinition: "Someone in recovery from both addiction and the family disease of ACA.",
+    longDefinition: "Those of us fortunate to have recovery from alcohol or other substances (so-called 'dry goods') refer to ourselves as 'double winners' — having been an addict or alcoholic, and having begun recovery from addiction by the time we reached ACA, we found we still had more work to do. For some of us the idea of becoming an alcoholic was turned upside down: instead of becoming dependent on an outside substance, we chose to dose ourselves with an internal concoction of pain, fear and excitement, becoming the dominant player who controls the ebb and flow of relationships.",
+    relatedTraits: [4, 13, 14],
   },
   {
-    id: "daily-inventory",
-    name: "The Daily Inventory",
-    shortDefinition: "The nightly review that keeps the house clean for good.",
-    longDefinition:
-      "Step Ten turns the one-time housecleaning of Steps Four through Nine into a daily habit: a short nightly review of where you were resentful, selfish, dishonest, or afraid, what you owe, and what you're grateful for — followed by prompt, low-drama correction. The whole power is in the repetition, and in the promptness. Kept gently (not as a nightly self-trial), the daily inventory means you never again wake up under a mountain of un-faced wreckage.",
-    relatedSteps: [10],
+    id: "critical-survival-parent",
+    name: "Critical Survival Inner Parent",
+    shortDefinition: "The internalized voice that scolds and steers — the one that kept us alive as kids.",
+    longDefinition: "The critical survival inner parent is the inner voice that took over for caregivers who couldn't reliably guide us. It is sharp, watchful, often punishing — and as children, it kept us alive. In recovery we don't banish it. We pair it with the inner loving parent, the Inner Child, and our Higher Power. The Flip Side of Trait 5 names this directly: we have been learning and applying the concepts of critical survival inner parent, inner loving parent, Inner Child, and Higher Power — and from that partnership comes a sense of wholeness and completeness.",
+    relatedTraits: [5, 11],
   },
   {
-    id: "prayer-meditation",
-    name: "Prayer & Meditation (conscious contact)",
-    shortDefinition: "Talking and listening — building a daily line to the Power you rely on.",
-    longDefinition:
-      "Step Eleven loosely casts prayer as talking and meditation as listening, and asks you to do more of the second. The radical instruction is to pray only for knowledge of your Higher Power's will and the power to carry it out — not for the outcomes you want. Conscious contact can be deeply religious or as plain as a few honest minutes of stillness; the point isn't a mystical experience but a slow recalibration toward humility and trust, practiced imperfectly and daily.",
-    relatedSteps: [11],
+    id: "power-reclamation",
+    name: "Power Reclamation",
+    shortDefinition: "Stepping out of the victim and victimizer seats into honest, right-sized power.",
+    longDefinition: "Trait 5 is, at its core, about power. As children we felt disempowered and blown about by the winds of the times. Some of us became determined to be 'among the winners' and exercised power beyond the requirements of the situation — that is the victimizer / rescuer II seat. Power reclamation is the move out of both. ACA meetings, honest sharing, and the Steps give us incremental, progressive opportunities to exercise true power — neither helpless nor dominant — until we can see ourselves as a participant in our own life rather than someone life is happening to.",
+    relatedTraits: [5, 7, 11],
   },
   {
-    id: "spiritual-awakening",
-    name: "Spiritual Awakening (educational vs. sudden)",
-    shortDefinition: "The change in how you see and live that the Steps produce — usually gradual.",
-    longDefinition:
-      "Step Twelve names the awakening the previous eleven were quietly producing. For most people it's educational rather than sudden — not a lightning bolt but a slow change in personality, attitude, and reaction that others often notice before they do. Occasionally it arrives more dramatically. Either way it's real and it's enough, and it shows up less as a feeling than as a new capacity: to be honest, to be of use, to meet life without a drink.",
-    relatedSteps: [12, 2],
+    id: "veil-of-denial",
+    name: "Veil of Denial",
+    shortDefinition: "The cloth that hid the truth from us — and that recovery slowly makes translucent.",
+    longDefinition: "Trait 5 gives us a beautiful image: the veil of denial once seemed like a thick, immovable tapestry, and now seems like a sheer satin sheet, easily moved by us when we are ready. The denial isn't a moral failure; it was a survival membrane. We don't tear it down — we let recovery thin it. As the weave loosens we begin to see the opportunities to stop viewing life from the perspective of what is happening to us, and become able to see ourselves as a participant in those instances.",
+    relatedTraits: [5, 10, 11],
   },
   {
-    id: "carrying-the-message",
-    name: "Carrying the Message / Sponsorship",
-    shortDefinition: "Helping the next person — the surest way to keep what you've found.",
-    longDefinition:
-      "Carrying the message is the first half of Step Twelve and the engine that keeps recovery alive: you give it away to keep it. It isn't preaching; it's presence — showing up, telling the truth of your experience, and letting your changed life do the talking (attraction, not promotion). Sponsorship is one concrete form, where someone who's walked the Steps walks them with someone newer. Helping a newcomer reconnects you to your own Step One and pulls you out of the self-obsession that fuels relapse.",
-    relatedSteps: [12],
+    id: "humble-participation",
+    name: "Humble Participation",
+    shortDefinition: "Changing the question from “how can I dominate?” to “how can I humbly participate?”",
+    longDefinition: "The Flip Side of the Other Laundry List of Trait 5 names a small move with enormous reach: when tempted or lured into a situation where control and manipulation seem to be the answer, we change the question. Instead of 'How can I dominate?' we ask, 'How can I humbly participate?' The shift refuses both seats of the Game — neither helpless victim nor over-functioning victimizer — and re-enters the moment as a fellow traveler.",
+    relatedTraits: [5, 6, 7],
   },
   {
-    id: "principles-before-personalities",
-    name: "\"Principles Before Personalities\"",
-    shortDefinition: "Keeping the focus on the program's values rather than on who you do or don't like.",
-    longDefinition:
-      "A Tradition that doubles as personal guidance: the work is bigger than any one person's charm or irritation. Placing principles before personalities means you don't let a clash with someone — or a fondness for someone — distort honesty, fairness, or your own recovery. It's the spiritual foundation that lets a roomful of very different people stay useful to each other, and it's a daily reminder to practice these principles in all your affairs.",
-    relatedSteps: [12],
-  },
-  {
-    id: "the-promises",
-    name: "The Promises",
-    shortDefinition: "The freedom and serenity that arrive as a natural result of the work, especially the amends.",
-    longDefinition:
-      "Around the amends of Step Nine, the Big Book describes a set of changes that arrive not as a reward but as a natural result of a cleared conscience: a new freedom and happiness, peace, the fading of self-pity and fear, and a sense that life is becoming workable with help. We paraphrase them in our own words on the Promises page. They're sometimes called extravagant — and people who do the work tend to find they materialize, sometimes slowly, always surprisingly.",
-    relatedSteps: [9, 10, 11],
-  },
-  {
-    id: "halt",
-    name: "HALT",
-    shortDefinition: "Hungry, Angry, Lonely, Tired — the four states that quietly raise risk.",
-    longDefinition:
-      "A simple, durable tool: when an urge or a bad mood spikes, check whether you're Hungry, Angry, Lonely, or Tired, because most 'emergencies' have one of those simpler names and a correspondingly simple fix. HALT is recovery's reminder that the spiritual and the ordinary aren't separate — sometimes the most spiritual thing you can do is eat a sandwich, make a call, or go to bed. Catching the state early keeps it from becoming a reason.",
-    relatedSteps: [10, 11],
-  },
-  {
-    id: "playing-the-tape",
-    name: "Playing the Tape Forward",
-    shortDefinition: "Following the urge past the first drink to where it actually ends.",
-    longDefinition:
-      "The craving only ever shows you the first frame — the relief, the warmth, the ease. Playing the tape forward is the deliberate practice of running the film to the end: the second and third drink, the next morning, the wreckage you've already lived through. It interrupts the obsession with memory and honesty, replacing a glamorized first scene with the whole, true story. It pairs naturally with a quick HALT check and a call to someone safe.",
-    relatedSteps: [1, 10],
-  },
-  {
-    id: "one-day-at-a-time",
-    name: "One Day at a Time",
-    shortDefinition: "Shrinking the impossible 'forever' down to a doable today.",
-    longDefinition:
-      "'Never again' can be crushing; 'not today' is doable. One day at a time breaks an overwhelming life-long commitment into the only unit you ever actually have to manage. On hard days it shrinks further — one hour, one craving, one breath at a time. It's not avoidance of the future; it's a recognition that the future is only ever met one present moment at a time, and that staying sober today is the whole and complete assignment.",
-    relatedSteps: [1, 3, 11],
-  },
-  {
-    id: "pink-cloud",
-    name: "The Pink Cloud",
-    shortDefinition: "The early euphoria of new recovery — real, lovely, and not the whole story.",
-    longDefinition:
-      "Early sobriety sometimes brings a buoyant high — sleep returns, color comes back, everything feels possible. The 'pink cloud' is real and worth enjoying, but it's wise to know it's a phase, not a finish line. When it lifts and ordinary life resumes, some people mistake the dip for failure. It isn't. The Steps and daily practices are what carry recovery through the flat stretches the pink cloud doesn't cover.",
-    relatedSteps: [2, 10],
-  },
-  {
-    id: "dry-drunk",
-    name: "Dry Drunk",
-    shortDefinition: "Not drinking, but still living in the old fear, resentment, and self-will.",
-    longDefinition:
-      "It's possible to put down the drink and keep all the wreckage-making attitudes that came with it — the irritability, the grandiosity, the resentment, the white-knuckle control. That's the 'dry drunk': abstinent but not recovered. The phrase isn't an insult; it's a diagnosis pointing toward the rest of the work. Sobriety is more than subtraction. The maintenance Steps — daily inventory, conscious contact, service — are what turn dryness into actual freedom.",
-    relatedSteps: [10, 11, 12],
-  },
-  {
-    id: "relapse-process",
-    name: "Relapse as Process",
-    shortDefinition: "A drift that begins long before the first drink — and can be interrupted early.",
-    longDefinition:
-      "Relapse rarely starts at the glass; it starts weeks earlier, in skipped meetings, isolation, nursed resentments, and 'I've got this' overconfidence. Seeing relapse as a process rather than a single event is hopeful, because a process can be noticed and interrupted at many points before the drink. The daily tools — HALT, the spot-check, a call, a meeting — are early-warning systems. And if a relapse does happen, it's a setback to learn from, not a verdict.",
-    relatedSteps: [1, 10, 12],
-  },
-  {
-    id: "anonymity",
-    name: "Anonymity",
-    shortDefinition: "The spiritual foundation that protects members and keeps principles before personalities.",
-    longDefinition:
-      "Anonymity works on two levels: it protects individual members so anyone can walk in without fear of exposure, and it keeps the focus on the message rather than on any messenger's reputation. Called the spiritual foundation of all the Traditions, it's a daily practice in humility — what's said in the room stays in the room, and no one's recovery is leveraged for status. In this app, anonymity is also literal: everything you write stays on your own device.",
-    relatedSteps: [12],
+    id: "wholeness-completeness",
+    name: "Wholeness & Completeness",
+    shortDefinition: "The Trait 5 Flip Side gift: needing no one outside us to feel complete inside us.",
+    longDefinition: "Trait 5's recovery promise is that we become whole and complete. Because of that wholeness, we no longer try to control others through manipulation and force or bind them to us with fear in order to avoid feeling isolated and alone. Wholeness here is not perfection — it is the felt sense, built over time through Step work and the inner partnership (loving parent · critical survival parent · Inner Child · Higher Power), that we are not missing a piece that another person must supply.",
+    relatedTraits: [2, 5, 11, 12],
   },
 ];
 
-export function conceptsForStep(stepId: number): Concept[] {
-  return CONCEPTS.filter((c) => c.relatedSteps.includes(stepId));
+export function getConcept(id: string) {
+  return CONCEPTS.find((c) => c.id === id);
+}
+
+export function getConceptsForTrait(traitId: number) {
+  return CONCEPTS.filter((c) => c.relatedTraits.includes(traitId));
 }

@@ -3,313 +3,360 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import type {
-  Facet,
   JournalEntry,
-  ShareDraft,
-  StepDates,
-  PowerlessnessEntry,
-  UnmanageabilityEntry,
-  HigherPowerSketch,
-  BeliefPoint,
-  SurrenderItem,
-  ResentmentEntry,
-  FearEntry,
-  ConductEntry,
-  HarmEntry,
-  FifthStepSession,
-  ReadinessEntry,
-  ShortcomingEntry,
-  AmendsEntry,
-  AmendsStatus,
-  TenthStepEntry,
-  ConsciousContactEntry,
-  ServiceLogEntry,
-  GratitudeEntry,
-  HaltCheckIn,
-  TapeEntry,
-  PromiseProgress,
-  MeetingLog,
+  FeelingLog,
+  TriggerLog,
+  InnerChildEntry,
+  IdentityEntry,
+  IdentityCategory,
+  SanctuaryCheckIn,
+  SoberListeningEntry,
+  BondingInventoryEntry,
+  SafePersonCriterion,
+  SafePersonCheck,
+  SafeFlagKind,
+  SeatCheckEntry,
+  SoloSitEntry,
+  SelfTalkRewrite,
+  Quadrant,
 } from "@/lib/types";
+
+interface AttendanceRecord {
+  attended: boolean;
+  notes: string;
+}
+
+interface AppState {
+  journal: Record<string, JournalEntry>;
+  feelings: FeelingLog[];
+  triggers: TriggerLog[];
+  innerChild: InnerChildEntry[];
+  identity: IdentityEntry[];
+  sanctuaryCheckIns: SanctuaryCheckIn[];
+  soberListening: SoberListeningEntry[];
+  bondingInventory: BondingInventoryEntry[];
+  safePersonCriteria: SafePersonCriterion[];
+  safePersonChecks: SafePersonCheck[];
+  seatChecks: SeatCheckEntry[];
+  soloSits: SoloSitEntry[];
+  selfTalkRewrites: SelfTalkRewrite[];
+  attendance: Record<string, AttendanceRecord>;
+  favoriteAffirmations: string[];
+
+  // Actions
+  upsertJournal: (entry: {
+    traitId: number;
+    quadrant: Quadrant;
+    questionIndex: number;
+    content: string;
+    tags?: string[];
+    intensity?: number;
+  }) => void;
+  getJournalEntry: (
+    traitId: number,
+    quadrant: Quadrant,
+    questionIndex: number
+  ) => JournalEntry | undefined;
+  logFeeling: (feeling: string, category: string, note: string) => void;
+  logTrigger: (log: Omit<TriggerLog, "id" | "timestamp">) => void;
+  upsertInnerChild: (entry: { id?: string; adultVoice: string; childVoice: string }) => void;
+  deleteInnerChild: (id: string) => void;
+  addIdentityEntry: (category: IdentityCategory, content: string) => void;
+  updateIdentityEntry: (id: string, content: string) => void;
+  deleteIdentityEntry: (id: string) => void;
+  logSanctuaryCheckIn: (weekOf: string, value: number, note: string) => void;
+  deleteSanctuaryCheckIn: (id: string) => void;
+  logSoberListening: (entry: Omit<SoberListeningEntry, "id" | "timestamp">) => void;
+  deleteSoberListening: (id: string) => void;
+  logBondingEntry: (entry: Omit<BondingInventoryEntry, "id" | "timestamp">) => void;
+  deleteBondingEntry: (id: string) => void;
+  addSafeCriterion: (text: string, kind: SafeFlagKind) => void;
+  deleteSafeCriterion: (id: string) => void;
+  logSafeCheck: (entry: Omit<SafePersonCheck, "id" | "timestamp">) => void;
+  deleteSafeCheck: (id: string) => void;
+  logSeatCheck: (entry: Omit<SeatCheckEntry, "id" | "timestamp">) => void;
+  deleteSeatCheck: (id: string) => void;
+  logSoloSit: (entry: Omit<SoloSitEntry, "id" | "timestamp">) => void;
+  deleteSoloSit: (id: string) => void;
+  logSelfTalkRewrite: (entry: Omit<SelfTalkRewrite, "id" | "timestamp" | "isFavorite">) => void;
+  updateSelfTalkRewrite: (id: string, patch: Partial<Omit<SelfTalkRewrite, "id" | "timestamp">>) => void;
+  toggleSelfTalkFavorite: (id: string) => void;
+  deleteSelfTalkRewrite: (id: string) => void;
+  setAttendance: (date: string, attended: boolean) => void;
+  setAttendanceNotes: (date: string, notes: string) => void;
+  toggleFavoriteAffirmation: (text: string) => void;
+}
+
+function makeKey(traitId: number, quadrant: Quadrant, qi: number) {
+  return `${traitId}::${quadrant}::${qi}`;
+}
 
 function nowId() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-}
-
-function makeKey(stepId: number, facet: Facet, qi: number) {
-  return `${stepId}::${facet}::${qi}`;
-}
-
-type WithoutMeta<T> = Omit<T, "id" | "timestamp">;
-
-interface AppState {
-  // Core study data
-  journal: Record<string, JournalEntry>;
-  shareDrafts: Record<number, ShareDraft>;
-  currentStepId: number;
-  stepDates: Record<number, StepDates>;
-
-  // Recovery tracking
-  sobrietyDate: string | null;
-  favoriteAffirmations: string[];
-
-  // Per-step exercise stores
-  powerlessness: PowerlessnessEntry[];
-  unmanageability: UnmanageabilityEntry[];
-  higherPowerSketches: HigherPowerSketch[];
-  beliefPoints: BeliefPoint[];
-  surrenderItems: SurrenderItem[];
-  resentments: ResentmentEntry[];
-  fears: FearEntry[];
-  conduct: ConductEntry[];
-  harms: HarmEntry[];
-  fifthStepSessions: FifthStepSession[];
-  readiness: ReadinessEntry[];
-  shortcomings: ShortcomingEntry[];
-  amends: AmendsEntry[];
-  tenthSteps: TenthStepEntry[];
-  consciousContact: ConsciousContactEntry[];
-  serviceLog: ServiceLogEntry[];
-
-  // Shared daily library
-  gratitude: GratitudeEntry[];
-  haltCheckIns: HaltCheckIn[];
-  tapeEntries: TapeEntry[];
-  promiseProgress: PromiseProgress[];
-
-  // Calendar
-  meetings: MeetingLog[];
-
-  // ---- Actions ----
-  upsertJournal: (e: { stepId: number; facet: Facet; questionIndex: number; content: string }) => void;
-  getJournalEntry: (stepId: number, facet: Facet, qi: number) => JournalEntry | undefined;
-  upsertShareDraft: (stepId: number, content: string) => void;
-  getShareDraft: (stepId: number) => ShareDraft | undefined;
-  setCurrentStep: (id: number) => void;
-  setStepDate: (id: number, which: "started" | "worked", date: string) => void;
-
-  setSobrietyDate: (date: string | null) => void;
-  toggleFavoriteAffirmation: (text: string) => void;
-
-  logPowerlessness: (e: WithoutMeta<PowerlessnessEntry>) => void;
-  deletePowerlessness: (id: string) => void;
-  logUnmanageability: (e: WithoutMeta<UnmanageabilityEntry>) => void;
-  deleteUnmanageability: (id: string) => void;
-  logHigherPowerSketch: (e: WithoutMeta<HigherPowerSketch>) => void;
-  deleteHigherPowerSketch: (id: string) => void;
-  logBeliefPoint: (e: WithoutMeta<BeliefPoint>) => void;
-  deleteBeliefPoint: (id: string) => void;
-  logSurrenderItem: (e: WithoutMeta<SurrenderItem>) => void;
-  deleteSurrenderItem: (id: string) => void;
-  logResentment: (e: WithoutMeta<ResentmentEntry>) => void;
-  deleteResentment: (id: string) => void;
-  logFear: (e: WithoutMeta<FearEntry>) => void;
-  deleteFear: (id: string) => void;
-  logConduct: (e: WithoutMeta<ConductEntry>) => void;
-  deleteConduct: (id: string) => void;
-  logHarm: (e: WithoutMeta<HarmEntry>) => void;
-  updateHarm: (id: string, patch: Partial<HarmEntry>) => void;
-  deleteHarm: (id: string) => void;
-  logFifthStep: (e: WithoutMeta<FifthStepSession>) => void;
-  deleteFifthStep: (id: string) => void;
-  logReadiness: (e: WithoutMeta<ReadinessEntry>) => void;
-  deleteReadiness: (id: string) => void;
-  logShortcoming: (e: WithoutMeta<ShortcomingEntry>) => void;
-  updateShortcoming: (id: string, patch: Partial<ShortcomingEntry>) => void;
-  deleteShortcoming: (id: string) => void;
-  logAmends: (e: WithoutMeta<AmendsEntry>) => void;
-  updateAmends: (id: string, patch: Partial<AmendsEntry>) => void;
-  setAmendsStatus: (id: string, status: AmendsStatus) => void;
-  deleteAmends: (id: string) => void;
-  logTenthStep: (e: WithoutMeta<TenthStepEntry>) => void;
-  deleteTenthStep: (id: string) => void;
-  logConsciousContact: (e: WithoutMeta<ConsciousContactEntry>) => void;
-  deleteConsciousContact: (id: string) => void;
-  logService: (e: WithoutMeta<ServiceLogEntry>) => void;
-  deleteService: (id: string) => void;
-
-  logGratitude: (items: string[]) => void;
-  deleteGratitude: (id: string) => void;
-  logHalt: (e: WithoutMeta<HaltCheckIn>) => void;
-  deleteHalt: (id: string) => void;
-  logTape: (e: WithoutMeta<TapeEntry>) => void;
-  deleteTape: (id: string) => void;
-  setPromiseProgress: (id: number, firstNoticed: string, note: string) => void;
-  clearPromiseProgress: (id: number) => void;
-
-  logMeeting: (e: Omit<MeetingLog, "id">) => void;
-  deleteMeeting: (id: string) => void;
-}
-
-function listAdder<T extends { id: string; timestamp: string }>(
-  set: (fn: (s: AppState) => Partial<AppState>) => void,
-  key: keyof AppState
-) {
-  return (e: WithoutMeta<T>) =>
-    set((s) => ({
-      [key]: [{ ...(e as object), id: nowId(), timestamp: new Date().toISOString() } as T, ...(s[key] as T[])],
-    }));
-}
-
-function listDeleter(
-  set: (fn: (s: AppState) => Partial<AppState>) => void,
-  key: keyof AppState
-) {
-  return (id: string) =>
-    set((s) => ({ [key]: (s[key] as { id: string }[]).filter((x) => x.id !== id) }));
 }
 
 export const useAppStore = create<AppState>()(
   persist(
     (set, get) => ({
       journal: {},
-      shareDrafts: {},
-      currentStepId: 1,
-      stepDates: {},
-      sobrietyDate: null,
+      feelings: [],
+      triggers: [],
+      innerChild: [],
+      identity: [],
+      sanctuaryCheckIns: [],
+      soberListening: [],
+      bondingInventory: [],
+      safePersonCriteria: [],
+      safePersonChecks: [],
+      seatChecks: [],
+      soloSits: [],
+      selfTalkRewrites: [],
+      attendance: {},
       favoriteAffirmations: [],
 
-      powerlessness: [],
-      unmanageability: [],
-      higherPowerSketches: [],
-      beliefPoints: [],
-      surrenderItems: [],
-      resentments: [],
-      fears: [],
-      conduct: [],
-      harms: [],
-      fifthStepSessions: [],
-      readiness: [],
-      shortcomings: [],
-      amends: [],
-      tenthSteps: [],
-      consciousContact: [],
-      serviceLog: [],
-
-      gratitude: [],
-      haltCheckIns: [],
-      tapeEntries: [],
-      promiseProgress: [],
-
-      meetings: [],
-
-      upsertJournal: ({ stepId, facet, questionIndex, content }) => {
-        const key = makeKey(stepId, facet, questionIndex);
+      upsertJournal: ({ traitId, quadrant, questionIndex, content, tags, intensity }) => {
+        const key = makeKey(traitId, quadrant, questionIndex);
         const existing = get().journal[key];
         const entry: JournalEntry = {
           id: existing?.id ?? nowId(),
-          stepId,
-          facet,
+          traitId,
+          quadrant,
           questionIndex,
           content,
+          tags: tags ?? existing?.tags ?? [],
+          intensity: intensity ?? existing?.intensity,
           updatedAt: new Date().toISOString(),
         };
         set({ journal: { ...get().journal, [key]: entry } });
       },
-      getJournalEntry: (stepId, facet, qi) => get().journal[makeKey(stepId, facet, qi)],
 
-      upsertShareDraft: (stepId, content) => {
+      getJournalEntry: (traitId, quadrant, questionIndex) => {
+        return get().journal[makeKey(traitId, quadrant, questionIndex)];
+      },
+
+      logFeeling: (feeling, category, note) => {
+        const log: FeelingLog = {
+          id: nowId(),
+          feeling,
+          category,
+          note,
+          timestamp: new Date().toISOString(),
+        };
+        set({ feelings: [log, ...get().feelings] });
+      },
+
+      logTrigger: (log) => {
+        const entry: TriggerLog = {
+          ...log,
+          id: nowId(),
+          timestamp: new Date().toISOString(),
+        };
+        set({ triggers: [entry, ...get().triggers] });
+      },
+
+      upsertInnerChild: ({ id, adultVoice, childVoice }) => {
+        const existing = id ? get().innerChild.find((e) => e.id === id) : undefined;
+        if (existing) {
+          set({
+            innerChild: get().innerChild.map((e) =>
+              e.id === id
+                ? { ...e, adultVoice, childVoice, updatedAt: new Date().toISOString() }
+                : e
+            ),
+          });
+        } else {
+          const entry: InnerChildEntry = {
+            id: nowId(),
+            adultVoice,
+            childVoice,
+            updatedAt: new Date().toISOString(),
+          };
+          set({ innerChild: [entry, ...get().innerChild] });
+        }
+      },
+
+      deleteInnerChild: (id) => {
+        set({ innerChild: get().innerChild.filter((e) => e.id !== id) });
+      },
+
+      addIdentityEntry: (category, content) => {
+        if (!content.trim()) return;
+        const now = new Date().toISOString();
+        const entry: IdentityEntry = {
+          id: nowId(),
+          category,
+          content,
+          createdAt: now,
+          updatedAt: now,
+        };
+        set({ identity: [entry, ...get().identity] });
+      },
+
+      updateIdentityEntry: (id, content) => {
         set({
-          shareDrafts: {
-            ...get().shareDrafts,
-            [stepId]: { stepId, content, updatedAt: new Date().toISOString() },
-          },
-        });
-      },
-      getShareDraft: (stepId) => get().shareDrafts[stepId],
-
-      setCurrentStep: (id) => set({ currentStepId: id }),
-      setStepDate: (id, which, date) => {
-        const existing = get().stepDates[id] ?? {};
-        set({ stepDates: { ...get().stepDates, [id]: { ...existing, [which]: date } } });
-      },
-
-      setSobrietyDate: (date) => set({ sobrietyDate: date }),
-      toggleFavoriteAffirmation: (text) => {
-        const cur = get().favoriteAffirmations;
-        set({
-          favoriteAffirmations: cur.includes(text)
-            ? cur.filter((t) => t !== text)
-            : [...cur, text],
-        });
-      },
-
-      logPowerlessness: listAdder<PowerlessnessEntry>(set, "powerlessness"),
-      deletePowerlessness: listDeleter(set, "powerlessness"),
-      logUnmanageability: listAdder<UnmanageabilityEntry>(set, "unmanageability"),
-      deleteUnmanageability: listDeleter(set, "unmanageability"),
-      logHigherPowerSketch: listAdder<HigherPowerSketch>(set, "higherPowerSketches"),
-      deleteHigherPowerSketch: listDeleter(set, "higherPowerSketches"),
-      logBeliefPoint: listAdder<BeliefPoint>(set, "beliefPoints"),
-      deleteBeliefPoint: listDeleter(set, "beliefPoints"),
-      logSurrenderItem: listAdder<SurrenderItem>(set, "surrenderItems"),
-      deleteSurrenderItem: listDeleter(set, "surrenderItems"),
-      logResentment: listAdder<ResentmentEntry>(set, "resentments"),
-      deleteResentment: listDeleter(set, "resentments"),
-      logFear: listAdder<FearEntry>(set, "fears"),
-      deleteFear: listDeleter(set, "fears"),
-      logConduct: listAdder<ConductEntry>(set, "conduct"),
-      deleteConduct: listDeleter(set, "conduct"),
-      logHarm: listAdder<HarmEntry>(set, "harms"),
-      updateHarm: (id, patch) =>
-        set((s) => ({ harms: s.harms.map((h) => (h.id === id ? { ...h, ...patch } : h)) })),
-      deleteHarm: listDeleter(set, "harms"),
-      logFifthStep: listAdder<FifthStepSession>(set, "fifthStepSessions"),
-      deleteFifthStep: listDeleter(set, "fifthStepSessions"),
-      logReadiness: listAdder<ReadinessEntry>(set, "readiness"),
-      deleteReadiness: listDeleter(set, "readiness"),
-      logShortcoming: listAdder<ShortcomingEntry>(set, "shortcomings"),
-      updateShortcoming: (id, patch) =>
-        set((s) => ({
-          shortcomings: s.shortcomings.map((x) => (x.id === id ? { ...x, ...patch } : x)),
-        })),
-      deleteShortcoming: listDeleter(set, "shortcomings"),
-      logAmends: listAdder<AmendsEntry>(set, "amends"),
-      updateAmends: (id, patch) =>
-        set((s) => ({ amends: s.amends.map((a) => (a.id === id ? { ...a, ...patch } : a)) })),
-      setAmendsStatus: (id, status) =>
-        set((s) => ({
-          amends: s.amends.map((a) =>
-            a.id === id
-              ? { ...a, status, madeOn: status === "made" ? new Date().toISOString() : a.madeOn }
-              : a
+          identity: get().identity.map((e) =>
+            e.id === id
+              ? { ...e, content, updatedAt: new Date().toISOString() }
+              : e
           ),
-        })),
-      deleteAmends: listDeleter(set, "amends"),
-      logTenthStep: listAdder<TenthStepEntry>(set, "tenthSteps"),
-      deleteTenthStep: listDeleter(set, "tenthSteps"),
-      logConsciousContact: listAdder<ConsciousContactEntry>(set, "consciousContact"),
-      deleteConsciousContact: listDeleter(set, "consciousContact"),
-      logService: listAdder<ServiceLogEntry>(set, "serviceLog"),
-      deleteService: listDeleter(set, "serviceLog"),
-
-      logGratitude: (items) =>
-        set((s) => ({
-          gratitude: [
-            { id: nowId(), items: items.filter(Boolean), timestamp: new Date().toISOString() },
-            ...s.gratitude,
-          ],
-        })),
-      deleteGratitude: listDeleter(set, "gratitude"),
-      logHalt: listAdder<HaltCheckIn>(set, "haltCheckIns"),
-      deleteHalt: listDeleter(set, "haltCheckIns"),
-      logTape: listAdder<TapeEntry>(set, "tapeEntries"),
-      deleteTape: listDeleter(set, "tapeEntries"),
-      setPromiseProgress: (id, firstNoticed, note) => {
-        const others = get().promiseProgress.filter((p) => p.id !== id);
-        set({ promiseProgress: [...others, { id, firstNoticed, note }] });
+        });
       },
-      clearPromiseProgress: (id) =>
-        set((s) => ({ promiseProgress: s.promiseProgress.filter((p) => p.id !== id) })),
 
-      logMeeting: (e) => set((s) => ({ meetings: [{ ...e, id: nowId() }, ...s.meetings] })),
-      deleteMeeting: listDeleter(set, "meetings"),
+      deleteIdentityEntry: (id) => {
+        set({ identity: get().identity.filter((e) => e.id !== id) });
+      },
+
+      logSanctuaryCheckIn: (weekOf, value, note) => {
+        // Replace any existing check-in for the same week.
+        const others = get().sanctuaryCheckIns.filter((c) => c.weekOf !== weekOf);
+        const entry: SanctuaryCheckIn = {
+          id: nowId(),
+          weekOf,
+          value: Math.max(0, Math.min(100, value)),
+          note,
+          timestamp: new Date().toISOString(),
+        };
+        const sorted = [entry, ...others].sort((a, b) => b.weekOf.localeCompare(a.weekOf));
+        set({ sanctuaryCheckIns: sorted });
+      },
+
+      deleteSanctuaryCheckIn: (id) => {
+        set({ sanctuaryCheckIns: get().sanctuaryCheckIns.filter((c) => c.id !== id) });
+      },
+
+      logSoberListening: (entry) => {
+        const log: SoberListeningEntry = {
+          ...entry,
+          id: nowId(),
+          timestamp: new Date().toISOString(),
+        };
+        set({ soberListening: [log, ...get().soberListening] });
+      },
+
+      deleteSoberListening: (id) => {
+        set({ soberListening: get().soberListening.filter((e) => e.id !== id) });
+      },
+
+      logBondingEntry: (entry) => {
+        const log: BondingInventoryEntry = {
+          ...entry,
+          id: nowId(),
+          timestamp: new Date().toISOString(),
+        };
+        set({ bondingInventory: [log, ...get().bondingInventory] });
+      },
+
+      deleteBondingEntry: (id) => {
+        set({ bondingInventory: get().bondingInventory.filter((e) => e.id !== id) });
+      },
+
+      addSafeCriterion: (text, kind) => {
+        const clean = text.trim();
+        if (!clean) return;
+        // Avoid duplicates of the same text+kind.
+        const exists = get().safePersonCriteria.some(
+          (c) => c.kind === kind && c.text.toLowerCase() === clean.toLowerCase()
+        );
+        if (exists) return;
+        const entry: SafePersonCriterion = { id: nowId(), text: clean, kind };
+        set({ safePersonCriteria: [...get().safePersonCriteria, entry] });
+      },
+
+      deleteSafeCriterion: (id) => {
+        set({ safePersonCriteria: get().safePersonCriteria.filter((c) => c.id !== id) });
+      },
+
+      logSafeCheck: (entry) => {
+        const log: SafePersonCheck = {
+          ...entry,
+          id: nowId(),
+          timestamp: new Date().toISOString(),
+        };
+        set({ safePersonChecks: [log, ...get().safePersonChecks] });
+      },
+
+      deleteSafeCheck: (id) => {
+        set({ safePersonChecks: get().safePersonChecks.filter((c) => c.id !== id) });
+      },
+
+      logSeatCheck: (entry) => {
+        const log: SeatCheckEntry = {
+          ...entry,
+          id: nowId(),
+          timestamp: new Date().toISOString(),
+        };
+        set({ seatChecks: [log, ...get().seatChecks] });
+      },
+
+      deleteSeatCheck: (id) => {
+        set({ seatChecks: get().seatChecks.filter((c) => c.id !== id) });
+      },
+
+      logSoloSit: (entry) => {
+        const log: SoloSitEntry = {
+          ...entry,
+          id: nowId(),
+          timestamp: new Date().toISOString(),
+        };
+        set({ soloSits: [log, ...get().soloSits] });
+      },
+
+      deleteSoloSit: (id) => {
+        set({ soloSits: get().soloSits.filter((c) => c.id !== id) });
+      },
+
+      logSelfTalkRewrite: (entry) => {
+        const log: SelfTalkRewrite = {
+          ...entry,
+          id: nowId(),
+          isFavorite: false,
+          timestamp: new Date().toISOString(),
+        };
+        set({ selfTalkRewrites: [log, ...get().selfTalkRewrites] });
+      },
+
+      updateSelfTalkRewrite: (id, patch) => {
+        set({
+          selfTalkRewrites: get().selfTalkRewrites.map((e) =>
+            e.id === id ? { ...e, ...patch } : e
+          ),
+        });
+      },
+
+      toggleSelfTalkFavorite: (id) => {
+        set({
+          selfTalkRewrites: get().selfTalkRewrites.map((e) =>
+            e.id === id ? { ...e, isFavorite: !e.isFavorite } : e
+          ),
+        });
+      },
+
+      deleteSelfTalkRewrite: (id) => {
+        set({ selfTalkRewrites: get().selfTalkRewrites.filter((c) => c.id !== id) });
+      },
+
+      setAttendance: (date, attended) => {
+        const existing = get().attendance[date] ?? { attended: false, notes: "" };
+        set({ attendance: { ...get().attendance, [date]: { ...existing, attended } } });
+      },
+
+      setAttendanceNotes: (date, notes) => {
+        const existing = get().attendance[date] ?? { attended: false, notes: "" };
+        set({ attendance: { ...get().attendance, [date]: { ...existing, notes } } });
+      },
+
+      toggleFavoriteAffirmation: (text) => {
+        const current = get().favoriteAffirmations;
+        const next = current.includes(text)
+          ? current.filter((t) => t !== text)
+          : [...current, text];
+        set({ favoriteAffirmations: next });
+      },
     }),
     {
-      name: "twelve-steps-companion-store",
+      name: "aca-companion-store",
+      storage: createJSONStorage(() => (typeof window !== "undefined" ? localStorage : (undefined as unknown as Storage))),
       version: 1,
-      storage: createJSONStorage(() =>
-        typeof window !== "undefined" ? localStorage : (undefined as unknown as Storage)
-      ),
     }
   )
 );

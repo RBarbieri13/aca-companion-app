@@ -4,18 +4,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
-  Footprints,
-  Sparkles,
+  BookOpen,
   Calendar,
+  Sparkles,
   LineChart,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const nav = [
   { href: "/", label: "Home", icon: LayoutDashboard },
-  { href: "/steps", label: "Steps", icon: Footprints },
-  { href: "/exercises", label: "Practice", icon: Sparkles },
+  { href: "/traits", label: "Traits", icon: BookOpen },
   { href: "/calendar", label: "Calendar", icon: Calendar },
+  { href: "/exercises", label: "Practice", icon: Sparkles },
   { href: "/insights", label: "Insights", icon: LineChart },
 ];
 
@@ -27,7 +27,9 @@ export function MobileNav() {
       <div className="grid grid-cols-5">
         {nav.map((item) => {
           const active =
-            item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+            item.href === "/"
+              ? pathname === "/"
+              : pathname.startsWith(item.href);
           const Icon = item.icon;
           return (
             <Link
@@ -35,7 +37,9 @@ export function MobileNav() {
               href={item.href}
               className={cn(
                 "flex flex-col items-center gap-1 py-3 text-[10px] font-medium",
-                active ? "text-[var(--primary)]" : "text-[var(--muted-foreground)]"
+                active
+                  ? "text-[var(--primary)]"
+                  : "text-[var(--muted-foreground)]"
               )}
             >
               <Icon className="h-5 w-5" strokeWidth={1.75} />
