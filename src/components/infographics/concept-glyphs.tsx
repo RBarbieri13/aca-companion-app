@@ -471,6 +471,136 @@ export function WholenessCompletenessGlyph({ className, size = 48 }: GlyphProps)
   );
 }
 
+export function OverResponsibilityGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* small figure carrying an oversized weight */}
+          <circle cx="24" cy="34" r="5" fill="var(--accent)"/>
+          <rect x="20" y="39" width="8" height="11" rx="2.5" fill="var(--accent)" fillOpacity="0.85"/>
+          {/* oversized load on the back/shoulders */}
+          <rect x="26" y="14" width="22" height="18" rx="3" fill="var(--primary)" fillOpacity="0.85"/>
+          <line x1="26" y1="20" x2="48" y2="20" stroke="var(--card)" strokeWidth="1" opacity="0.5"/>
+          <line x1="26" y1="26" x2="48" y2="26" stroke="var(--card)" strokeWidth="1" opacity="0.5"/>
+          {/* strain line */}
+          <path d="M 22 28 L 26 32" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function ParentificationGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* small child figure sheltering a larger (parent) figure — role reversed */}
+          <circle cx="22" cy="26" r="6" fill="var(--accent)"/>
+          <rect x="15" y="33" width="14" height="15" rx="4" fill="var(--accent)" fillOpacity="0.85"/>
+          {/* protective arc over a slumped adult */}
+          <path d="M 30 44 Q 30 30 42 30 Q 48 30 48 38" fill="none" stroke="var(--primary)" strokeWidth="1.5" strokeLinecap="round"/>
+          <circle cx="40" cy="40" r="4" fill="var(--muted-foreground)" fillOpacity="0.6"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function EnablingGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* a propping hand holding up a leaning figure */}
+          <path d="M 30 18 L 38 44" stroke="var(--muted-foreground)" strokeWidth="2" strokeLinecap="round" opacity="0.6"/>
+          <circle cx="29" cy="16" r="5" fill="var(--muted-foreground)" fillOpacity="0.6"/>
+          {/* the prop / supporting hand */}
+          <path d="M 18 46 L 30 30" stroke="var(--accent)" strokeWidth="2.5" strokeLinecap="round"/>
+          <circle cx="16" cy="46" r="3" fill="var(--accent)"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function InferiorityGrandiosityGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* a balance/seesaw between low and high */}
+          <line x1="14" y1="40" x2="46" y2="20" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round"/>
+          <path d="M 30 30 L 26 46 L 34 46 Z" fill="var(--muted-foreground)" fillOpacity="0.5"/>
+          {/* low end (inferiority) */}
+          <circle cx="14" cy="40" r="4" fill="var(--accent)"/>
+          {/* high end (grandiosity) */}
+          <circle cx="46" cy="20" r="4" fill="#D4A84B"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function MagicalOmnipotenceGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* small child with radiating "magic" sparks */}
+          <circle cx="30" cy="32" r="6" fill="var(--accent)"/>
+          <rect x="24" y="38" width="12" height="12" rx="3" fill="var(--accent)" fillOpacity="0.85"/>
+          {[[30,14],[44,20],[16,20],[46,34],[14,34]].map(([x,y],i)=>(
+            <path key={i} d={`M ${x} ${y-3} L ${x+1.5} ${y} L ${x} ${y+3} L ${x-1.5} ${y} Z`} fill="#D4A84B"/>
+          ))}
+          <circle cx="30" cy="32" r="13" fill="none" stroke="#D4A84B" strokeWidth="0.75" strokeDasharray="2 2" opacity="0.6"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function SelfFocusGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* a figure with attention/arrow turned inward toward self */}
+          <circle cx="30" cy="26" r="7" fill="var(--sage)" fillOpacity="0.9"/>
+          <rect x="22" y="34" width="16" height="14" rx="5" fill="var(--sage)" fillOpacity="0.8"/>
+          {/* inward arrows */}
+          <path d="M 12 20 L 22 26" stroke="var(--primary)" strokeWidth="1.5" strokeLinecap="round"/>
+          <path d="M 20 24 L 22 26 L 19 27" stroke="var(--primary)" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+          <path d="M 48 20 L 38 26" stroke="var(--primary)" strokeWidth="1.5" strokeLinecap="round"/>
+          <path d="M 40 24 L 38 26 L 41 27" stroke="var(--primary)" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function InDepthInventoryGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* magnifying glass over a checklist revealing a sage core */}
+          <rect x="14" y="16" width="20" height="26" rx="3" fill="var(--muted)" stroke="var(--muted-foreground)" strokeWidth="1"/>
+          <line x1="18" y1="22" x2="30" y2="22" stroke="var(--muted-foreground)" strokeWidth="1.25" opacity="0.7"/>
+          <line x1="18" y1="28" x2="30" y2="28" stroke="var(--muted-foreground)" strokeWidth="1.25" opacity="0.7"/>
+          <line x1="18" y1="34" x2="26" y2="34" stroke="var(--muted-foreground)" strokeWidth="1.25" opacity="0.7"/>
+          {/* magnifier */}
+          <circle cx="36" cy="34" r="9" fill="var(--sage)" fillOpacity="0.25" stroke="var(--primary)" strokeWidth="1.75"/>
+          <line x1="43" y1="41" x2="48" y2="46" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round"/>
+          {/* tiny star in lens — capable/worthwhile */}
+          <path d="M 36 30 L 37.5 33 L 40.5 33 L 38 35 L 39 38 L 36 36 L 33 38 L 34 35 L 31.5 33 L 34.5 33 Z" fill="var(--sage)" fillOpacity="0.7"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
 export const GLYPHS: Record<string, React.ComponentType<GlyphProps>> = {
   dissociation: DissociationGlyph,
   "false-self": FalseSelfGlyph,
@@ -498,4 +628,11 @@ export const GLYPHS: Record<string, React.ComponentType<GlyphProps>> = {
   "veil-of-denial": VeilOfDenialGlyph,
   "humble-participation": HumbleParticipationGlyph,
   "wholeness-completeness": WholenessCompletenessGlyph,
+  "overdeveloped-responsibility": OverResponsibilityGlyph,
+  parentification: ParentificationGlyph,
+  enabling: EnablingGlyph,
+  "inferiority-grandiosity": InferiorityGrandiosityGlyph,
+  "magical-omnipotence": MagicalOmnipotenceGlyph,
+  "self-focus": SelfFocusGlyph,
+  "in-depth-inventory": InDepthInventoryGlyph,
 };

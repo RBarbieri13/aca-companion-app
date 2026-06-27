@@ -18,6 +18,9 @@ import type {
   SeatCheckEntry,
   SoloSitEntry,
   SelfTalkRewrite,
+  ResponsibilityItem,
+  ResponsibilityOwner,
+  BalanceEntry,
   Quadrant,
 } from "@/lib/types";
 
@@ -40,6 +43,8 @@ interface AppState {
   seatChecks: SeatCheckEntry[];
   soloSits: SoloSitEntry[];
   selfTalkRewrites: SelfTalkRewrite[];
+  responsibilityItems: ResponsibilityItem[];
+  balanceEntries: BalanceEntry[];
   attendance: Record<string, AttendanceRecord>;
   favoriteAffirmations: string[];
 
@@ -82,6 +87,11 @@ interface AppState {
   updateSelfTalkRewrite: (id: string, patch: Partial<Omit<SelfTalkRewrite, "id" | "timestamp">>) => void;
   toggleSelfTalkFavorite: (id: string) => void;
   deleteSelfTalkRewrite: (id: string) => void;
+  logResponsibilityItem: (entry: Omit<ResponsibilityItem, "id" | "timestamp">) => void;
+  updateResponsibilityOwner: (id: string, owner: ResponsibilityOwner) => void;
+  deleteResponsibilityItem: (id: string) => void;
+  logBalanceEntry: (entry: Omit<BalanceEntry, "id" | "timestamp">) => void;
+  deleteBalanceEntry: (id: string) => void;
   setAttendance: (date: string, attended: boolean) => void;
   setAttendanceNotes: (date: string, notes: string) => void;
   toggleFavoriteAffirmation: (text: string) => void;
@@ -111,6 +121,8 @@ export const useAppStore = create<AppState>()(
       seatChecks: [],
       soloSits: [],
       selfTalkRewrites: [],
+      responsibilityItems: [],
+      balanceEntries: [],
       attendance: {},
       favoriteAffirmations: [],
 
@@ -333,6 +345,40 @@ export const useAppStore = create<AppState>()(
 
       deleteSelfTalkRewrite: (id) => {
         set({ selfTalkRewrites: get().selfTalkRewrites.filter((c) => c.id !== id) });
+      },
+
+      logResponsibilityItem: (entry) => {
+        const log: ResponsibilityItem = {
+          ...entry,
+          id: nowId(),
+          timestamp: new Date().toISOString(),
+        };
+        set({ responsibilityItems: [log, ...get().responsibilityItems] });
+      },
+
+      updateResponsibilityOwner: (id, owner) => {
+        set({
+          responsibilityItems: get().responsibilityItems.map((e) =>
+            e.id === id ? { ...e, owner } : e
+          ),
+        });
+      },
+
+      deleteResponsibilityItem: (id) => {
+        set({ responsibilityItems: get().responsibilityItems.filter((c) => c.id !== id) });
+      },
+
+      logBalanceEntry: (entry) => {
+        const log: BalanceEntry = {
+          ...entry,
+          id: nowId(),
+          timestamp: new Date().toISOString(),
+        };
+        set({ balanceEntries: [log, ...get().balanceEntries] });
+      },
+
+      deleteBalanceEntry: (id) => {
+        set({ balanceEntries: get().balanceEntries.filter((c) => c.id !== id) });
       },
 
       setAttendance: (date, attended) => {

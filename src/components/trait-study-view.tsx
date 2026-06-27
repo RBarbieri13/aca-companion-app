@@ -36,6 +36,12 @@ import { FourRoleTable } from "@/components/infographics/four-role-table";
 import { AloneInQuiet } from "@/components/infographics/alone-in-quiet";
 import { PowerLadder } from "@/components/infographics/power-ladder";
 import { SelfTalkSpectrum } from "@/components/infographics/self-talk-spectrum";
+import { OverResponsibilityEngine } from "@/components/infographics/over-responsibility-engine";
+import { InflatedSelfShield } from "@/components/infographics/inflated-self-shield";
+import { InferiorityGrandiosityPendulum } from "@/components/infographics/inferiority-grandiosity-pendulum";
+import { EnablingEnergyLoop } from "@/components/infographics/enabling-energy-loop";
+import { InventoryToTrueSelf } from "@/components/infographics/inventory-to-true-self";
+import { ResponsibilityPatternsTable } from "@/components/infographics/responsibility-patterns-table";
 
 const QUADRANT_ORDER: Quadrant[] = ["laundry", "other", "flipSide", "flipSideOther"];
 
@@ -231,6 +237,44 @@ const TRAIT_QUADRANT_GRAPHICS: Record<number, Partial<Record<Quadrant, GraphicEn
             "The Flip Side of Other asks: how does alone feel — in childhood, before ACA, now? Are you in quiet, or surrounded by activities? Three modes show the skill being built: many activities → noticing → alone in quiet.",
         },
       ],
+    },
+  },
+  6: {
+    laundry: {
+      Component: OverResponsibilityEngine,
+      caption:
+        "We carried an adult-sized load as children — managing moods, raising siblings, keeping the peace — and never put it down. Being concerned with others stays easier than being concerned with ourselves, and that outward focus quietly keeps the mirror turned away from our own faults.",
+      supplements: [
+        {
+          Component: ResponsibilityPatternsTable,
+          title: "Three postures of responsibility",
+          description:
+            "Over-responsible, self-centered, and right-sized look very different but the first two share a root. Compare them across focus, what's underneath, what each avoids, where the energy goes, and the recovery turn.",
+        },
+      ],
+    },
+    other: {
+      Component: InflatedSelfShield,
+      caption:
+        "The opposite-looking face of the same trait: irresponsibility and self-centeredness. An inflated sense of self-worth and self-importance works like a shield — it deflects the very feedback (our deficiencies and shortcomings) that would let us see ourselves clearly.",
+      supplements: [
+        {
+          Component: InferiorityGrandiosityPendulum,
+          title: "Trait 6 in one frame",
+          description:
+            "The over-responsible enabler and the inflated, self-important controller are two poles of one false self — swinging between “less than” (inferiority) and “better than” (grandiosity). The in-depth inventory doesn't pick a pole; it returns us to the capable, worthwhile center the poles were hiding.",
+        },
+      ],
+    },
+    flipSide: {
+      Component: EnablingEnergyLoop,
+      caption:
+        "Enabling is expensive: managing everyone else drains our personal energy and keeps our attention safely outward. When we let others bear the brunt of their own decisions, that energy returns — and we are finally free to look at ourselves, without grandiosity or judgment.",
+    },
+    flipSideOther: {
+      Component: InventoryToTrueSelf,
+      caption:
+        "The ACA inventory is in-depth and painstaking — but its reward is relief. As we ask to have our shortcomings removed, the twin burdens of inferiority and grandiosity dissolve, and the True Self underneath is revealed: capable, worthwhile, and enough.",
     },
   },
 };

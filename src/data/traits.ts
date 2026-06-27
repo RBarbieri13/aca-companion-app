@@ -83,15 +83,18 @@ export const TRAITS: Trait[] = [
   {
     id: 6,
     shortName: "Overdeveloped Responsibility",
-    active: false,
+    active: true,
     mainListDate: "2026-06-27",
     flipSideDate: "2026-07-11",
     statements: {
       laundry:
-        "We have an overdeveloped sense of responsibility and it is easier for us to be concerned with others rather than ourselves.",
-      other: "",
-      flipSide: "",
-      flipSideOther: "",
+        "We have an overdeveloped sense of responsibility and it is easier for us to be concerned with others rather than ourselves. This enables us not to look too closely at our own faults.",
+      other:
+        "We are irresponsible and self-centered. Our inflated sense of self-worth and self-importance prevents us from seeing our deficiencies and shortcomings.",
+      flipSide:
+        "We do not use enabling as a way to avoid looking at our own shortcomings.",
+      flipSideOther:
+        "Through our in-depth inventory we discover our true identity as capable, worthwhile people. By asking to have our shortcomings removed we are freed from the burden of inferiority and grandiosity.",
     },
   },
   {
