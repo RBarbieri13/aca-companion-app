@@ -184,6 +184,35 @@ export interface SelfTalkRewrite {
   timestamp: string;
 }
 
+/**
+ * Trait 6 responsibility sorter ("Whose job is it?"): each entry is a thing we're carrying,
+ * sorted by who it actually belongs to, with the energy it costs us.
+ */
+export type ResponsibilityOwner = "mine" | "shared" | "theirs";
+
+export interface ResponsibilityItem {
+  id: string;
+  item: string;
+  owner: ResponsibilityOwner;
+  energyCost: number; // 0-100, how much it drains me
+  note: string;
+  timestamp: string;
+}
+
+/**
+ * Trait 6 inferiority ↔ grandiosity tracker: log a reaction and which pole it swung to,
+ * plus the right-sized (capable & worthwhile) response.
+ */
+export type BalancePole = "inferiority" | "centered" | "grandiosity";
+
+export interface BalanceEntry {
+  id: string;
+  situation: string;
+  pole: BalancePole;
+  rightSizedResponse: string;
+  timestamp: string;
+}
+
 export interface Concept {
   id: string;
   name: string;

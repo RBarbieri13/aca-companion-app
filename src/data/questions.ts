@@ -172,12 +172,52 @@ export const TRAIT_5_QUESTIONS: ReflectionQuestion[] = [
   { traitId: 5, quadrant: "flipSideOther", index: 7, question: "Are you able to be alone, in silence, with nothing happening?" },
 ];
 
+export const TRAIT_6_QUESTIONS: ReflectionQuestion[] = [
+  // The Laundry List
+  { traitId: 6, quadrant: "laundry", index: 0, question: "List in detail the responsibilities you had as a child that you now know were too much responsibility for you at your age. Next, describe how each of those responsibilities made you feel." },
+  { traitId: 6, quadrant: "laundry", index: 1, question: "List in detail who you were concerned about (focused on) as a child and how this concern and focus affected you. How did it affect your feelings or your ability to be a child?" },
+  { traitId: 6, quadrant: "laundry", index: 2, question: "Why did you focus on these people? What would have happened if you only focused on yourself and your needs as a child?" },
+  { traitId: 6, quadrant: "laundry", index: 3, question: "Make a detailed list of the likes and dislikes of three highly significant people in your life who you have focused on. Describe in detail what this exercise brought up for you." },
+  { traitId: 6, quadrant: "laundry", index: 4, question: "List your parent(s) or caregiver(s) faults and shortcomings. List your own faults today as an adult. Which list was easier to make?" },
+  { traitId: 6, quadrant: "laundry", index: 5, question: "Is it possible that your faults and shortcomings make sense and are acceptable because of the way you were raised, while your caregiver's faults and shortcomings don't make sense and are not acceptable because of the way they were raised?" },
+  { traitId: 6, quadrant: "laundry", index: 6, question: "Did you feel hesitant in listing your own faults? What prompted the hesitance? What happened as a child when your faults were shown, addressed, or pointed out?" },
+  { traitId: 6, quadrant: "laundry", index: 7, question: "There are many phrases in the ACA Twelve Steps that some members have difficulty with — difficulties that stem from looking at ourselves and from past childhood shaming. Write in detail what comes to mind immediately when you read each phrase, and why you think that is your initial reaction: “defects of character”; “exact nature of our wrongs”; “when we were wrong promptly admitted it”; “willing to make amends to them all”; “made a list of all persons we had harmed”; “could restore us to sanity”; “our lives had become unmanageable.”" },
+
+  // The Other Laundry List
+  { traitId: 6, quadrant: "other", index: 0, question: "List the self-centered and irresponsible people who you encountered while growing up." },
+  { traitId: 6, quadrant: "other", index: 1, question: "Describe in a separate list what you think made these people self-centered and irresponsible. Circle items in this list that are similar to the dysfunctions that you learned and that became a part of your false self." },
+  { traitId: 6, quadrant: "other", index: 2, question: "Make a list of people in your childhood who were not irresponsible." },
+  { traitId: 6, quadrant: "other", index: 3, question: "Make a list of people in your childhood who were not self-centered." },
+  { traitId: 6, quadrant: "other", index: 4, question: "It has been said that “when you are pointing out another person's deficiencies it is because you have the same deficiencies.” Do you think this is true? Have you ever been irritated by someone who is similar to you? Were you able to see the similarities — or did you instead think they were the “cause” of your frustration, and that if they changed, you'd feel better and the situation would resolve? Write examples of these situations." },
+  { traitId: 6, quadrant: "other", index: 5, question: "How do you feel when someone tells you that you have made a mistake which resulted in a problem? Do you shift blame or minimize the results? Do you wish no one had seen it? Afterward, does your mind keep returning to the dialog — reviewing what was said, wishing you had said something different, adding more to your side?" },
+
+  // The Flip Side of The Laundry List
+  { traitId: 6, quadrant: "flipSide", index: 0, question: "Describe the characteristics of a person who you would consider an enabler. What do you think are some motivations for this person you've described?" },
+  { traitId: 6, quadrant: "flipSide", index: 1, question: "Who have you observed in your life that played out the role of enabler? When have you played that role? What was your motivation?" },
+  { traitId: 6, quadrant: "flipSide", index: 2, question: "What types of people or situations seem to bring out the enabler in you? Are there types of people who usually do not bring out the enabler in you? If so, why do you think that is?" },
+  { traitId: 6, quadrant: "flipSide", index: 3, question: "As far as your physical energy is concerned, does paying attention to others seem to use up a great deal of your personal energy? When you focus on yourself instead of others, do you find you have more energy for yourself? What ACA tools have helped you see yourself more clearly?" },
+  { traitId: 6, quadrant: "flipSide", index: 4, question: "What parts of the ACA program do you think are helping you progress from enabler to living a life that is more self-focused and self-caring? When you first started living in a self-focused way, describe how it felt then, and how it feels now." },
+  { traitId: 6, quadrant: "flipSide", index: 5, question: "By not using enabling as a way to avoid looking at your own shortcomings, which ACA Promises are coming true for you?" },
+
+  // The Flip Side of The Other Laundry List
+  { traitId: 6, quadrant: "flipSideOther", index: 0, question: "If you'd been raised in a caring, supportive home, the words “capable” and “worthwhile” probably would have been used to affirm you. What other words would caring, supportive parents have used to describe and affirm you? What does your Loving Parent and Higher Power say about you? Are you more able to give those words to yourself now that you have found ACA?" },
+  { traitId: 6, quadrant: "flipSideOther", index: 1, question: "As best as you can, list the words that describe who you were inside as a young child." },
+  { traitId: 6, quadrant: "flipSideOther", index: 2, question: "List the words that describe your True Self / Inner Child as you know it to be now." },
+  { traitId: 6, quadrant: "flipSideOther", index: 3, question: "Which worksheets and exercises in your ACA literature have helped you to find your true identity? List in detail how your Higher Power and/or Loving Parent and/or Inner Child would describe you." },
+  { traitId: 6, quadrant: "flipSideOther", index: 4, question: "Which ACA Promises are coming true for you through your in-depth inventory?" },
+  { traitId: 6, quadrant: "flipSideOther", index: 5, question: "List three primary reasons for your progress." },
+  { traitId: 6, quadrant: "flipSideOther", index: 6, question: "Describe situations in which you would have reacted with inferiority before you found ACA, and situations in which you would have reacted with grandiosity. Using those same situations, describe how you would respond now. Compare the similarities and the differences." },
+  { traitId: 6, quadrant: "flipSideOther", index: 7, question: "List how you believe you impact your ACA group, your ACA friends, and any service you are performing. Though no one expects perfection, would you say that you are acting more from your false self or your True Self today?" },
+  { traitId: 6, quadrant: "flipSideOther", index: 8, question: "Imagine what it would be like to live with yourself if the pre-ACA version of you were your roommate. Write in detail what that might be like." },
+];
+
 export const ALL_QUESTIONS: ReflectionQuestion[] = [
   ...TRAIT_1_QUESTIONS,
   ...TRAIT_2_QUESTIONS,
   ...TRAIT_3_QUESTIONS,
   ...TRAIT_4_QUESTIONS,
   ...TRAIT_5_QUESTIONS,
+  ...TRAIT_6_QUESTIONS,
 ];
 
 export function getQuestionsForTrait(traitId: number) {

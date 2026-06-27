@@ -23,6 +23,8 @@ import { SafePersonView } from "@/components/exercises/safe-person";
 import { SeatCheckView } from "@/components/exercises/seat-check";
 import { SoloSitView } from "@/components/exercises/solo-sit";
 import { SelfTalkRewriterView } from "@/components/exercises/self-talk-rewriter";
+import { ResponsibilitySorterView } from "@/components/exercises/responsibility-sorter";
+import { BalanceTrackerView } from "@/components/exercises/balance-tracker";
 
 type ExerciseId =
   | "inner-child"
@@ -37,7 +39,9 @@ type ExerciseId =
   | "safe-person"
   | "seat-check"
   | "solo-sit"
-  | "self-talk-rewriter";
+  | "self-talk-rewriter"
+  | "responsibility-sorter"
+  | "balance-tracker";
 
 interface ExerciseMeta {
   id: ExerciseId;
@@ -139,6 +143,20 @@ const EXERCISES: Record<ExerciseId, ExerciseMeta> = {
     icon: Pencil,
     Component: SelfTalkRewriterView,
   },
+  "responsibility-sorter": {
+    id: "responsibility-sorter",
+    label: "Whose Job Is It?",
+    short: "Sort what you carry into mine / shared / theirs",
+    icon: Scale,
+    Component: ResponsibilitySorterView,
+  },
+  "balance-tracker": {
+    id: "balance-tracker",
+    label: "Inferiority ↔ Grandiosity Tracker",
+    short: "Catch which pole you swing to — and right-size it",
+    icon: Scale,
+    Component: BalanceTrackerView,
+  },
 };
 
 interface TraitExerciseBundle {
@@ -172,6 +190,11 @@ const TRAIT_EXERCISES: Record<number, TraitExerciseBundle> = {
       "Trait 5 is about power. As children we felt disempowered; as a counter-move, some of us became the controller. These practices help you notice which seat of the Game you took in any given moment, rewrite the self-talk that keeps the victim viewpoint alive, and build the deeper recovery skill named in the Flip Side: being alone, in silence, with nothing happening — and being whole.",
     exercises: ["seat-check", "self-talk-rewriter", "solo-sit", "inner-child"],
   },
+  6: {
+    blurb:
+      "Trait 6 is the overdeveloped sense of responsibility — and its mirror, the inflated self-importance that keeps us from seeing our own shortcomings. These practices set the load down (whose job is it, really?), catch the swing between inferiority and grandiosity, and turn the in-depth inventory toward the capable, worthwhile True Self underneath.",
+    exercises: ["responsibility-sorter", "balance-tracker", "inner-child", "affirmations"],
+  },
 };
 
 const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string>>>> = {
@@ -180,6 +203,7 @@ const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string
     3: "The fear of anger you feel as an adult is usually the child remembering. Let the adult voice say what no one said back then: you are safe now, and we are no longer small.",
     4: "The Flip Side of Trait 4 is comforting the Inner Child we abandoned and disavowed. This is where that conversation happens — the loving parent crossing back to the child it left.",
     5: "Trait 5 names a partnership of inner figures: loving parent, critical survival parent, Inner Child, Higher Power. This is the conversation with the child at the center of that circle — the one who learned that someone walking away meant catastrophe.",
+    6: "Trait 6's child was made responsible for things that were never theirs. Let the adult voice tell that child the truth: the chaos was not yours to fix, and you were always capable and worthwhile — not because of what you carried.",
   },
   feelings: {
     1: "Isolation dampens feelings into a blur. Naming the specific word pulls you out of the loop.",
@@ -196,6 +220,7 @@ const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string
     3: "The renewed True Self esteem the workbook describes is built one sentence at a time. These are some of those sentences.",
     4: "The Inner Child you abandoned needs to hear it will not be left again. These are sentences that rebuild that trust.",
     5: "The Flip Side of Trait 5 reflection asks: what self-talk do you practice as a daily habit? Pick a few of these and return to them — especially when the urge to dominate or collapse arrives.",
+    6: "The Flip Side of the Other Laundry List asks what words your Loving Parent and Higher Power use for you — capable, worthwhile, enough. Build that vocabulary here and return to it when inferiority or grandiosity flares.",
   },
   "identity-inventory": {
     2: "A slow, self-authored record of who you are — built over weeks, not minutes. This directly answers Flip Side Q1: 'Describe ways you do not depend on others to define who you are.'",
@@ -224,6 +249,12 @@ const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string
   "self-talk-rewriter": {
     5: "Laundry List Q4 asks for the phrases that swirl in a victim's head. Flip Side Q3 asks for the self-talk you practice as a daily habit. This is where the two meet — catch one swirling thought and write the whole-and-complete version next to it. Over months, the inside of your head changes.",
   },
+  "responsibility-sorter": {
+    6: "Trait 6 carries what was never ours. Name each thing you're holding and answer the one honest question — whose job is this, really? Watch how much of your energy is spent on the 'theirs' column, and how much comes back when you set it down.",
+  },
+  "balance-tracker": {
+    6: "The over-responsible enabler and the inflated controller are two poles of one false self — inferiority and grandiosity. Catch which way a reaction swings, then write the right-sized response a capable AND worthwhile person would give. Over time the centered bar grows.",
+  },
 };
 
 const ALL_EXERCISE_IDS: ExerciseId[] = [
@@ -240,6 +271,8 @@ const ALL_EXERCISE_IDS: ExerciseId[] = [
   "seat-check",
   "solo-sit",
   "self-talk-rewriter",
+  "responsibility-sorter",
+  "balance-tracker",
 ];
 
 export function ExercisesView() {
