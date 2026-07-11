@@ -211,6 +211,38 @@ export const TRAIT_6_QUESTIONS: ReflectionQuestion[] = [
   { traitId: 6, quadrant: "flipSideOther", index: 8, question: "Imagine what it would be like to live with yourself if the pre-ACA version of you were your roommate. Write in detail what that might be like." },
 ];
 
+export const TRAIT_7_QUESTIONS: ReflectionQuestion[] = [
+  // The Laundry List
+  { traitId: 7, quadrant: "laundry", index: 0, question: "If someone were inside your head when you had thoughts of guilt for standing up for yourself, what thoughts would they hear running through your mind?" },
+  { traitId: 7, quadrant: "laundry", index: 1, question: "In what situations is it hard for you to stand up for yourself? When is it easier for you to stand up for yourself?" },
+  { traitId: 7, quadrant: "laundry", index: 2, question: "What is the “payoff” for giving in to others?" },
+  { traitId: 7, quadrant: "laundry", index: 3, question: "When you “give in” to another person, how do you feel about that person afterward?" },
+  { traitId: 7, quadrant: "laundry", index: 4, question: "Have you “given in” to a person when they didn't ask you to give in? If so, what motivated you to “give in”?" },
+  { traitId: 7, quadrant: "laundry", index: 5, question: "As a child, did you ever stand up for yourself? If so, describe what happened." },
+  { traitId: 7, quadrant: "laundry", index: 6, question: "As a child, did you see another person get “in trouble” for standing up for themselves, or standing up for you? If so, describe the situation(s)." },
+
+  // The Other Laundry List
+  { traitId: 7, quadrant: "other", index: 0, question: "What techniques have you used to make someone feel guilty for attempting to assert themselves?" },
+  { traitId: 7, quadrant: "other", index: 1, question: "What techniques were used on you as a child to make you feel guilty for standing up for yourself?" },
+  { traitId: 7, quadrant: "other", index: 2, question: "What techniques did you observe being used on others when they stood up for themselves?" },
+  { traitId: 7, quadrant: "other", index: 3, question: "What guilt-inducing actions do you remember observing in your childhood? List guilt-inducing actions you observed in caregivers, siblings, relatives, teachers, authority figures, religious figures, etc." },
+  { traitId: 7, quadrant: "other", index: 4, question: "What messages did you hear as a child about people who assert themselves?" },
+  { traitId: 7, quadrant: "other", index: 5, question: "When someone asserts themselves, do you experience an internal discomfort? If so, describe what your thoughts are in that moment. Is there a link from your childhood to your adulthood in this discomfort?" },
+
+  // The Flip Side of The Laundry List
+  { traitId: 7, quadrant: "flipSide", index: 0, question: "Have you had a situation lately where you stood up for yourself and you felt pretty calm about it? If so, describe the situation in detail." },
+  { traitId: 7, quadrant: "flipSide", index: 1, question: "Describe in detail any progress that you have seen in asserting yourself since finding ACA." },
+  { traitId: 7, quadrant: "flipSide", index: 2, question: "Make two lists for standing up for yourself: Easier Situations and Harder Situations. Describe in detail why you think some are easier and some are harder." },
+  { traitId: 7, quadrant: "flipSide", index: 3, question: "As a child, did you ever stand up for yourself with a “safe” person? What was that like?" },
+  { traitId: 7, quadrant: "flipSide", index: 4, question: "Describe a person who you've seen standing up for themselves in a healthy way. What does it look like? How do you feel when you observe this happening? What do you think when you see someone standing up for themselves?" },
+
+  // The Flip Side of The Other Laundry List
+  { traitId: 7, quadrant: "flipSideOther", index: 0, question: "In your ACA group, how do you feel when you observe an adult child changing over time in their ability to be assertive? What progress have you seen in this person?" },
+  { traitId: 7, quadrant: "flipSideOther", index: 1, question: "How would you describe your progress in supporting and encouraging others in their efforts to be assertive? Describe your progress in relationships, jobs, ACA recovery, etc." },
+  { traitId: 7, quadrant: "flipSideOther", index: 2, question: "Has a fellow traveler reached out to you to get your perspective on their situation, or asked for your experience in a similar situation? Did this result in your fellow traveler's feeling encouraged and supported? If so, describe how this interaction affected you physically, mentally, emotionally, and spiritually." },
+  { traitId: 7, quadrant: "flipSideOther", index: 3, question: "Which ACA Promise(s) are coming true for you as you progress in supporting and encouraging others to be assertive?" },
+];
+
 export const ALL_QUESTIONS: ReflectionQuestion[] = [
   ...TRAIT_1_QUESTIONS,
   ...TRAIT_2_QUESTIONS,
@@ -218,6 +250,7 @@ export const ALL_QUESTIONS: ReflectionQuestion[] = [
   ...TRAIT_4_QUESTIONS,
   ...TRAIT_5_QUESTIONS,
   ...TRAIT_6_QUESTIONS,
+  ...TRAIT_7_QUESTIONS,
 ];
 
 export function getQuestionsForTrait(traitId: number) {

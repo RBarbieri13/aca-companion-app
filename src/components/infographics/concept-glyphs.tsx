@@ -601,6 +601,138 @@ export function InDepthInventoryGlyph({ className, size = 48 }: GlyphProps) {
   );
 }
 
+export function SubmissionPayoffGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* figure bowing / giving in beneath a pressing hand */}
+          <path d="M 14 18 L 46 18" stroke="var(--muted-foreground)" strokeWidth="3" strokeLinecap="round" opacity="0.6"/>
+          <path d="M 30 18 L 30 26" stroke="var(--muted-foreground)" strokeWidth="2" opacity="0.5"/>
+          <circle cx="30" cy="34" r="6" fill="var(--accent)" fillOpacity="0.9"/>
+          <path d="M 22 48 Q 30 40 38 48" fill="none" stroke="var(--accent)" strokeWidth="3.5" strokeLinecap="round"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function SmallDeathsGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* a row of small wilting sparks — each swallowed truth */}
+          {[16, 26, 36, 46].map((x, i) => (
+            <g key={x} opacity={1 - i * 0.18}>
+              <line x1={x} y1={40} x2={x} y2={28 + i * 3} stroke="var(--accent)" strokeWidth="1.75" strokeLinecap="round"/>
+              <circle cx={x} cy={26 + i * 3} r="2.5" fill="var(--accent)"/>
+            </g>
+          ))}
+          <line x1="12" y1="44" x2="50" y2="44" stroke="var(--muted-foreground)" strokeWidth="1" opacity="0.5"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function PreemptiveScanGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* radar sweep reading others before self forms */}
+          <circle cx="30" cy="30" r="17" fill="none" stroke="var(--primary)" strokeWidth="1" strokeDasharray="2 3" opacity="0.6"/>
+          <path d="M 30 30 L 30 13 A 17 17 0 0 1 44 22 Z" fill="var(--accent)" fillOpacity="0.35"/>
+          <line x1="30" y1="30" x2="44" y2="22" stroke="var(--accent)" strokeWidth="1.5"/>
+          {/* blips = other people's needs */}
+          <circle cx="40" cy="16" r="2" fill="var(--accent)"/>
+          <circle cx="18" cy="24" r="2" fill="var(--accent)" opacity="0.7"/>
+          {/* faint unformed self at center */}
+          <circle cx="30" cy="30" r="4" fill="none" stroke="var(--muted-foreground)" strokeWidth="1" strokeDasharray="1.5 1.5"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function GuiltWeaponGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* a pointing finger casting a long heavy shadow over a small figure */}
+          <path d="M 14 18 L 34 26" stroke="var(--primary)" strokeWidth="3.5" strokeLinecap="round"/>
+          <circle cx="12" cy="17" r="4" fill="var(--primary)"/>
+          {/* the guilt-shadow */}
+          <path d="M 34 26 L 50 44 L 30 44 Z" fill="var(--accent)" fillOpacity="0.3"/>
+          {/* silenced figure */}
+          <circle cx="42" cy="38" r="4" fill="var(--accent)" fillOpacity="0.9"/>
+          <rect x="38.5" y="42" width="7" height="8" rx="2.5" fill="var(--accent)" fillOpacity="0.8"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function HealthyAssertivenessGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* upright figure with a calm speech line — grounded */}
+          <circle cx="24" cy="20" r="6" fill="var(--sage)"/>
+          <rect x="18" y="27" width="12" height="18" rx="4" fill="var(--sage)" fillOpacity="0.85"/>
+          <line x1="14" y1="49" x2="46" y2="49" stroke="var(--primary)" strokeWidth="1.75" strokeLinecap="round"/>
+          {/* calm level speech waves */}
+          <path d="M 34 22 H 46" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round"/>
+          <path d="M 34 28 H 42" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" opacity="0.6"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function InnerCompassGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          <circle cx="30" cy="30" r="16" fill="none" stroke="var(--primary)" strokeWidth="1.75"/>
+          <circle cx="30" cy="30" r="2" fill="var(--primary)"/>
+          {/* needle */}
+          <path d="M 30 30 L 38 18" stroke="var(--accent)" strokeWidth="2.5" strokeLinecap="round"/>
+          <path d="M 30 30 L 24 40" stroke="var(--muted-foreground)" strokeWidth="2" strokeLinecap="round" opacity="0.6"/>
+          {/* cardinal ticks */}
+          <line x1="30" y1="12" x2="30" y2="16" stroke="var(--primary)" strokeWidth="1.5"/>
+          <line x1="30" y1="44" x2="30" y2="48" stroke="var(--primary)" strokeWidth="1.5"/>
+          <line x1="12" y1="30" x2="16" y2="30" stroke="var(--primary)" strokeWidth="1.5"/>
+          <line x1="44" y1="30" x2="48" y2="30" stroke="var(--primary)" strokeWidth="1.5"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
+export function RaftToShipGlyph({ className, size = 48 }: GlyphProps) {
+  return (
+    <div className={className}>
+      {wrap(size, (
+        <g>
+          {/* waves */}
+          <path d="M 10 44 Q 16 40 22 44 T 34 44 T 46 44" fill="none" stroke="var(--primary)" strokeWidth="1.5" opacity="0.6"/>
+          {/* hull */}
+          <path d="M 16 40 L 44 40 L 38 46 L 22 46 Z" fill="var(--sage)" fillOpacity="0.9"/>
+          {/* mast + sail */}
+          <line x1="30" y1="20" x2="30" y2="40" stroke="var(--primary)" strokeWidth="2"/>
+          <path d="M 30 20 L 42 36 L 30 36 Z" fill="var(--accent)" fillOpacity="0.75"/>
+          <path d="M 30 24 L 22 36 L 30 36 Z" fill="var(--sage)" fillOpacity="0.6"/>
+        </g>
+      ))}
+    </div>
+  );
+}
+
 export const GLYPHS: Record<string, React.ComponentType<GlyphProps>> = {
   dissociation: DissociationGlyph,
   "false-self": FalseSelfGlyph,
@@ -635,4 +767,11 @@ export const GLYPHS: Record<string, React.ComponentType<GlyphProps>> = {
   "magical-omnipotence": MagicalOmnipotenceGlyph,
   "self-focus": SelfFocusGlyph,
   "in-depth-inventory": InDepthInventoryGlyph,
+  "submission-payoff": SubmissionPayoffGlyph,
+  "countless-small-deaths": SmallDeathsGlyph,
+  "preemptive-scanning": PreemptiveScanGlyph,
+  "guilt-as-a-weapon": GuiltWeaponGlyph,
+  "healthy-assertiveness": HealthyAssertivenessGlyph,
+  "inner-compass": InnerCompassGlyph,
+  "raft-to-ship": RaftToShipGlyph,
 };

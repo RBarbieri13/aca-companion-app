@@ -213,6 +213,47 @@ export interface BalanceEntry {
   timestamp: string;
 }
 
+/**
+ * Trait 7 stand-up log: one moment where assertion was on the table — did I speak up or
+ * give in, and what did the guilt do? Sliders 0-100.
+ */
+export type StandUpAction = "spoke-up" | "gave-in";
+
+export interface StandUpEntry {
+  id: string;
+  situation: string;
+  action: StandUpAction;
+  guiltBefore: number; // 0-100 guilt at the moment of choice
+  guiltAfter: number;  // 0-100 guilt an hour later
+  saidOrWished: string; // what I said — or wish I'd said
+  timestamp: string;
+}
+
+/**
+ * Trait 7 guilt-message decoder: the guilt thought, whose voice originally said it,
+ * and the True Self reply.
+ */
+export interface GuiltMessageEntry {
+  id: string;
+  message: string;      // the guilt thought running through my mind
+  voiceSource: string;  // whose voice installed it (parent, teacher, religious figure...)
+  trueSelfReply: string;
+  timestamp: string;
+}
+
+/**
+ * Trait 7 assertion ladder: a personal ladder of standing-up situations from easier to
+ * harder (Flip Side Q3), with rungs marked as tried and rated for calm.
+ */
+export interface LadderRung {
+  id: string;
+  situation: string;
+  difficulty: number;       // 1 (easier) - 10 (harder)
+  tried: boolean;
+  calmRating: number | null; // 0-100 how calm it felt when tried
+  timestamp: string;
+}
+
 export interface Concept {
   id: string;
   name: string;

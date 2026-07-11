@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { TRAITS } from "@/data/traits";
 import { getCurrentTraitId } from "@/data/schedule";
 import { formatDate, cn } from "@/lib/utils";
-import { Lock, Heart, Zap, Feather, Compass, Scale, Home, Ear, Users, ShieldCheck, Crown, Moon, Pencil } from "lucide-react";
+import { Lock, Heart, Zap, Feather, Compass, Scale, Home, Ear, Users, ShieldCheck, Crown, Moon, Pencil, Megaphone, TrendingUp } from "lucide-react";
 
 import { InnerChildExercise } from "@/components/exercises/inner-child";
 import { FeelingsWheel } from "@/components/exercises/feelings-wheel";
@@ -25,6 +25,9 @@ import { SoloSitView } from "@/components/exercises/solo-sit";
 import { SelfTalkRewriterView } from "@/components/exercises/self-talk-rewriter";
 import { ResponsibilitySorterView } from "@/components/exercises/responsibility-sorter";
 import { BalanceTrackerView } from "@/components/exercises/balance-tracker";
+import { StandUpLogView } from "@/components/exercises/stand-up-log";
+import { GuiltDecoderView } from "@/components/exercises/guilt-decoder";
+import { AssertionLadderView } from "@/components/exercises/assertion-ladder";
 
 type ExerciseId =
   | "inner-child"
@@ -41,7 +44,10 @@ type ExerciseId =
   | "solo-sit"
   | "self-talk-rewriter"
   | "responsibility-sorter"
-  | "balance-tracker";
+  | "balance-tracker"
+  | "stand-up-log"
+  | "guilt-decoder"
+  | "assertion-ladder";
 
 interface ExerciseMeta {
   id: ExerciseId;
@@ -157,6 +163,27 @@ const EXERCISES: Record<ExerciseId, ExerciseMeta> = {
     icon: Scale,
     Component: BalanceTrackerView,
   },
+  "stand-up-log": {
+    id: "stand-up-log",
+    label: "Stand-Up Log",
+    short: "Track spoke-up vs. gave-in — and watch the guilt rewire",
+    icon: Megaphone,
+    Component: StandUpLogView,
+  },
+  "guilt-decoder": {
+    id: "guilt-decoder",
+    label: "Guilt-Message Decoder",
+    short: "Name whose voice the guilt is — then answer it",
+    icon: Ear,
+    Component: GuiltDecoderView,
+  },
+  "assertion-ladder": {
+    id: "assertion-ladder",
+    label: "Assertion Ladder",
+    short: "Climb from easier stand-ups to harder ones",
+    icon: TrendingUp,
+    Component: AssertionLadderView,
+  },
 };
 
 interface TraitExerciseBundle {
@@ -195,6 +222,11 @@ const TRAIT_EXERCISES: Record<number, TraitExerciseBundle> = {
       "Trait 6 is the overdeveloped sense of responsibility — and its mirror, the inflated self-importance that keeps us from seeing our own shortcomings. These practices set the load down (whose job is it, really?), catch the swing between inferiority and grandiosity, and turn the in-depth inventory toward the capable, worthwhile True Self underneath.",
     exercises: ["responsibility-sorter", "balance-tracker", "inner-child", "affirmations"],
   },
+  7: {
+    blurb:
+      "Trait 7 is the guilt alarm wired to the impulse to stand up for ourselves — and its mirror, making others feel guilty when they assert themselves. These practices watch the alarm in real time, decode whose voice the guilt actually is, and climb — one rung at a time — toward speaking up calm and guilt-free, while cheering everyone else's voice too.",
+    exercises: ["stand-up-log", "guilt-decoder", "assertion-ladder", "affirmations"],
+  },
 };
 
 const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string>>>> = {
@@ -221,6 +253,7 @@ const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string
     4: "The Inner Child you abandoned needs to hear it will not be left again. These are sentences that rebuild that trust.",
     5: "The Flip Side of Trait 5 reflection asks: what self-talk do you practice as a daily habit? Pick a few of these and return to them — especially when the urge to dominate or collapse arrives.",
     6: "The Flip Side of the Other Laundry List asks what words your Loving Parent and Higher Power use for you — capable, worthwhile, enough. Build that vocabulary here and return to it when inferiority or grandiosity flares.",
+    7: "The child who was denounced for speaking still listens for permission. These are the sentences that grant it: my voice counts, my view is allowed, standing up is not a crime. Say them before the moments where you'll need them.",
   },
   "identity-inventory": {
     2: "A slow, self-authored record of who you are — built over weeks, not minutes. This directly answers Flip Side Q1: 'Describe ways you do not depend on others to define who you are.'",
@@ -255,6 +288,15 @@ const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string
   "balance-tracker": {
     6: "The over-responsible enabler and the inflated controller are two poles of one false self — inferiority and grandiosity. Catch which way a reaction swings, then write the right-sized response a capable AND worthwhile person would give. Over time the centered bar grows.",
   },
+  "stand-up-log": {
+    7: "The Laundry List asks what the payoff is for giving in and how guilt behaves when you don't. Log each moment — spoken or swallowed — with guilt sliders at the choice and an hour later. The falling trend line is the guilt alarm being rewired.",
+  },
+  "guilt-decoder": {
+    7: "Laundry List Q1 asks what thoughts run through your head when guilt fires; Other List Q2 asks what techniques were used on you as a child. This is where they meet: catch the message, attribute the voice, and write the True Self reply. A decoded message stops being the truth and becomes a quotation.",
+  },
+  "assertion-ladder": {
+    7: "Flip Side Q3 asks for two lists — easier and harder situations for standing up for yourself. Build them as one ladder, climb from the bottom, and rate how calm each rung felt. Incremental, but progressive — exactly how the workbook says power comes back.",
+  },
 };
 
 const ALL_EXERCISE_IDS: ExerciseId[] = [
@@ -273,6 +315,9 @@ const ALL_EXERCISE_IDS: ExerciseId[] = [
   "self-talk-rewriter",
   "responsibility-sorter",
   "balance-tracker",
+  "stand-up-log",
+  "guilt-decoder",
+  "assertion-ladder",
 ];
 
 export function ExercisesView() {
