@@ -49,6 +49,7 @@ import { GuiltTripToolkit } from "@/components/infographics/guilt-trip-toolkit";
 import { GuiltSeesaw } from "@/components/infographics/guilt-seesaw";
 import { InnerCompassVoyage } from "@/components/infographics/inner-compass-voyage";
 import { RaftToShip } from "@/components/infographics/raft-to-ship";
+import { EncouragementRipple } from "@/components/infographics/encouragement-ripple";
 
 const QUADRANT_ORDER: Quadrant[] = ["laundry", "other", "flipSide", "flipSideOther"];
 
@@ -326,6 +327,14 @@ const TRAIT_QUADRANT_GRAPHICS: Record<number, Partial<Record<Quadrant, GraphicEn
       Component: RaftToShip,
       caption:
         "The deepest Flip Side of Trait 7 is generosity with the very thing we fought for: we support and encourage others in their efforts to be assertive. Crewed by the outer team (group, fellow travelers) and the inner crew (loving parent, Inner Child, Higher Power), what started out as a raft became a boat — and is now a ship of love and goodwill.",
+      supplements: [
+        {
+          Component: EncouragementRipple,
+          title: "The encouragement ripple",
+          description:
+            "FSO Q3 asks how supporting a fellow traveler affected you physically, mentally, emotionally, and spiritually. One encouraged voice ripples outward — through the fellow traveler, the group, the fellowship — and the encouragement flows back through all four domains of the encourager. The Encouragement Ledger exercise tracks exactly this.",
+        },
+      ],
     },
   },
 };

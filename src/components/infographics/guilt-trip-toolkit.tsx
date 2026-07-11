@@ -21,7 +21,7 @@ export function GuiltTripToolkit({ className }: Props) {
   ];
 
   return (
-    <svg viewBox="0 0 660 500" className={className} role="img" aria-label="The guilt-trip toolkit: techniques used to stop someone from asserting themselves, the buried hurt underneath, the false payoff, and the two ways people respond.">
+    <svg viewBox="0 0 660 592" className={className} role="img" aria-label="The guilt-trip toolkit: techniques used to stop someone from asserting themselves, the buried hurt underneath, the false payoff, the two ways people respond — and how to disarm a guilt-trip aimed at you.">
       <defs>
         <linearGradient id="gtt-card" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.14"/>
@@ -103,6 +103,22 @@ export function GuiltTripToolkit({ className }: Props) {
       <text x="330" y="482" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="9" fill="var(--muted-foreground)" fontStyle="italic">
         In this dissociative game, we take away the other person&apos;s ability to share their view — so we can keep our own view locked away.
       </text>
+
+      {/* DISARM PANEL — when a guilt-trip is aimed at you */}
+      <g>
+        <rect x="36" y="500" width="588" height="76" rx="14" fill="var(--sage)" fillOpacity="0.14" stroke="var(--sage)" strokeWidth="1.5"/>
+        <text x="330" y="522" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="9" letterSpacing="1.2" fontWeight="700" fill="var(--sage)">
+          WHEN ONE IS AIMED AT YOU — THE DISARM
+        </text>
+        <g fontFamily="var(--font-inter)" fontSize="9" fill="var(--foreground)" opacity="0.85">
+          <text x="150" y="544" textAnchor="middle" fontWeight="700" fill="var(--sage)">1 · Name it silently</text>
+          <text x="150" y="560" textAnchor="middle" fontStyle="italic">“that&apos;s a guilt-trip, not a fact”</text>
+          <text x="330" y="544" textAnchor="middle" fontWeight="700" fill="var(--sage)">2 · Don&apos;t defend</text>
+          <text x="330" y="560" textAnchor="middle" fontStyle="italic">defense feeds the game</text>
+          <text x="510" y="544" textAnchor="middle" fontWeight="700" fill="var(--sage)">3 · Restate, calmly</text>
+          <text x="510" y="560" textAnchor="middle" fontStyle="italic">same sentence, same volume</text>
+        </g>
+      </g>
     </svg>
   );
 }

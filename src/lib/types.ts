@@ -254,6 +254,22 @@ export interface LadderRung {
   timestamp: string;
 }
 
+/**
+ * Trait 7 encouragement ledger: moments of supporting/encouraging someone's assertiveness
+ * (or receiving that support), with the workbook's four impact domains.
+ */
+export type EncouragementDirection = "gave" | "received";
+export type ImpactDomain = "physically" | "mentally" | "emotionally" | "spiritually";
+
+export interface EncouragementEntry {
+  id: string;
+  direction: EncouragementDirection;
+  who: string;   // fellow traveler, group member, friend...
+  what: string;  // what happened
+  impacts: ImpactDomain[]; // how it affected me
+  timestamp: string;
+}
+
 export interface Concept {
   id: string;
   name: string;

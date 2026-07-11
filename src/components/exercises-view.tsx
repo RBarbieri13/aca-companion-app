@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { TRAITS } from "@/data/traits";
 import { getCurrentTraitId } from "@/data/schedule";
 import { formatDate, cn } from "@/lib/utils";
-import { Lock, Heart, Zap, Feather, Compass, Scale, Home, Ear, Users, ShieldCheck, Crown, Moon, Pencil, Megaphone, TrendingUp } from "lucide-react";
+import { Lock, Heart, Zap, Feather, Compass, Scale, Home, Ear, Users, ShieldCheck, Crown, Moon, Pencil, Megaphone, TrendingUp, HeartHandshake } from "lucide-react";
 
 import { InnerChildExercise } from "@/components/exercises/inner-child";
 import { FeelingsWheel } from "@/components/exercises/feelings-wheel";
@@ -28,6 +28,7 @@ import { BalanceTrackerView } from "@/components/exercises/balance-tracker";
 import { StandUpLogView } from "@/components/exercises/stand-up-log";
 import { GuiltDecoderView } from "@/components/exercises/guilt-decoder";
 import { AssertionLadderView } from "@/components/exercises/assertion-ladder";
+import { EncouragementLedgerView } from "@/components/exercises/encouragement-ledger";
 
 type ExerciseId =
   | "inner-child"
@@ -47,7 +48,8 @@ type ExerciseId =
   | "balance-tracker"
   | "stand-up-log"
   | "guilt-decoder"
-  | "assertion-ladder";
+  | "assertion-ladder"
+  | "encouragement-ledger";
 
 interface ExerciseMeta {
   id: ExerciseId;
@@ -184,6 +186,13 @@ const EXERCISES: Record<ExerciseId, ExerciseMeta> = {
     icon: TrendingUp,
     Component: AssertionLadderView,
   },
+  "encouragement-ledger": {
+    id: "encouragement-ledger",
+    label: "Encouragement Ledger",
+    short: "Log the voices you cheer — and the cheers you receive",
+    icon: HeartHandshake,
+    Component: EncouragementLedgerView,
+  },
 };
 
 interface TraitExerciseBundle {
@@ -225,7 +234,7 @@ const TRAIT_EXERCISES: Record<number, TraitExerciseBundle> = {
   7: {
     blurb:
       "Trait 7 is the guilt alarm wired to the impulse to stand up for ourselves — and its mirror, making others feel guilty when they assert themselves. These practices watch the alarm in real time, decode whose voice the guilt actually is, and climb — one rung at a time — toward speaking up calm and guilt-free, while cheering everyone else's voice too.",
-    exercises: ["stand-up-log", "guilt-decoder", "assertion-ladder", "affirmations"],
+    exercises: ["stand-up-log", "guilt-decoder", "assertion-ladder", "encouragement-ledger"],
   },
 };
 
@@ -236,6 +245,7 @@ const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string
     4: "The Flip Side of Trait 4 is comforting the Inner Child we abandoned and disavowed. This is where that conversation happens — the loving parent crossing back to the child it left.",
     5: "Trait 5 names a partnership of inner figures: loving parent, critical survival parent, Inner Child, Higher Power. This is the conversation with the child at the center of that circle — the one who learned that someone walking away meant catastrophe.",
     6: "Trait 6's child was made responsible for things that were never theirs. Let the adult voice tell that child the truth: the chaos was not yours to fix, and you were always capable and worthwhile — not because of what you carried.",
+    7: "Trait 7's child got in trouble for standing up — or watched someone else get in trouble for it. Let the adult voice say what the family couldn't: your voice was never the problem, and it is safe to use it now.",
   },
   feelings: {
     1: "Isolation dampens feelings into a blur. Naming the specific word pulls you out of the loop.",
@@ -297,6 +307,9 @@ const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string
   "assertion-ladder": {
     7: "Flip Side Q3 asks for two lists — easier and harder situations for standing up for yourself. Build them as one ladder, climb from the bottom, and rate how calm each rung felt. Incremental, but progressive — exactly how the workbook says power comes back.",
   },
+  "encouragement-ledger": {
+    7: "The Flip Side of the Other asks how supporting a fellow traveler affected you — physically, mentally, emotionally, and spiritually. Log both directions, mark the four domains, and watch where encouragement lands in you. Giving it away is how the raft becomes a ship.",
+  },
 };
 
 const ALL_EXERCISE_IDS: ExerciseId[] = [
@@ -318,6 +331,7 @@ const ALL_EXERCISE_IDS: ExerciseId[] = [
   "stand-up-log",
   "guilt-decoder",
   "assertion-ladder",
+  "encouragement-ledger",
 ];
 
 export function ExercisesView() {

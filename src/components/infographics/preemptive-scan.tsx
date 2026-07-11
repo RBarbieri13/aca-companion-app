@@ -25,7 +25,7 @@ export function PreemptiveScan({ className }: Props) {
   ];
 
   return (
-    <svg viewBox="0 0 600 480" className={className} role="img" aria-label="A radar constantly scanning other people's signals while the self at the center never finishes forming.">
+    <svg viewBox="0 0 600 520" className={className} role="img" aria-label="A radar constantly scanning other people's signals while the self at the center never finishes forming — with the three-step pause protocol that lets the self render.">
       <defs>
         <radialGradient id="ps-scope" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.10"/>
@@ -100,13 +100,30 @@ export function PreemptiveScan({ className }: Props) {
         the self never finishes rendering
       </text>
 
-      {/* bottom strip — the recovery pause */}
+      {/* bottom strip — the three-step pause protocol */}
       <g>
-        <rect x="60" y="416" width="480" height="52" rx="12" fill="var(--sage)" fillOpacity="0.16" stroke="var(--sage)" strokeWidth="1.25"/>
-        <text x="300" y="437" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="9" letterSpacing="1.2" fontWeight="700" fill="var(--sage)">THE RECOVERY MOVE: A PAUSE</text>
-        <text x="300" y="455" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="9" fill="var(--foreground)" opacity="0.85">
-          Long enough for your own viewpoint to finish forming — before you scan a single face.
+        <rect x="40" y="416" width="520" height="92" rx="14" fill="var(--sage)" fillOpacity="0.16" stroke="var(--sage)" strokeWidth="1.25"/>
+        <text x="300" y="438" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="9" letterSpacing="1.2" fontWeight="700" fill="var(--sage)">
+          THE PAUSE PROTOCOL — LET THE SELF RENDER
         </text>
+        <g fontFamily="var(--font-inter)">
+          <circle cx="120" cy="462" r="9" fill="var(--sage)"/>
+          <text x="120" y="465.5" textAnchor="middle" fontSize="9" fontWeight="700" fill="var(--card)">1</text>
+          <text x="120" y="484" textAnchor="middle" fontSize="8.5" fontWeight="700" fill="var(--foreground)">Notice the sweep</text>
+          <text x="120" y="497" textAnchor="middle" fontSize="7.5" fill="var(--muted-foreground)" fontStyle="italic">“I&apos;m scanning again.”</text>
+
+          <circle cx="300" cy="462" r="9" fill="var(--sage)"/>
+          <text x="300" y="465.5" textAnchor="middle" fontSize="9" fontWeight="700" fill="var(--card)">2</text>
+          <text x="300" y="484" textAnchor="middle" fontSize="8.5" fontWeight="700" fill="var(--foreground)">One full breath</text>
+          <text x="300" y="497" textAnchor="middle" fontSize="7.5" fill="var(--muted-foreground)" fontStyle="italic">the radar can idle for four seconds</text>
+
+          <circle cx="480" cy="462" r="9" fill="var(--sage)"/>
+          <text x="480" y="465.5" textAnchor="middle" fontSize="9" fontWeight="700" fill="var(--card)">3</text>
+          <text x="480" y="484" textAnchor="middle" fontSize="8.5" fontWeight="700" fill="var(--foreground)">Ask inward first</text>
+          <text x="480" y="497" textAnchor="middle" fontSize="7.5" fill="var(--muted-foreground)" fontStyle="italic">“What do I think? What do I need?”</text>
+        </g>
+        <line x1="140" y1="462" x2="280" y2="462" stroke="var(--sage)" strokeWidth="1" strokeDasharray="3 3" opacity="0.6"/>
+        <line x1="320" y1="462" x2="460" y2="462" stroke="var(--sage)" strokeWidth="1" strokeDasharray="3 3" opacity="0.6"/>
       </g>
     </svg>
   );

@@ -24,6 +24,7 @@ import type {
   StandUpEntry,
   GuiltMessageEntry,
   LadderRung,
+  EncouragementEntry,
   Quadrant,
 } from "@/lib/types";
 
@@ -51,6 +52,7 @@ interface AppState {
   standUpEntries: StandUpEntry[];
   guiltMessages: GuiltMessageEntry[];
   ladderRungs: LadderRung[];
+  encouragements: EncouragementEntry[];
   attendance: Record<string, AttendanceRecord>;
   favoriteAffirmations: string[];
 
@@ -105,6 +107,8 @@ interface AppState {
   addLadderRung: (entry: Omit<LadderRung, "id" | "timestamp" | "tried" | "calmRating">) => void;
   markRungTried: (id: string, calmRating: number) => void;
   deleteLadderRung: (id: string) => void;
+  logEncouragement: (entry: Omit<EncouragementEntry, "id" | "timestamp">) => void;
+  deleteEncouragement: (id: string) => void;
   setAttendance: (date: string, attended: boolean) => void;
   setAttendanceNotes: (date: string, notes: string) => void;
   toggleFavoriteAffirmation: (text: string) => void;
@@ -139,6 +143,7 @@ export const useAppStore = create<AppState>()(
       standUpEntries: [],
       guiltMessages: [],
       ladderRungs: [],
+      encouragements: [],
       attendance: {},
       favoriteAffirmations: [],
 
@@ -436,6 +441,15 @@ export const useAppStore = create<AppState>()(
 
       deleteLadderRung: (id) => {
         set({ ladderRungs: get().ladderRungs.filter((c) => c.id !== id) });
+      },
+
+      logEncouragement: (entry) => {
+        const log: EncouragementEntry = { ...entry, id: nowId(), timestamp: new Date().toISOString() };
+        set({ encouragements: [log, ...get().encouragements] });
+      },
+
+      deleteEncouragement: (id) => {
+        set({ encouragements: get().encouragements.filter((c) => c.id !== id) });
       },
 
       setAttendance: (date, attended) => {
