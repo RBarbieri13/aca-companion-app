@@ -21,6 +21,9 @@ import type {
   ResponsibilityItem,
   ResponsibilityOwner,
   BalanceEntry,
+  StandUpEntry,
+  GuiltMessageEntry,
+  LadderRung,
   Quadrant,
 } from "@/lib/types";
 
@@ -45,6 +48,9 @@ interface AppState {
   selfTalkRewrites: SelfTalkRewrite[];
   responsibilityItems: ResponsibilityItem[];
   balanceEntries: BalanceEntry[];
+  standUpEntries: StandUpEntry[];
+  guiltMessages: GuiltMessageEntry[];
+  ladderRungs: LadderRung[];
   attendance: Record<string, AttendanceRecord>;
   favoriteAffirmations: string[];
 
@@ -92,6 +98,13 @@ interface AppState {
   deleteResponsibilityItem: (id: string) => void;
   logBalanceEntry: (entry: Omit<BalanceEntry, "id" | "timestamp">) => void;
   deleteBalanceEntry: (id: string) => void;
+  logStandUp: (entry: Omit<StandUpEntry, "id" | "timestamp">) => void;
+  deleteStandUp: (id: string) => void;
+  logGuiltMessage: (entry: Omit<GuiltMessageEntry, "id" | "timestamp">) => void;
+  deleteGuiltMessage: (id: string) => void;
+  addLadderRung: (entry: Omit<LadderRung, "id" | "timestamp" | "tried" | "calmRating">) => void;
+  markRungTried: (id: string, calmRating: number) => void;
+  deleteLadderRung: (id: string) => void;
   setAttendance: (date: string, attended: boolean) => void;
   setAttendanceNotes: (date: string, notes: string) => void;
   toggleFavoriteAffirmation: (text: string) => void;
@@ -123,6 +136,9 @@ export const useAppStore = create<AppState>()(
       selfTalkRewrites: [],
       responsibilityItems: [],
       balanceEntries: [],
+      standUpEntries: [],
+      guiltMessages: [],
+      ladderRungs: [],
       attendance: {},
       favoriteAffirmations: [],
 
@@ -379,6 +395,47 @@ export const useAppStore = create<AppState>()(
 
       deleteBalanceEntry: (id) => {
         set({ balanceEntries: get().balanceEntries.filter((c) => c.id !== id) });
+      },
+
+      logStandUp: (entry) => {
+        const log: StandUpEntry = { ...entry, id: nowId(), timestamp: new Date().toISOString() };
+        set({ standUpEntries: [log, ...get().standUpEntries] });
+      },
+
+      deleteStandUp: (id) => {
+        set({ standUpEntries: get().standUpEntries.filter((c) => c.id !== id) });
+      },
+
+      logGuiltMessage: (entry) => {
+        const log: GuiltMessageEntry = { ...entry, id: nowId(), timestamp: new Date().toISOString() };
+        set({ guiltMessages: [log, ...get().guiltMessages] });
+      },
+
+      deleteGuiltMessage: (id) => {
+        set({ guiltMessages: get().guiltMessages.filter((c) => c.id !== id) });
+      },
+
+      addLadderRung: (entry) => {
+        const rung: LadderRung = {
+          ...entry,
+          id: nowId(),
+          tried: false,
+          calmRating: null,
+          timestamp: new Date().toISOString(),
+        };
+        set({ ladderRungs: [...get().ladderRungs, rung] });
+      },
+
+      markRungTried: (id, calmRating) => {
+        set({
+          ladderRungs: get().ladderRungs.map((r) =>
+            r.id === id ? { ...r, tried: true, calmRating } : r
+          ),
+        });
+      },
+
+      deleteLadderRung: (id) => {
+        set({ ladderRungs: get().ladderRungs.filter((c) => c.id !== id) });
       },
 
       setAttendance: (date, attended) => {

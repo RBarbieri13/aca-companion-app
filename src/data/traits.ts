@@ -100,15 +100,16 @@ export const TRAITS: Trait[] = [
   {
     id: 7,
     shortName: "Guilt When Standing Up",
-    active: false,
+    active: true,
     mainListDate: "2026-07-18",
     flipSideDate: "2026-07-25",
     statements: {
       laundry:
         "We get guilt feelings when we stand up for ourselves instead of giving in to others.",
-      other: "",
-      flipSide: "",
-      flipSideOther: "",
+      other: "We make others feel guilty when they attempt to assert themselves.",
+      flipSide: "We do not feel guilty when we stand up for ourselves.",
+      flipSideOther:
+        "We support and encourage others in their efforts to be assertive.",
     },
   },
   {

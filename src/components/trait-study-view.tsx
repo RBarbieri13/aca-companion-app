@@ -42,6 +42,13 @@ import { InferiorityGrandiosityPendulum } from "@/components/infographics/inferi
 import { EnablingEnergyLoop } from "@/components/infographics/enabling-energy-loop";
 import { InventoryToTrueSelf } from "@/components/infographics/inventory-to-true-self";
 import { ResponsibilityPatternsTable } from "@/components/infographics/responsibility-patterns-table";
+import { GuiltAlarmCircuit } from "@/components/infographics/guilt-alarm-circuit";
+import { PreemptiveScan } from "@/components/infographics/preemptive-scan";
+import { AssertionStancesTable } from "@/components/infographics/assertion-stances-table";
+import { GuiltTripToolkit } from "@/components/infographics/guilt-trip-toolkit";
+import { GuiltSeesaw } from "@/components/infographics/guilt-seesaw";
+import { InnerCompassVoyage } from "@/components/infographics/inner-compass-voyage";
+import { RaftToShip } from "@/components/infographics/raft-to-ship";
 
 const QUADRANT_ORDER: Quadrant[] = ["laundry", "other", "flipSide", "flipSideOther"];
 
@@ -275,6 +282,50 @@ const TRAIT_QUADRANT_GRAPHICS: Record<number, Partial<Record<Quadrant, GraphicEn
       Component: InventoryToTrueSelf,
       caption:
         "The ACA inventory is in-depth and painstaking — but its reward is relief. As we ask to have our shortcomings removed, the twin burdens of inferiority and grandiosity dissolve, and the True Self underneath is revealed: capable, worthwhile, and enough.",
+    },
+  },
+  7: {
+    laundry: {
+      Component: GuiltAlarmCircuit,
+      caption:
+        "Perhaps the greatest loss we suffered as children was losing our ability to stand up for ourselves. The family wired an alarm: the moment our truth starts to rise, guilt fires, we give in — and the payoff of not feeling our feelings quietly recharges the circuit. Recovery cuts the wire between the impulse and the alarm.",
+      supplements: [
+        {
+          Component: PreemptiveScan,
+          title: "The preemptive scan",
+          description:
+            "We read body posture, tone of voice, and facial expressions so fast that we act out the submissive role before our own perception can even form. The radar keeps perfect track of everyone else's needs — while the self at the center never finishes rendering. The recovery move is a pause long enough for your own viewpoint to exist.",
+        },
+        {
+          Component: AssertionStancesTable,
+          title: "Three stances of the voice",
+          description:
+            "Passive (give in), aggressive (guilt them), assertive (both voices allowed) — compared across the move, the goal, the payoff, the cost, and the recovery turn. The first two are the trait; the third is the Flip Sides.",
+        },
+      ],
+    },
+    other: {
+      Component: GuiltTripToolkit,
+      caption:
+        "The aggressor's version of the same wound: we make others feel guilty when they attempt to assert themselves — targeting especially those whose views would hold greater sway than ours. The ulterior motive is to hide our own hurts from having been similarly denounced as children; the payoff is a false sense of mastery that costs us our ability to be genuine and human.",
+      supplements: [
+        {
+          Component: GuiltSeesaw,
+          title: "Trait 7 in one frame",
+          description:
+            "Guilt turned inward swallows my voice; guilt turned outward silences yours. Both sit on the same fulcrum — the childhood denouncement — and the seesaw tilts forever until both voices are allowed at once. The level plank is the pair of Flip Sides.",
+        },
+      ],
+    },
+    flipSide: {
+      Component: InnerCompassVoyage,
+      caption:
+        "We do not feel guilty when we stand up for ourselves. The voyage starts in the safe harbor of a meeting — where no one interrupts, comments, or judges — crosses the choppy waters that honest sharing can stir, and stays on course by the reconnected inner compass, with the Steps re-adjusting our bearings whenever we stray.",
+    },
+    flipSideOther: {
+      Component: RaftToShip,
+      caption:
+        "The deepest Flip Side of Trait 7 is generosity with the very thing we fought for: we support and encourage others in their efforts to be assertive. Crewed by the outer team (group, fellow travelers) and the inner crew (loving parent, Inner Child, Higher Power), what started out as a raft became a boat — and is now a ship of love and goodwill.",
     },
   },
 };
