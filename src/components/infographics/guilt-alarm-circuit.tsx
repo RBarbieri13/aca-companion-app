@@ -12,7 +12,7 @@ interface Props { className?: string; }
 
 export function GuiltAlarmCircuit({ className }: Props) {
   return (
-    <svg viewBox="0 0 660 470" className={className} role="img" aria-label="The guilt alarm circuit: the impulse to stand up trips a childhood-installed alarm that forces the give-in, whose numbing payoff recharges the alarm.">
+    <svg viewBox="0 0 660 570" className={className} role="img" aria-label="The guilt alarm circuit: the impulse to stand up trips a childhood-installed alarm that forces the give-in, whose numbing payoff recharges the alarm — plus a discernment strip separating false guilt from earned guilt.">
       <defs>
         <linearGradient id="gac-wire" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.8"/>
@@ -145,6 +145,23 @@ export function GuiltAlarmCircuit({ className }: Props) {
       <text x="330" y="456" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="9" fill="var(--muted-foreground)" fontStyle="italic">
         Robbed of our inner senses, we wander and wonder: “Where am I in all this?”
       </text>
+
+      {/* DISCERNMENT STRIP — false guilt vs. earned guilt */}
+      <g>
+        <text x="330" y="486" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="9" letterSpacing="1.2" fontWeight="700" fill="var(--muted-foreground)">
+          A DISCERNMENT WORTH KEEPING
+        </text>
+
+        <rect x="36" y="496" width="288" height="62" rx="12" fill="var(--accent)" fillOpacity="0.08" stroke="var(--accent)" strokeWidth="1" strokeOpacity="0.5"/>
+        <text x="180" y="516" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="8.5" fontWeight="700" letterSpacing="0.8" fill="var(--accent)">FALSE GUILT — the alarm</text>
+        <text x="180" y="532" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="8.5" fill="var(--foreground)" opacity="0.82">fires when you assert, ask, or exist out loud</text>
+        <text x="180" y="546" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="8" fill="var(--muted-foreground)" fontStyle="italic">installed · attributable · safe to rewire</text>
+
+        <rect x="336" y="496" width="288" height="62" rx="12" fill="var(--sage)" fillOpacity="0.14" stroke="var(--sage)" strokeWidth="1.25"/>
+        <text x="480" y="516" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="8.5" fontWeight="700" letterSpacing="0.8" fill="var(--sage)">EARNED GUILT — the conscience</text>
+        <text x="480" y="532" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="8.5" fill="var(--foreground)" opacity="0.82">fires when you actually harm someone</text>
+        <text x="480" y="546" textAnchor="middle" fontFamily="var(--font-inter)" fontSize="8" fill="var(--muted-foreground)" fontStyle="italic">useful · keep it · make it right</text>
+      </g>
     </svg>
   );
 }
