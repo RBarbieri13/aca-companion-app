@@ -19,4 +19,12 @@ export const AFFIRMATIONS: string[] = [
   "Connection doesn't require self-abandonment.",
   "I can ask for help without collapsing.",
   "The discomfort of change is not the same as danger.",
+  "I do not need a crisis to feel alive.",
+  "Calm is not boredom. Calm is what safety feels like.",
+  "Peaceful is not the same as numb.",
+  "I can feel my feelings without dosing them or drowning in them.",
+  "Love asks first. Pity assumes.",
+  "I can care about someone without carrying them.",
+  "Other people's storms are not my invitation.",
+  "My help is a gift I give freely — not a debt I pay to feel worthy.",
 ];

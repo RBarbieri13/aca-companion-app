@@ -50,6 +50,23 @@ import { GuiltSeesaw } from "@/components/infographics/guilt-seesaw";
 import { InnerCompassVoyage } from "@/components/infographics/inner-compass-voyage";
 import { RaftToShip } from "@/components/infographics/raft-to-ship";
 import { EncouragementRipple } from "@/components/infographics/encouragement-ripple";
+import { ExcitementThermostat } from "@/components/infographics/excitement-thermostat";
+import { BodyStaticMap } from "@/components/infographics/body-static-map";
+import { ExcitementRolesTable } from "@/components/infographics/excitement-roles-table";
+import { NumbArmorCracks } from "@/components/infographics/numb-armor-cracks";
+import { ExcitementNumbPendulum } from "@/components/infographics/excitement-numb-pendulum";
+import { UpsetToWorkable } from "@/components/infographics/upset-to-workable";
+import { ExcitementDiscernmentTable } from "@/components/infographics/excitement-discernment-table";
+import { ResensitizationPath } from "@/components/infographics/resensitization-path";
+import { MixedSignalsMirror } from "@/components/infographics/mixed-signals-mirror";
+import { EmptinessWell } from "@/components/infographics/emptiness-well";
+import { LovePityTable } from "@/components/infographics/love-pity-table";
+import { NeedinessRecoil } from "@/components/infographics/neediness-recoil";
+import { LoseLoseOasis } from "@/components/infographics/lose-lose-oasis";
+import { StrongChildMask } from "@/components/infographics/strong-child-mask";
+import { DimmerSwitch } from "@/components/infographics/dimmer-switch";
+import { DramaTriangleMap } from "@/components/infographics/drama-triangle-map";
+import { StandReady } from "@/components/infographics/stand-ready";
 
 const QUADRANT_ORDER: Quadrant[] = ["laundry", "other", "flipSide", "flipSideOther"];
 
@@ -333,6 +350,126 @@ const TRAIT_QUADRANT_GRAPHICS: Record<number, Partial<Record<Quadrant, GraphicEn
           title: "The encouragement ripple",
           description:
             "FSO Q3 asks how supporting a fellow traveler affected you physically, mentally, emotionally, and spiritually. One encouraged voice ripples outward — through the fellow traveler, the group, the fellowship — and the encouragement flows back through all four domains of the encourager. The Encouragement Ledger exercise tracks exactly this.",
+        },
+      ],
+    },
+  },
+  8: {
+    laundry: {
+      Component: ExcitementThermostat,
+      caption:
+        "The first doses came early — sometimes before we were born — as the family's chaos kept us in a constant state of negative excitement. The thermostat got set high, and as adults we keep it there: dangerous situations, untrustworthy companions, precarious living — all while complaining about our circumstances. Tony A. originally wrote this trait as \"addicted to fear.\"",
+      supplements: [
+        {
+          Component: BodyStaticMap,
+          title: "Bracing for an impact that already happened",
+          description:
+            "Laundry List Q7 is a body inventory: quick shallow breathing, shoulders that rise and stay, jaws clamped by day and night, a knee that won't stop bouncing. The static is the childhood tension still running in the body. The Body Static Scanner exercise turns this map into a repeatable practice.",
+        },
+        {
+          Component: ExcitementRolesTable,
+          title: "Three taps into the same dose",
+          description:
+            "Negative excitement can come from being a victim, a victimizer, or a rescuer — in each role, the internal dosing leaves us emotionally intoxicated. Whether at work, home, or even at our meetings, we can conjure the familiar excitement we seem to believe is natural. Compare the three taps side by side.",
+        },
+      ],
+    },
+    other: {
+      Component: NumbArmorCracks,
+      caption:
+        "The mirror trait: to inhibit the fear, we armored up — outside substances, a flurry of activities, a cocktail of internal chemicals — until we felt nothing, not even genuinely good feelings beyond the superficial \"okay.\" Then the inhibition stops working. Feelings slip through the cracks, and in our quiet moments we wonder: what's wrong with me that I cannot feel?",
+      supplements: [
+        {
+          Component: ExcitementNumbPendulum,
+          title: "Trait 8 in one frame",
+          description:
+            "Spiking on excitement and deadened into numbness look like opposites, but they swing from the same pivot — a childhood home in constant tension. Both keep the original feelings out of reach. The exit isn't either pole; it's the still center where feelings are felt instead of dosed.",
+        },
+      ],
+    },
+    flipSide: {
+      Component: UpsetToWorkable,
+      caption:
+        "As we work the Steps, reparent ourselves, attend meetings, and process our grief, we discern the difference between positive and negative excitement — and make spiritually conscious decisions to avoid emotional intoxication. No longer dissociated or in denial, we accept when a relationship is fraught with constant upset, and we look for life-enriching relationships that further our spiritual development.",
+      supplements: [
+        {
+          Component: ExcitementDiscernmentTable,
+          title: "The discernment table",
+          description:
+            "Once we have our feelings and buried memories expressed, dosing ourselves with fear or excitement no longer attracts us — we are repelled by it, because it is life-robbing. Here is the discernment the Flip Side asks for: the dose, real aliveness, and the new baseline, compared across what each one costs and builds.",
+        },
+      ],
+    },
+    flipSideOther: {
+      Component: ResensitizationPath,
+      caption:
+        "ACAs come to meetings because they hit a bottom — but that bottom is only the beginning of re-sensitization, the return of feelings. Disinhibiting is painstaking work: we unearth the hidden childhood fears, acknowledge our experiences, and express our feelings in the safe environment of our meetings. It might feel foreign at first, but eventually we feel rejuvenated and alive — perhaps for the very first time.",
+      supplements: [
+        {
+          Component: SensesGrounding,
+          title: "Orientation · be prepared to engage your senses",
+          description:
+            "The workbook opens Trait 8's reflections with the same somatic orientation it gave Trait 3: look at some things (actual), make a noise, eat a peach, smell some cinnamon, pat your face. Each sense is a door back to now — the opposite of both the dose and the numbness. The Sensory Reset exercise makes it a loggable practice.",
+        },
+      ],
+    },
+  },
+  9: {
+    laundry: {
+      Component: MixedSignalsMirror,
+      caption:
+        "The confusion of feelings is a natural by-product of a family where the dysfunction is denied. We mimicked our caregivers and mirrored their emotional landscape — and absorbed a misalignment between pity and sympathy on one hand, and compassion and empathy on the other. So if we were heroes, we drew people who need rescuing; if we were martyrs, we became involved with lost causes — believing all the while that these were normal ups and downs.",
+      supplements: [
+        {
+          Component: EmptinessWell,
+          title: "The emptiness that \"helping\" never fills",
+          description:
+            "Laundry List Q7-Q8 name the engine: being raised in an alcoholic or dysfunctional home can create an emptiness that we constantly fill by \"helping\" disadvantaged people and underdogs — oblivious as to why. The bucket pours and pours, and the well stays dry, because what the emptiness actually needs is grief, not another rescue.",
+        },
+      ],
+    },
+    other: {
+      Component: NeedinessRecoil,
+      caption:
+        "The mirror trait is blunt: we hate people who \"play\" the victim and beg to be rescued. Bombarded as children by conflicting messages, we went tone deaf and numb — and if anyone even seems ready to hoist a small packet of \"need\" onto us, we recoil or strike out. The tell: their need to be rescued is exactly the need we buried in the wasteland of our own childhood.",
+      supplements: [
+        {
+          Component: LoseLoseOasis,
+          title: "The barren oasis · an ecosystem of attraction and repulsion",
+          description:
+            "The psychologically and spiritually barren person becomes an inviting oasis to the underwhelmed. Both are reenacting a childhood dynamic, and each is getting what they subconsciously need to stave off recalling their losses. A win for the supposed \"loser\" and a loss for the supposed \"winner\" — a lose-lose situation.",
+        },
+        {
+          Component: StrongChildMask,
+          title: "The strong-child mask",
+          description:
+            "The Other Laundry List questions trace the mask back: pretending to be strong, feeling older than other children, resenting them for their \"normal\" childhood — and, as adults, contempt for winners, anger when everyone volunteers to help someone, and a locked door on asking for anything ourselves. The Ask-for-Help exercise practices opening that door.",
+        },
+      ],
+    },
+    flipSide: {
+      Component: DimmerSwitch,
+      caption:
+        "Recovery here is dedication to clarity — disentangling what we were shown and learned as a habit from what we truly believe. When we share at meetings and space is made to speak our truth, sometimes the internal light shines suddenly; more often, like a dimmer switch, it brightens gradually. We pitied people and called it love because our families showed care toward those they felt sorry for and called it love. In our meetings we don't enable one another — we demonstrate love without pity.",
+      supplements: [
+        {
+          Component: LovePityTable,
+          title: "Love · pity · rescue — told apart",
+          description:
+            "Flip Side Q4 asks for the biggest difference between love and pity; Q3 asks for actions coming from love. This table holds the distinctions still long enough to learn them — where each one looks from, what it asks of the other person, and how both people end up. The Love vs. Pity Ledger exercise builds your personal version.",
+        },
+      ],
+    },
+    flipSideOther: {
+      Component: DramaTriangleMap,
+      caption:
+        "From our emotionally sober True Self, compassion gushes forth — and we can finally see the symbiotic interconnectedness between \"victim\" and \"victimizer.\" The interplay between the adrenaline-surged hero or savior and the melatonin-induced victim or martyr is first realized in us; then, turning outward, we observe these unhealthy dynamics all around us — with compassion for anyone trapped in the drama triangle and desperately searching for a way out of insanity.",
+      supplements: [
+        {
+          Component: StandReady,
+          title: "Standing ready — not rushing in",
+          description:
+            "No longer compelled to rush into the flames of discord or desperation, we can stand ready for those who might turn to us and ask for help or direction. With a deep sense of gratitude and love, we share how our own pilgrimage began — a call, a book, an article, or an ACA flier found in the street seemingly by coincidence, which turned out to be an invitation to a lifetime spiritual quest.",
         },
       ],
     },

@@ -270,6 +270,138 @@ export interface EncouragementEntry {
   timestamp: string;
 }
 
+/**
+ * Trait 8 body static scan (Laundry List Q7): noticing when the body is braced
+ * for impact — quick shallow breathing, raised shoulders, clamped jaws, restless
+ * movement — as if still living in the tense childhood home.
+ */
+export type BodySign =
+  | "shallow-breath"
+  | "raised-shoulders"
+  | "clamped-jaw-day"
+  | "clamped-jaw-night"
+  | "teeth-grinding"
+  | "bouncing-knee"
+  | "tapping-foot"
+  | "nail-digging"
+  | "skin-chewing";
+
+export type BodyScanState = "numb" | "calm" | "buzzing" | "spiking";
+
+export interface BodyScanEntry {
+  id: string;
+  signs: BodySign[];
+  tension: number; // 0-100 how braced the body feels right now
+  state: BodyScanState;
+  childhoodEcho: string; // what did I do back then, physically?
+  note: string;
+  timestamp: string;
+}
+
+/**
+ * Trait 8 excitement pull log (Flip Side Q1-Q2): situations that used to attract
+ * us — or still do — because of the emotional intoxication, and what we chose.
+ */
+export type PullStatus = "still-pulls" | "released";
+export type PullChoice = "engaged" | "declined" | "noticing";
+
+export interface ExcitementPullEntry {
+  id: string;
+  situation: string;
+  pull: number; // 0-100 strength of the attraction in the moment
+  status: PullStatus;
+  choice: PullChoice;
+  aftermath: string; // how it felt afterward
+  timestamp: string;
+}
+
+/**
+ * Trait 8 weekly aliveness check-in. The trait swings between two poles:
+ * 0 = deadened/numb, 100 = emotionally intoxicated. 50 = calm and alive —
+ * the middle is the recovery, not either end.
+ */
+export interface AlivenessCheckIn {
+  id: string;
+  weekOf: string; // ISO date (the Sunday of the week)
+  value: number; // 0-100
+  note: string;
+  timestamp: string;
+}
+
+/**
+ * Trait 8 sensory reset session — the workbook's Orientation practice
+ * (look at some things, make a noise, eat a peach, smell some cinnamon,
+ * pat your face) logged with before/after charge.
+ */
+export type SenseDoor = "sight" | "sound" | "taste" | "smell" | "touch";
+
+export interface SensoryResetEntry {
+  id: string;
+  doors: SenseDoor[];
+  before: number; // 0-100 charge before (0 = numb, 100 = spiking)
+  after: number;  // 0-100 charge after
+  note: string;
+  timestamp: string;
+}
+
+/**
+ * Trait 9 rescue radar: catching the rescue impulse in real time — the urge,
+ * the feeling underneath it, and what we actually did.
+ */
+export type RescueAction = "rescued" | "paused" | "asked-first" | "compassion";
+
+export interface RescueImpulseEntry {
+  id: string;
+  situation: string;
+  urge: number; // 0-100 strength of the pull to rescue
+  feelingUnderneath: string; // emptiness, importance, being needed...
+  action: RescueAction;
+  note: string;
+  timestamp: string;
+}
+
+/**
+ * Trait 9 drama triangle mapper: one drama, the corner we took
+ * (persecutor / rescuer / victim), how the corners rotated, and the
+ * compassionate step out.
+ */
+export type TriangleRole = "persecutor" | "rescuer" | "victim" | "outside";
+
+export interface DramaTriangleEntry {
+  id: string;
+  situation: string;
+  myRole: TriangleRole;
+  rotation: string; // who played what, and how the roles rotated
+  exitMove: string; // the step out — compassion without joining the insanity
+  timestamp: string;
+}
+
+/**
+ * Trait 9 love/pity ledger (Flip Side Q3): a growing two-column list of
+ * actions coming from love vs. actions coming from pity/rescue.
+ */
+export type LoveLedgerKind = "love" | "pity";
+
+export interface LoveActionItem {
+  id: string;
+  text: string;
+  kind: LoveLedgerKind;
+}
+
+/**
+ * Trait 9 ask-for-help experiment (Other Laundry List Q8): practicing the very
+ * thing the trait forbids — asking — with discomfort measured before and after.
+ */
+export interface AskHelpEntry {
+  id: string;
+  request: string;
+  who: string;
+  discomfortBefore: number; // 0-100
+  discomfortAfter: number;  // 0-100
+  outcome: string;
+  timestamp: string;
+}
+
 export interface Concept {
   id: string;
   name: string;

@@ -115,28 +115,32 @@ export const TRAITS: Trait[] = [
   {
     id: 8,
     shortName: "Addicted to Excitement",
-    active: false,
+    active: true,
     mainListDate: "2026-08-01",
     flipSideDate: "2026-08-08",
     statements: {
       laundry: "We became addicted to excitement.",
-      other: "",
-      flipSide: "",
-      flipSideOther: "",
+      other: "We inhibit our fear by staying deadened and numb.",
+      flipSide:
+        "We avoid emotional intoxication and choose workable relationships instead of constant upset.",
+      flipSideOther:
+        "We uncover, acknowledge and express our childhood fears and withdraw from emotional intoxication.",
     },
   },
   {
     id: 9,
     shortName: "Confusing Love & Pity",
-    active: false,
+    active: true,
     mainListDate: "2026-08-15",
     flipSideDate: "2026-08-22",
     statements: {
       laundry:
-        "We confuse love and pity and tend to 'love' people we can pity and rescue.",
-      other: "",
-      flipSide: "",
-      flipSideOther: "",
+        "We confuse love with pity and tend to “love” people we can “pity” and “rescue”.",
+      other: "We hate people who “play” the victim and beg to be rescued.",
+      flipSide:
+        "We are able to distinguish love from pity, and do not think “rescuing” people we “pity” is an act of love.",
+      flipSideOther:
+        "We have compassion for anyone who is trapped in the “drama triangle” and is desperately searching for a way out of insanity.",
     },
   },
   {

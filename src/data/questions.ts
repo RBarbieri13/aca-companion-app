@@ -243,6 +243,79 @@ export const TRAIT_7_QUESTIONS: ReflectionQuestion[] = [
   { traitId: 7, quadrant: "flipSideOther", index: 3, question: "Which ACA Promise(s) are coming true for you as you progress in supporting and encouraging others to be assertive?" },
 ];
 
+export const TRAIT_8_QUESTIONS: ReflectionQuestion[] = [
+  // The Laundry List
+  { traitId: 8, quadrant: "laundry", index: 0, question: "If you could go back to one day of your childhood right now as an invisible person, what level of tension/excitement/fear would you feel?" },
+  { traitId: 8, quadrant: "laundry", index: 1, question: "Page 16 of the Fellowship Text states that originally the trait was written as “addicted to fear”. Some have defined fear as a distressing emotion aroused by impending danger, evil, pain, etc. Whether the threat is real or imagined, the feeling or condition is of being afraid. Do you relate to this description of fear? Describe in detail what comes up for you while reading the description." },
+  { traitId: 8, quadrant: "laundry", index: 2, question: "List as many factors as you can think of that contributed to the tension in your home." },
+  { traitId: 8, quadrant: "laundry", index: 3, question: "Do you have difficulty doing only one thing at a time? List in detail what you do, if you do more than one thing at a time." },
+  { traitId: 8, quadrant: "laundry", index: 4, question: "Would you describe yourself as someone who frightens easily or is easily excitable? Do you sometimes need to calm down? What do you think this is about in relation to the trait of being addicted to excitement?" },
+  { traitId: 8, quadrant: "laundry", index: 5, question: "Do you hate it when your own life is emotionally chaotic, but you still enjoy watching another person's life that is emotionally chaotic?" },
+  { traitId: 8, quadrant: "laundry", index: 6, question: "Pay attention to your body, and over time note when you see that your body is tightened from time to time as if you are bracing for an impact. Is your breathing quick and shallow (from your chest) as if you are in a dangerous situation? Do your shoulders rise up and stay that way for no apparent reason? Are your jaws clamped during the day at times? Are your jaws clamped during the night? Do you grind your teeth? Does your body seem to “crave” movement, such as bouncing your knee, tapping your foot or toes, digging around your fingernails, chewing the skin in your mouth or lips, etc.? Compare this to your childhood — do you remember what you did back then physically?" },
+
+  // The Other Laundry List
+  { traitId: 8, quadrant: "other", index: 0, question: "What have you used in your life to inhibit your fears? Describe what you may have used to numb and deaden your experience of life. If you did this as a child, what did you do?" },
+  { traitId: 8, quadrant: "other", index: 1, question: "Growing up, the people in your life may have displayed inhibition of fear by staying deadened and numb. If so, list in detail who they were and what they did, and how you thought about it when you were young." },
+  { traitId: 8, quadrant: "other", index: 2, question: "In your adult life, have you been in relationships with others who display this trait? Describe who they were and what they did, and how you thought about it at that time." },
+  { traitId: 8, quadrant: "other", index: 3, question: "Growing up, what fears do you think the people in your life were trying to deaden and numb? As an adult in relationships with others displaying this trait, what fears do you think they were trying to deaden and numb? And finally, for yourself, what fears have you tried to deaden and numb?" },
+  { traitId: 8, quadrant: "other", index: 4, question: "What is an upside to feeling numb? What is a downside to staying numb? What is an upside for staying deadened? What is a downside for staying deadened? If you had a situation in your life that you survived because of inhibiting your fear by staying deadened and numb, imagine and describe to the best of your ability what might have happened to you if you hadn't been deadened or numbed during this event." },
+
+  // The Flip Side of The Laundry List
+  { traitId: 8, quadrant: "flipSide", index: 0, question: "Name an experience or type of situation that used to attract you that you choose not to involve yourself in anymore because of the emotional intoxication." },
+  { traitId: 8, quadrant: "flipSide", index: 1, question: "Name a type of situation that is still very attractive to you and is usually difficult for you not to involve yourself in." },
+  { traitId: 8, quadrant: "flipSide", index: 2, question: "Describe in detail your definition of a workable relationship." },
+  { traitId: 8, quadrant: "flipSide", index: 3, question: "Describe in detail a relationship you have had that had constant upset." },
+  { traitId: 8, quadrant: "flipSide", index: 4, question: "Since coming to ACA are you better able to notice that a relationship might not work for you sooner? If so, describe why this is true." },
+  { traitId: 8, quadrant: "flipSide", index: 5, question: "Did the Relationship Worksheet in Step Four of the ACA Twelve Steps Workbook help you in this area? If so, how?" },
+  { traitId: 8, quadrant: "flipSide", index: 6, question: "Did chapter 13 of the Fellowship Text on Relationships help you in this area? If so, how?" },
+
+  // The Flip Side of The Other Laundry List
+  { traitId: 8, quadrant: "flipSideOther", index: 0, question: "Which ACA Steps have helped you uncover and acknowledge your childhood fears?" },
+  { traitId: 8, quadrant: "flipSideOther", index: 1, question: "Describe in detail what you have done to express your childhood fears." },
+  { traitId: 8, quadrant: "flipSideOther", index: 2, question: "Before ACA, many adult children were drawn to emotional intoxication. Describe the progression that you've experienced since coming to ACA in relation to withdrawing from emotional intoxication." },
+  { traitId: 8, quadrant: "flipSideOther", index: 3, question: "Which ACA Promises are coming true for you as you uncover, acknowledge, and express your childhood fears and withdraw from emotional intoxication? Describe situations that explain how they are coming true." },
+];
+
+export const TRAIT_9_QUESTIONS: ReflectionQuestion[] = [
+  // The Laundry List
+  { traitId: 9, quadrant: "laundry", index: 0, question: "In your past, have you found a “payoff” for “rescuing” a person?" },
+  { traitId: 9, quadrant: "laundry", index: 1, question: "In your past, have you found a “payoff” when someone “rescued” you?" },
+  { traitId: 9, quadrant: "laundry", index: 2, question: "What is your definition of “confusing love with pity”?" },
+  { traitId: 9, quadrant: "laundry", index: 3, question: "When someone shows their interest in you, is there a list of questions that swirl in your mind? If so, please list them." },
+  { traitId: 9, quadrant: "laundry", index: 4, question: "Do you find yourself suspicious when someone shows interest in you? Can you link this reaction to your childhood in some way? If so, please describe in detail." },
+  { traitId: 9, quadrant: "laundry", index: 5, question: "What adult experiences have you had that seem to “document” that when people appear to love you they are actually rescuing, pitying, or displaying some other type of dysfunctional behavior? What happened in one or more of these situations?" },
+  { traitId: 9, quadrant: "laundry", index: 6, question: "Is it possible that being raised in an alcoholic/dysfunctional home can create an emptiness in a person who constantly fills this emptiness by “helping” disadvantaged people, the underdog, etc., oblivious as to the reason why?" },
+  { traitId: 9, quadrant: "laundry", index: 7, question: "Is it possible that you've attempted to fill an internal emptiness by “helping” others? Are you still doing this today? If so, please describe." },
+
+  // The Other Laundry List
+  { traitId: 9, quadrant: "other", index: 0, question: "Who has annoyed you for getting rescued over and over again? Who has annoyed you for rescuing someone over and over again?" },
+  { traitId: 9, quadrant: "other", index: 1, question: "What is the reaction you have inside your body when you see this type of “rescuing” situation in progress? What are the thoughts in your mind?" },
+  { traitId: 9, quadrant: "other", index: 2, question: "When you were a child, did you observe someone playing the victim? Did you observe someone playing the rescuer? Did you wish someone would rescue you? Were you able to appear weak as a child?" },
+  { traitId: 9, quadrant: "other", index: 3, question: "Did you have to pretend to be strong as a child? Did you feel older than other children your age? Did you look down on them for acting their age? Did you resent them for their “normal” life and being able to be a “normal” child?" },
+  { traitId: 9, quadrant: "other", index: 4, question: "When watching the news or reading a book or going about your life and you see someone who has success and/or is helped by another, or is number one in their field, or wins the “big prize”, do you feel contempt and resentment?" },
+  { traitId: 9, quadrant: "other", index: 5, question: "Is there a part of you that feels as though life will never be fair to you, and that “the rest of the world” has it “easy” in comparison to your life — that you have endured so much struggle?" },
+  { traitId: 9, quadrant: "other", index: 6, question: "Have you ever experienced a situation in your life when someone asked for help and “everyone” volunteers to help them, and you feel anger inside for no apparent reason?" },
+  { traitId: 9, quadrant: "other", index: 7, question: "Do you find it difficult to ask others for help? Do you get mad when others ask for something that you could never ask for? Describe in detail what comes up for you after answering these questions." },
+
+  // The Flip Side of The Laundry List
+  { traitId: 9, quadrant: "flipSide", index: 0, question: "If you have had a desire recently to “rescue” someone who is struggling, describe it here." },
+  { traitId: 9, quadrant: "flipSide", index: 1, question: "When you are attending an ACA meeting, are you triggered by this desire to rescue? If so, list why and who and when, etc." },
+  { traitId: 9, quadrant: "flipSide", index: 2, question: "Can you list actions coming from love?" },
+  { traitId: 9, quadrant: "flipSide", index: 3, question: "Which ACA Steps have contributed to your growth in your ability to distinguish love from pity?" },
+  { traitId: 9, quadrant: "flipSide", index: 4, question: "What do you consider to be the biggest difference between love and pity? In your past, if someone has “rescued” you, did it have negative results for you as a person?" },
+  { traitId: 9, quadrant: "flipSide", index: 5, question: "Have you been in an ACA meeting and perceived someone acting from a place of “rescuing” or “pitying” or “helping” you? What does that feel like? Please describe in detail." },
+  { traitId: 9, quadrant: "flipSide", index: 6, question: "Before ACA, many adult children felt it was helpful to the other person when acting from a place of “rescuing” or “pitying” or “helping”. Did you think this way too? Is your thinking different now? If so, please describe in detail." },
+
+  // The Flip Side of The Other Laundry List
+  { traitId: 9, quadrant: "flipSideOther", index: 0, question: "Many adult children were unaware that they were repeating similar relationship patterns before coming to ACA. If this is true for you, what have you discovered that you have been doing in relationships that displays some kind of pattern?" },
+  { traitId: 9, quadrant: "flipSideOther", index: 1, question: "Is it possible that you saw this pattern as a child and re-enacted it in your own unique way? Please describe in detail." },
+  { traitId: 9, quadrant: "flipSideOther", index: 2, question: "What roles did you see in your childhood as you watched others in their fights and emotional struggles and dramas? Were there any patterns that you saw? Describe in detail who did what, and what roles each played." },
+  { traitId: 9, quadrant: "flipSideOther", index: 3, question: "Do you see others in the world who are in the same trap and do you recognize it “easily”?" },
+  { traitId: 9, quadrant: "flipSideOther", index: 4, question: "After reviewing “The Complete Picture” schematic at the beginning of this book, how would you explain the drama triangle to another person?" },
+  { traitId: 9, quadrant: "flipSideOther", index: 5, question: "Can you pick a time in your life when you acted out a persecutor, rescuer, or victim aspect of the drama triangle? If so describe it in detail. If you've seen it in others, what did it look like?" },
+  { traitId: 9, quadrant: "flipSideOther", index: 6, question: "How have you progressed in ACA in this area? Is there an ACA Promise that is coming true for you in relation to your compassion for others?" },
+];
+
 export const ALL_QUESTIONS: ReflectionQuestion[] = [
   ...TRAIT_1_QUESTIONS,
   ...TRAIT_2_QUESTIONS,
@@ -251,6 +324,8 @@ export const ALL_QUESTIONS: ReflectionQuestion[] = [
   ...TRAIT_5_QUESTIONS,
   ...TRAIT_6_QUESTIONS,
   ...TRAIT_7_QUESTIONS,
+  ...TRAIT_8_QUESTIONS,
+  ...TRAIT_9_QUESTIONS,
 ];
 
 export function getQuestionsForTrait(traitId: number) {

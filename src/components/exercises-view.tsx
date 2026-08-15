@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { TRAITS } from "@/data/traits";
 import { getCurrentTraitId } from "@/data/schedule";
 import { formatDate, cn } from "@/lib/utils";
-import { Lock, Heart, Zap, Feather, Compass, Scale, Home, Ear, Users, ShieldCheck, Crown, Moon, Pencil, Megaphone, TrendingUp, HeartHandshake } from "lucide-react";
+import { Lock, Heart, Zap, Feather, Compass, Scale, Home, Ear, Users, ShieldCheck, Crown, Moon, Pencil, Megaphone, TrendingUp, HeartHandshake, Activity, Flame, Gauge, Flower2, Radar, Triangle, HandHelping } from "lucide-react";
 
 import { InnerChildExercise } from "@/components/exercises/inner-child";
 import { FeelingsWheel } from "@/components/exercises/feelings-wheel";
@@ -29,6 +29,14 @@ import { StandUpLogView } from "@/components/exercises/stand-up-log";
 import { GuiltDecoderView } from "@/components/exercises/guilt-decoder";
 import { AssertionLadderView } from "@/components/exercises/assertion-ladder";
 import { EncouragementLedgerView } from "@/components/exercises/encouragement-ledger";
+import { BodyStaticScannerView } from "@/components/exercises/body-static-scanner";
+import { ExcitementPullLogView } from "@/components/exercises/excitement-pull-log";
+import { AlivenessMeterView } from "@/components/exercises/aliveness-meter";
+import { SensoryResetView } from "@/components/exercises/sensory-reset";
+import { RescueRadarView } from "@/components/exercises/rescue-radar";
+import { DramaTriangleMapperView } from "@/components/exercises/drama-triangle-mapper";
+import { LovePityLedgerView } from "@/components/exercises/love-pity-ledger";
+import { AskForHelpView } from "@/components/exercises/ask-for-help";
 
 type ExerciseId =
   | "inner-child"
@@ -49,7 +57,15 @@ type ExerciseId =
   | "stand-up-log"
   | "guilt-decoder"
   | "assertion-ladder"
-  | "encouragement-ledger";
+  | "encouragement-ledger"
+  | "body-static-scanner"
+  | "excitement-pull-log"
+  | "aliveness-meter"
+  | "sensory-reset"
+  | "rescue-radar"
+  | "drama-triangle-mapper"
+  | "love-pity-ledger"
+  | "ask-for-help";
 
 interface ExerciseMeta {
   id: ExerciseId;
@@ -193,6 +209,62 @@ const EXERCISES: Record<ExerciseId, ExerciseMeta> = {
     icon: HeartHandshake,
     Component: EncouragementLedgerView,
   },
+  "body-static-scanner": {
+    id: "body-static-scanner",
+    label: "Body Static Scanner",
+    short: "Catch the body bracing for an impact that already happened",
+    icon: Activity,
+    Component: BodyStaticScannerView,
+  },
+  "excitement-pull-log": {
+    id: "excitement-pull-log",
+    label: "Excitement Pull Log",
+    short: "Track what still pulls you toward the dose — and what you've released",
+    icon: Flame,
+    Component: ExcitementPullLogView,
+  },
+  "aliveness-meter": {
+    id: "aliveness-meter",
+    label: "Aliveness Meter",
+    short: "A weekly read between numb, alive, and intoxicated",
+    icon: Gauge,
+    Component: AlivenessMeterView,
+  },
+  "sensory-reset": {
+    id: "sensory-reset",
+    label: "Sensory Reset",
+    short: "Five doors back to now — look, sound, taste, smell, touch",
+    icon: Flower2,
+    Component: SensoryResetView,
+  },
+  "rescue-radar": {
+    id: "rescue-radar",
+    label: "Rescue Radar",
+    short: "Catch the urge to swoop in — and choose love that asks first",
+    icon: Radar,
+    Component: RescueRadarView,
+  },
+  "drama-triangle-mapper": {
+    id: "drama-triangle-mapper",
+    label: "Drama Triangle Mapper",
+    short: "Name the corner you took — and map the step out",
+    icon: Triangle,
+    Component: DramaTriangleMapperView,
+  },
+  "love-pity-ledger": {
+    id: "love-pity-ledger",
+    label: "Love vs. Pity Ledger",
+    short: "Build your two columns: actions from love, actions from pity",
+    icon: Heart,
+    Component: LovePityLedgerView,
+  },
+  "ask-for-help": {
+    id: "ask-for-help",
+    label: "Ask-for-Help Experiments",
+    short: "Practice the ask the strong-child mask never allowed",
+    icon: HandHelping,
+    Component: AskForHelpView,
+  },
 };
 
 interface TraitExerciseBundle {
@@ -235,6 +307,16 @@ const TRAIT_EXERCISES: Record<number, TraitExerciseBundle> = {
     blurb:
       "Trait 7 is the guilt alarm wired to the impulse to stand up for ourselves — and its mirror, making others feel guilty when they assert themselves. These practices watch the alarm in real time, decode whose voice the guilt actually is, and climb — one rung at a time — toward speaking up calm and guilt-free, while cheering everyone else's voice too.",
     exercises: ["stand-up-log", "guilt-decoder", "assertion-ladder", "encouragement-ledger"],
+  },
+  8: {
+    blurb:
+      "Trait 8 swings between two poles of the same wound: addicted to excitement (the dose) and deadened into numbness (the armor). These practices work both ends toward the middle — noticing the body's static in real time, naming what still pulls you toward emotional intoxication, taking a weekly read between numb and spiking, and using the workbook's own sensory orientation to come back to now, where feelings can be felt instead of dosed.",
+    exercises: ["body-static-scanner", "excitement-pull-log", "aliveness-meter", "sensory-reset"],
+  },
+  9: {
+    blurb:
+      "Trait 9 is the crossed wiring between love and pity — the hero drawn to people who need rescuing, and the mirror trait's contempt for anyone who begs to be rescued. These practices untangle the wires: catching the rescue impulse before it swoops, mapping the drama triangle so you can step outside it, building your personal ledger of what love actually does, and practicing the one thing the trait forbade — asking for help yourself.",
+    exercises: ["rescue-radar", "drama-triangle-mapper", "love-pity-ledger", "ask-for-help"],
   },
 };
 
@@ -310,6 +392,31 @@ const EXERCISE_CONTEXT: Partial<Record<ExerciseId, Partial<Record<number, string
   "encouragement-ledger": {
     7: "The Flip Side of the Other asks how supporting a fellow traveler affected you — physically, mentally, emotionally, and spiritually. Log both directions, mark the four domains, and watch where encouragement lands in you. Giving it away is how the raft becomes a ship.",
   },
+  "body-static-scanner": {
+    8: "Laundry List Q7 asks you to pay attention to your body over time — the bracing, the shallow breath, the clamped jaw, the knee that won't stop. This scanner turns that question into a repeatable practice: mark the signs, rate the tension, and compare it to what your body did back then. The static becomes visible, and visible static can be answered.",
+  },
+  "excitement-pull-log": {
+    8: "Flip Side Q1 asks what used to attract you that you've released; Q2 asks what still pulls. This log holds both lists in one place — every pull you decline is a spiritually conscious decision, and watching the released column grow is watching the flip side come true.",
+  },
+  "aliveness-meter": {
+    8: "Trait 8's two lists are the two ends of one dial — emotionally intoxicated on one side, deadened and numb on the other. Once a week, mark where you actually lived. The goal isn't either end; it's the middle band, where the workbook says we finally feel rejuvenated and alive.",
+  },
+  "sensory-reset": {
+    8: "The workbook opens this trait's reflections with an orientation: be prepared to engage your senses. Look at some things (actual), make a noise, eat a peach, smell some cinnamon, pat your face. When the charge spikes — or the numbness settles in — walk through a few doors and log the before and after. The senses tell the body it is not that time anymore.",
+  },
+  "rescue-radar": {
+    8: "Negative excitement can come from being a rescuer, too — diving into someone else's emergency is a dose. When the pull toward a crisis arrives, log it here first: the urge, what's underneath, and what you chose.",
+    9: "Laundry List Q1 asks what the payoff for rescuing has been; Q7-Q8 ask whether helping has been filling an internal emptiness. This radar catches the impulse in flight — the urge, the feeling underneath it, and the action you chose. Love asks first; the log shows your asking share growing.",
+  },
+  "drama-triangle-mapper": {
+    9: "The Flip Side of the Other asks you to explain the drama triangle and to name a time you acted out the persecutor, rescuer, or victim corner. Map real moments here — which corner you took, how the corners rotated, and the step out. The sage share of the chart is compassion learning to stay outside the triangle.",
+  },
+  "love-pity-ledger": {
+    9: "Flip Side Q3 is deceptively simple: can you list actions coming from love? Build the list — and its shadow column of pity-and-rescue moves — over weeks. The difference stops being abstract the day you catch yourself mid-action and know exactly which column it belongs to.",
+  },
+  "ask-for-help": {
+    9: "The Other Laundry List Q8 asks: do you find it difficult to ask others for help — and do you get mad when others ask for what you never could? The mirror trait starves us of the very thing it resents. Each small, logged ask is the strong-child mask loosening; the discomfort curve really does bend.",
+  },
 };
 
 const ALL_EXERCISE_IDS: ExerciseId[] = [
@@ -332,6 +439,14 @@ const ALL_EXERCISE_IDS: ExerciseId[] = [
   "guilt-decoder",
   "assertion-ladder",
   "encouragement-ledger",
+  "body-static-scanner",
+  "excitement-pull-log",
+  "aliveness-meter",
+  "sensory-reset",
+  "rescue-radar",
+  "drama-triangle-mapper",
+  "love-pity-ledger",
+  "ask-for-help",
 ];
 
 export function ExercisesView() {
