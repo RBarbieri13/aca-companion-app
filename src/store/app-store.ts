@@ -25,6 +25,16 @@ import type {
   GuiltMessageEntry,
   LadderRung,
   EncouragementEntry,
+  BodyScanEntry,
+  ExcitementPullEntry,
+  PullStatus,
+  AlivenessCheckIn,
+  SensoryResetEntry,
+  RescueImpulseEntry,
+  DramaTriangleEntry,
+  LoveActionItem,
+  LoveLedgerKind,
+  AskHelpEntry,
   Quadrant,
 } from "@/lib/types";
 
@@ -53,6 +63,14 @@ interface AppState {
   guiltMessages: GuiltMessageEntry[];
   ladderRungs: LadderRung[];
   encouragements: EncouragementEntry[];
+  bodyScans: BodyScanEntry[];
+  excitementPulls: ExcitementPullEntry[];
+  alivenessCheckIns: AlivenessCheckIn[];
+  sensoryResets: SensoryResetEntry[];
+  rescueImpulses: RescueImpulseEntry[];
+  dramaTriangles: DramaTriangleEntry[];
+  loveActions: LoveActionItem[];
+  askHelpEntries: AskHelpEntry[];
   attendance: Record<string, AttendanceRecord>;
   favoriteAffirmations: string[];
 
@@ -109,6 +127,23 @@ interface AppState {
   deleteLadderRung: (id: string) => void;
   logEncouragement: (entry: Omit<EncouragementEntry, "id" | "timestamp">) => void;
   deleteEncouragement: (id: string) => void;
+  logBodyScan: (entry: Omit<BodyScanEntry, "id" | "timestamp">) => void;
+  deleteBodyScan: (id: string) => void;
+  logExcitementPull: (entry: Omit<ExcitementPullEntry, "id" | "timestamp">) => void;
+  updateExcitementPullStatus: (id: string, status: PullStatus) => void;
+  deleteExcitementPull: (id: string) => void;
+  logAlivenessCheckIn: (weekOf: string, value: number, note: string) => void;
+  deleteAlivenessCheckIn: (id: string) => void;
+  logSensoryReset: (entry: Omit<SensoryResetEntry, "id" | "timestamp">) => void;
+  deleteSensoryReset: (id: string) => void;
+  logRescueImpulse: (entry: Omit<RescueImpulseEntry, "id" | "timestamp">) => void;
+  deleteRescueImpulse: (id: string) => void;
+  logDramaTriangle: (entry: Omit<DramaTriangleEntry, "id" | "timestamp">) => void;
+  deleteDramaTriangle: (id: string) => void;
+  addLoveAction: (text: string, kind: LoveLedgerKind) => void;
+  deleteLoveAction: (id: string) => void;
+  logAskHelp: (entry: Omit<AskHelpEntry, "id" | "timestamp">) => void;
+  deleteAskHelp: (id: string) => void;
   setAttendance: (date: string, attended: boolean) => void;
   setAttendanceNotes: (date: string, notes: string) => void;
   toggleFavoriteAffirmation: (text: string) => void;
@@ -144,6 +179,14 @@ export const useAppStore = create<AppState>()(
       guiltMessages: [],
       ladderRungs: [],
       encouragements: [],
+      bodyScans: [],
+      excitementPulls: [],
+      alivenessCheckIns: [],
+      sensoryResets: [],
+      rescueImpulses: [],
+      dramaTriangles: [],
+      loveActions: [],
+      askHelpEntries: [],
       attendance: {},
       favoriteAffirmations: [],
 
@@ -450,6 +493,101 @@ export const useAppStore = create<AppState>()(
 
       deleteEncouragement: (id) => {
         set({ encouragements: get().encouragements.filter((c) => c.id !== id) });
+      },
+
+      logBodyScan: (entry) => {
+        const log: BodyScanEntry = { ...entry, id: nowId(), timestamp: new Date().toISOString() };
+        set({ bodyScans: [log, ...get().bodyScans] });
+      },
+
+      deleteBodyScan: (id) => {
+        set({ bodyScans: get().bodyScans.filter((c) => c.id !== id) });
+      },
+
+      logExcitementPull: (entry) => {
+        const log: ExcitementPullEntry = { ...entry, id: nowId(), timestamp: new Date().toISOString() };
+        set({ excitementPulls: [log, ...get().excitementPulls] });
+      },
+
+      updateExcitementPullStatus: (id, status) => {
+        set({
+          excitementPulls: get().excitementPulls.map((e) =>
+            e.id === id ? { ...e, status } : e
+          ),
+        });
+      },
+
+      deleteExcitementPull: (id) => {
+        set({ excitementPulls: get().excitementPulls.filter((c) => c.id !== id) });
+      },
+
+      logAlivenessCheckIn: (weekOf, value, note) => {
+        // Replace any existing check-in for the same week.
+        const others = get().alivenessCheckIns.filter((c) => c.weekOf !== weekOf);
+        const entry: AlivenessCheckIn = {
+          id: nowId(),
+          weekOf,
+          value: Math.max(0, Math.min(100, value)),
+          note,
+          timestamp: new Date().toISOString(),
+        };
+        const sorted = [entry, ...others].sort((a, b) => b.weekOf.localeCompare(a.weekOf));
+        set({ alivenessCheckIns: sorted });
+      },
+
+      deleteAlivenessCheckIn: (id) => {
+        set({ alivenessCheckIns: get().alivenessCheckIns.filter((c) => c.id !== id) });
+      },
+
+      logSensoryReset: (entry) => {
+        const log: SensoryResetEntry = { ...entry, id: nowId(), timestamp: new Date().toISOString() };
+        set({ sensoryResets: [log, ...get().sensoryResets] });
+      },
+
+      deleteSensoryReset: (id) => {
+        set({ sensoryResets: get().sensoryResets.filter((c) => c.id !== id) });
+      },
+
+      logRescueImpulse: (entry) => {
+        const log: RescueImpulseEntry = { ...entry, id: nowId(), timestamp: new Date().toISOString() };
+        set({ rescueImpulses: [log, ...get().rescueImpulses] });
+      },
+
+      deleteRescueImpulse: (id) => {
+        set({ rescueImpulses: get().rescueImpulses.filter((c) => c.id !== id) });
+      },
+
+      logDramaTriangle: (entry) => {
+        const log: DramaTriangleEntry = { ...entry, id: nowId(), timestamp: new Date().toISOString() };
+        set({ dramaTriangles: [log, ...get().dramaTriangles] });
+      },
+
+      deleteDramaTriangle: (id) => {
+        set({ dramaTriangles: get().dramaTriangles.filter((c) => c.id !== id) });
+      },
+
+      addLoveAction: (text, kind) => {
+        const clean = text.trim();
+        if (!clean) return;
+        const exists = get().loveActions.some(
+          (c) => c.kind === kind && c.text.toLowerCase() === clean.toLowerCase()
+        );
+        if (exists) return;
+        const entry: LoveActionItem = { id: nowId(), text: clean, kind };
+        set({ loveActions: [...get().loveActions, entry] });
+      },
+
+      deleteLoveAction: (id) => {
+        set({ loveActions: get().loveActions.filter((c) => c.id !== id) });
+      },
+
+      logAskHelp: (entry) => {
+        const log: AskHelpEntry = { ...entry, id: nowId(), timestamp: new Date().toISOString() };
+        set({ askHelpEntries: [log, ...get().askHelpEntries] });
+      },
+
+      deleteAskHelp: (id) => {
+        set({ askHelpEntries: get().askHelpEntries.filter((c) => c.id !== id) });
       },
 
       setAttendance: (date, attended) => {
